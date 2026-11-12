@@ -12,9 +12,9 @@ window.SITE = {
   // Checkout kustom (Storefront API Scalev). Bila key kosong, checkout.html memakai linkCheckout di atas.
   // Key ini "publishable" (sfpk_...), memang aman di browser. Store → Storefront API → Public API Keys.
   scalevStoreId: "store_dJ0Xi7aequ9ANKgZJ5tgNtVT",
-  scalevStorefrontKey: "",
+  scalevStorefrontKey: "sfpk_aM6AZa00IUboDDcC1y5pMWNffAqwq9owg88HRAz8iR5oOpQ2oBaFOj6QrXoQ3enh",
   scalevProductSlug: "digify-motion-course",
-  scalevVariantId: null,
+  scalevVariantId: 643898,
 
   // ---- Supabase (login & materi khusus pembeli) ----
   // Supabase → Project Settings → API. Dua nilai ini memang aman ditaruh di website.
