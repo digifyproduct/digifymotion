@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digify Motion Course · Ubah ide jadi video animasi</title>
+<meta name="description" content="Kelas online Digify Motion Course: bikin video animasi bersuara untuk konten dan jualan cukup dengan mengetik ide. Tanpa After Effects, tanpa editor.">
+<link rel="icon" href="assets/img/favicon-digify.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+body{color:#fff;overflow-x:clip;background:#120904}
+.canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(70% 50% at 85% 0%,rgba(242,106,33,.22),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(242,106,33,.12),transparent 70%),
+  linear-gradient(rgba(255,200,160,.045) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(255,200,160,.045) 1px,transparent 1px) 0 0/48px 48px}
+header,main,footer{position:relative;z-index:1}
+.wrap{max-width:540px;margin-inline:auto;padding-inline:16px}
+/* bilah atas */
+.top{position:sticky;top:0;z-index:20;background:rgba(18,9,4,.85);backdrop-filter:blur(10px);border-bottom:1px solid #2e1c10}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:10px;max-width:760px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800}
+.brand img{width:28px}
+.brand small{display:block;font-size:10px;color:var(--or2);letter-spacing:1.4px;margin-top:-2px}
+.menu{display:flex;gap:18px;font-size:13.5px;font-weight:700}
+.menu a{text-decoration:none;color:#cdb3a2}.menu a:hover{color:#fff}
+.ruler{height:4px;background:#2e1c10;position:relative}
+.ruler b{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--or),var(--or2))}
+/* label adegan */
+.scene{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--fm);font-size:12.5px;font-weight:700;color:var(--or2);letter-spacing:1px;margin-bottom:12px}
+.scene::before{content:"";width:10px;height:10px;background:var(--or2);rotate:45deg}
+.scene span{color:#8d6f5c}
+h2.big{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(34px,9.5vw,50px);line-height:1;margin:0 0 12px;text-align:center}
+.lead{color:#dcc4b2;font-size:16.5px;margin:0 auto;text-align:center;max-width:470px}
+section{padding-block:60px;scroll-margin-top:60px}
+.nw{white-space:nowrap}
+.sm{display:flex;justify-content:center;margin-bottom:6px}
+.sm .masc{width:130px}
+/* hero */
+.hero{text-align:center;padding:42px 0 30px}
+.chip-line{display:inline-flex;gap:8px;align-items:center;border:1px solid #4a2e1b;border-radius:999px;padding:6px 12px 6px 6px;font-size:13px;font-weight:700;color:#e6cfbe}
+.chip-line b{background:var(--or);color:#fff;border-radius:999px;padding:3px 9px;font-size:11.5px;letter-spacing:.6px}
+.hero h1{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(44px,12.5vw,68px);line-height:.95;margin:18px 0 16px}
+.hero h1 .o{color:transparent;-webkit-text-stroke:2px var(--or2)}
+.hero h1 .ln{display:block;overflow:hidden}.hero h1 .ln>span{display:inline-block;animation:up .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.12s}.hero h1 .ln:nth-child(3)>span{animation-delay:.24s}
+@keyframes up{from{transform:translateY(105%)}}
+.acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px 0 10px}
+.note{color:#b99a86;font-size:13px;font-weight:600}
+.screen{position:relative;margin-top:30px;background:#000;border:10px solid #2a170c;border-radius:20px;aspect-ratio:16/9;overflow:hidden;box-shadow:0 30px 60px -30px #000}
+.screen img{width:100%;height:100%;object-fit:cover}
+.screen .rec{position:absolute;left:12px;top:10px;font-family:var(--fm);font-size:12px;display:flex;gap:6px;align-items:center;background:rgba(0,0,0,.55);padding:3px 8px;border-radius:6px}
+.screen .rec i{width:7px;height:7px;border-radius:50%;background:#ff3b30;animation:rec 1.2s steps(1) infinite}
+@keyframes rec{50%{opacity:.2}}
+.screen .bar{position:absolute;left:14px;right:14px;bottom:12px;height:4px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.screen .bar i{display:block;height:100%;width:0;background:var(--or2);animation:pb 6s linear infinite}
+@keyframes pb{to{width:100%}}
+.hero-m{position:absolute;right:-6px;bottom:-14px;width:120px}
+.scr-wrap{position:relative}
+/* perbandingan */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.vs>div{border-radius:18px;padding:18px}
+.vs .old{background:#1f1209;border:1px solid #3a2414}
+.vs .new{background:var(--paper);color:var(--text)}
+.vs h4{margin:0 0 12px;font-size:14px;letter-spacing:1px;font-family:var(--fm)}
+.vs .old h4{color:#8d6f5c}.vs .new h4{color:var(--or)}
+.vs ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-weight:700;font-size:14.5px}
+.vs .old li{color:#8d6f5c;text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.vs .new li{display:flex;gap:8px}.vs .new li svg{color:var(--ok);flex:none}
+/* film strip */
+.film{margin-top:24px;background:#0b0603;padding:18px 0;position:relative;overflow:hidden;border-radius:16px;border:1px solid #2e1c10}
+.film::before,.film::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,transparent 0 10px,#2e1c10 10px 22px);z-index:2}
+.film::before{top:4px}.film::after{bottom:4px}
+.film-track{display:flex;gap:12px;width:max-content;animation:roll 70s linear infinite;padding:0 6px}
+.film:hover .film-track{animation-play-state:paused}
+@keyframes roll{to{transform:translateX(-50%)}}
+.frame{width:140px;flex:none;text-decoration:none}
+.frame .im{aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#000}
+.frame img{width:100%;height:100%;object-fit:cover}
+.frame p{margin:7px 2px 0;font-size:12.5px;font-weight:700;color:#e6cfbe;line-height:1.25}
+.counts{display:flex;justify-content:center;gap:22px;margin-top:20px;flex-wrap:wrap}
+.counts div{text-align:center}.counts b{display:block;font-family:var(--fd);font-weight:400;font-size:30px;color:var(--or2)}
+.counts small{color:#b99a86;font-weight:600;font-size:13px}
+/* persona */
+.who{display:grid;gap:12px;margin-top:24px}
+.who article{background:#1f1209;border:1px solid #3a2414;border-radius:18px;padding:18px 18px 18px 18px;position:relative;overflow:hidden}
+.who article::before{content:attr(data-n);position:absolute;right:14px;top:8px;font-family:var(--fd);font-size:48px;color:#2e1c10}
+.who h3{font-size:18px;margin:0 0 8px;display:flex;gap:10px;align-items:center}
+.who h3 span{font-size:22px}
+.who .pain{color:#a88a77;font-size:14px;margin:0 0 10px;font-style:italic}
+.who .gain{margin:0;font-weight:600;color:#f1dccb}
+.who .gain b{color:var(--or2)}
+/* langkah */
+.steps{counter-reset:s;display:grid;gap:12px;margin-top:24px}
+.step{display:flex;gap:14px;align-items:flex-start;background:#1f1209;border:1px solid #3a2414;border-radius:18px;padding:16px}
+.step::before{counter-increment:s;content:counter(s);width:40px;height:40px;border-radius:12px;background:var(--or);color:#fff;font-family:var(--fd);font-size:22px;display:grid;place-items:center;flex:none}
+.step b{display:block;font-size:16px}
+.step small{display:block;color:#b99a86;font-weight:600;font-size:14px;margin-top:2px}
+.step code{display:inline-block;margin-top:8px;font-family:var(--fm);font-size:12px;background:#120904;border:1px solid #3a2414;border-radius:8px;padding:4px 8px;color:#ffc79f}
+/* paket */
+.clap{background:var(--paper);color:var(--text);border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -30px #000;margin-top:26px}
+.clap-top{height:44px;background:repeating-linear-gradient(-45deg,var(--ink) 0 22px,var(--or) 22px 44px);transform-origin:18px 100%;transition:transform .5s cubic-bezier(.3,1.7,.5,1)}
+.clap:not(.in) .clap-top{transform:rotate(-12deg)}
+.clap-in{padding:24px 20px;position:relative}
+.clap h3{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:32px;line-height:1;max-width:62%}
+.clap .sub{color:var(--muted);font-weight:600;margin:8px 0 0;max-width:62%}
+.sticker{position:absolute;top:-22px;right:14px;width:110px;height:110px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-content:center;text-align:center;rotate:12deg;box-shadow:0 12px 24px -10px rgba(0,0,0,.5)}
+.sticker::before{content:"";position:absolute;inset:6px;border-radius:50%;border:2px dashed rgba(255,255,255,.6);animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sticker small{font-size:10.5px;font-weight:800;letter-spacing:1px}.sticker b{font-family:var(--fd);font-weight:400;font-size:25px;line-height:1}.sticker s{font-size:11px;opacity:.85}
+.get{list-style:none;padding:0;margin:20px 0;display:grid;gap:12px}
+.get li{display:flex;gap:12px;align-items:flex-start}
+.get li i{width:34px;height:34px;border-radius:10px;background:var(--orsoft);display:grid;place-items:center;flex:none;font-style:normal;font-size:17px}
+.get b{display:block;font-size:15px}.get small{display:block;color:var(--muted);font-weight:600;font-size:13.5px}
+.pay{border-top:2px dashed var(--line);padding-top:18px;text-align:center}
+.pay .btn{width:100%;justify-content:center;padding:15px}
+.pay p{color:var(--muted);font-size:13px;font-weight:600;margin:10px 0 0}
+.trust{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:12.5px;font-weight:700}
+/* faq */
+.faq{display:grid;gap:10px;margin-top:24px}
+.faq details{background:#1f1209;border:1px solid #3a2414;border-radius:16px;padding:0 18px;transition:border-color .2s}
+.faq details[open]{border-color:var(--or)}
+.faq summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:800;display:flex;gap:12px;align-items:baseline}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{font-family:var(--fm);font-style:normal;font-size:12px;color:var(--or2);flex:none}
+.faq summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2px solid var(--or2);border-bottom:2px solid var(--or2);rotate:45deg;flex:none;transition:rotate .2s;align-self:center}
+.faq details[open] summary::after{rotate:225deg}
+.faq p{margin:0 0 16px;color:#dcc4b2}
+/* akhir */
+.action{text-align:center;padding:70px 0 110px}
+.action .masc{width:170px;margin:0 auto 10px;display:block}
+.action h2{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(50px,14vw,84px);line-height:.92;margin:0 0 18px}
+.action h2 .o{color:transparent;-webkit-text-stroke:2px var(--or2)}
+.action p{color:#cdb3a2;margin:14px 0 0}
+footer{border-top:1px solid #2e1c10;padding:22px 16px 100px;text-align:center;color:#8d6f5c;font-size:13px;font-family:var(--fm)}
+footer a{color:#cdb3a2}
+/* bilah harga menempel */
+.stick{position:fixed;left:50%;bottom:14px;translate:-50% 0;z-index:30;width:min(520px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(31,18,9,.92);backdrop-filter:blur(10px);border:1px solid #4a2e1b;border-radius:18px;padding:10px 10px 10px 16px;box-shadow:0 20px 40px -16px #000;transform:translateY(140%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.stick.on{transform:none}
+.stick b{font-family:var(--fd);font-weight:400;font-size:24px;line-height:1}
+.stick small{display:block;color:#b99a86;font-size:12px;font-weight:600}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}.rv.in{opacity:1;transform:none}
+@media (max-width:640px){.menu{display:none}.vs{grid-template-columns:1fr}.clap h3,.clap .sub{max-width:58%}}
+</style>
+</head>
+<body>
+<div class="canvas"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/img/logo-digify.png" alt=""><span>DIGIFY<small>MOTION COURSE</small></span></a>
+    <nav class="menu"><a href="#hasil">Hasil</a><a href="#siapa">Untuk siapa</a><a href="#cara">Cara pakai</a><a href="#harga">Harga</a><a href="#faq">FAQ</a></nav>
+    <a class="btn btn-or btn-sm" href="#harga">Gabung</a>
+  </div>
+  <div class="ruler"><b id="ruler"></b></div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="wrap hero">
+    <span class="chip-line"><b>BARU</b>Digify Motion Course</span>
+    <h1><span class="ln"><span>Ubah ide jadi</span></span><span class="ln"><span class="hl">video animasi.</span></span></h1>
+    <p class="lead">Tanpa After Effects, tanpa sewa editor. Ketik idemu, AI yang menggarap gambar dan suaranya, sampai jadi MP4 siap unggah.</p>
+    <div class="acts"><a class="btn btn-or" href="checkout.html">Gabung · <span data-price></span></a><a class="btn btn-line" href="#hasil">Lihat hasilnya</a></div>
+    <div class="note">sekali bayar · akses selamanya</div>
+    <div class="scr-wrap rv">
+      <div class="screen"><span class="rec"><i></i>CUPLIKAN</span><img src="assets/thumbs/0.1.jpg" alt="Cuplikan Digify Motion Course"><span class="bar"><i></i></span></div>
+      <span class="masc hero-m" data-act="type"></span>
+    </div>
+  </div>
+
+  <!-- MEMPERKENALKAN -->
+  <section class="wrap" id="kenalan">
+    <div class="scene rv">SCENE 01 <span>· MEMPERKENALKAN</span></div>
+    <div class="sm rv"><span class="masc" data-act="clap"></span></div>
+    <h2 class="big rv">Jalan pintas bikin <span class="hl">konten animasi</span></h2>
+    <p class="lead rv">Kamu yang jadi sutradara. Claude Code dan skill Digify Motion yang mengerjakan gambar, gerak, suara, sampai file MP4.</p>
+    <div class="vs rv">
+      <div class="old"><h4>CARA LAMA</h4><ul><li>Belajar After Effects</li><li>Edit manual di CapCut</li><li>Sewa editor tiap video</li><li>Beli aset satu per satu</li></ul></div>
+      <div class="new"><h4>CARA DIGIFY</h4><ul id="newWay"></ul></div>
+    </div>
+  </section>
+
+  <!-- HASIL -->
+  <section id="hasil">
+    <div class="wrap">
+      <div class="scene rv">SCENE 02 <span>· HASILNYA</span></div>
+      <div class="sm rv"><span class="masc" data-act="camera"></span></div>
+      <h2 class="big rv">Dari satu kalimat,<br><span class="hl nw">jadi begini</span></h2>
+      <p class="lead rv">Semua video di bawah 100% dibuat lewat chat.</p>
+      <div class="film rv"><div class="film-track" id="film"></div></div>
+      <div class="counts rv" id="counts"></div>
+    </div>
+  </section>
+
+  <!-- UNTUK SIAPA -->
+  <section class="wrap" id="siapa">
+    <div class="scene rv">SCENE 03 <span>· UNTUK SIAPA</span></div>
+    <div class="sm rv"><span class="masc" data-act="think"></span></div>
+    <h2 class="big rv">Dibuat untuk kamu yang <span class="hl">butuh video</span></h2>
+    <div class="who">
+      <article class="rv" data-n="01"><h3><span>🌱</span>Pemula total</h3><p class="pain">"Buka software animasi, lihat timeline, langsung pusing."</p><p class="gain">Di sini kamu cukup <b>menulis permintaan</b>. Tidak ada timeline atau keyframe yang perlu dipelajari.</p></article>
+      <article class="rv" data-n="02"><h3><span>🎥</span>Kreator konten</h3><p class="pain">"Ide banyak, tapi edit satu video bisa seharian."</p><p class="gain">Satu ide jadi video <b>dalam satu sesi chat</b>, termasuk voiceover dan efek suara.</p></article>
+      <article class="rv" data-n="03"><h3><span>🛍️</span>Penjual produk digital & UMKM</h3><p class="pain">"Butuh konten promosi rutin, tapi budget editor terbatas."</p><p class="gain">Bikin <b>konten jualan sendiri</b> kapan pun, dengan gaya yang konsisten untuk brand-mu.</p></article>
+    </div>
+  </section>
+
+  <!-- CARA PAKAI -->
+  <section class="wrap" id="cara">
+    <div class="scene rv">SCENE 04 <span>· CARA PAKAI</span></div>
+    <div class="sm rv"><span class="masc" data-act="reel"></span></div>
+    <h2 class="big rv">Segampang <span class="hl">ngobrol</span></h2>
+    <p class="lead rv">Tidak perlu hafal prompt rumit. Ceritakan idenya, sisanya dikerjakan sampai jadi MP4.</p>
+    <div class="steps">
+      <div class="step rv"><div><b>Pasang sekali</b><small>Skill Digify Motion dipasang satu kali di Claude Code.</small></div></div>
+      <div class="step rv"><div><b>Ketik idemu</b><small>Topik, untuk siapa, dan format videonya.</small><code>bikin Reels 30 detik tentang…</code></div></div>
+      <div class="step rv"><div><b>Pilih gayanya</b><small>Claude menawarkan beberapa pilihan tampilan.</small></div></div>
+      <div class="step rv"><div><b>Dengar suaranya</b><small>Voiceover dan efek suara dibuat otomatis.</small></div></div>
+      <div class="step rv"><div><b>Revisi satu kalimat</b><small>Bilang bagian mana yang mau diubah, selesai.</small></div></div>
+      <div class="step rv"><div><b>Jadi MP4</b><small>Siap unggah ke Reels, TikTok, Shorts, atau YouTube.</small></div></div>
+    </div>
+  </section>
+
+  <!-- HARGA -->
+  <section class="wrap" id="harga">
+    <div class="scene rv">SCENE 05 <span>· SEKALI BAYAR, AKSES SELAMANYA</span></div>
+    <h2 class="big rv">Mulai bikin <span class="hl">video pertamamu</span></h2>
+    <article class="clap rv" id="clap">
+      <div class="clap-top"></div>
+      <div class="clap-in">
+        <div class="sticker"><small>HANYA</small><b data-price></b><s data-coret></s></div>
+        <h3>Digify Motion Course</h3>
+        <p class="sub">Semua yang kamu butuhkan untuk bikin konten animasi sendiri.</p>
+        <ul class="get">
+          <li><i>🎬</i><span><b>Video materi singkat & berurutan</b><small>±1 menit per video, langsung praktik.</small></span></li>
+          <li><i>🧩</i><span><b>Skill Digify Motion siap pasang</b><small>Sekali pasang, dipakai untuk semua videomu.</small></span></li>
+          <li><i>🧪</i><span><b>Studi kasus nyata dari nol</b><small>Dikerjakan sungguhan sampai jadi MP4.</small></span></li>
+          <li><i>✨</i><span><b>Racik Prompt & Perpustakaan Prompt</b><small>Prompt siap tempel untuk tiap tahap.</small></span></li>
+          <li><i>📖</i><span><b>Kamus Motion</b><small>Istilah animasi lengkap dengan contoh gerak.</small></span></li>
+          <li><i>👥</i><span><b>Grup komunitas khusus member</b><small>Tanya kendala dan pamer hasil bareng.</small></span></li>
+          <li><i>♻️</i><span><b>Update materi gratis</b><small>Materi baru langsung masuk ke akunmu.</small></span></li>
+        </ul>
+        <div class="pay"><a class="btn btn-or" data-buy href="#">Gabung sekarang · <span data-price></span></a>
+          <p>Setelah bayar, masuk ke halaman member pakai email checkout.</p>
+          <div class="trust"><span>✓ Sekali bayar</span><span>✓ Akses selamanya</span><span>✓ Ramah pemula</span></div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- FAQ -->
+  <section class="wrap" id="faq">
+    <div class="scene rv">SCENE 06 <span>· TANYA JAWAB</span></div>
+    <h2 class="big rv">Masih <span class="hl">ragu?</span></h2>
+    <div class="faq">
+      <details class="rv"><summary><i>Q1</i>Aku nol soal animasi. Bisa ikut?</summary><p>Bisa. Materinya dimulai dari persiapan paling dasar, lalu langsung praktik bikin video pertama yang sudah bersuara.</p></details>
+      <details class="rv"><summary><i>Q2</i>Perlu jago desain atau coding?</summary><p>Tidak. Semua perintah ditulis dengan bahasa sehari-hari. Kode animasinya dikerjakan Claude; tugasmu menilai hasil dan minta revisi.</p></details>
+      <details class="rv"><summary><i>Q3</i>Apa saja yang perlu disiapkan?</summary><p>Laptop Mac atau Windows, akun Claude paket Pro (sudah termasuk Claude Code), dan akun ElevenLabs untuk suara. Langganan itu dibayar terpisah ke penyedianya.</p></details>
+      <details class="rv"><summary><i>Q4</i>Laptopku biasa saja, kuat nggak?</summary><p>Laptop yang lancar membuka Chrome sudah cukup. Tidak perlu kartu grafis khusus; render MP4 cukup ditunggu beberapa menit.</p></details>
+      <details class="rv"><summary><i>Q5</i>Hasil videonya boleh dipakai jualan?</summary><p>Boleh. Video yang kamu buat sepenuhnya milikmu, untuk Reels, TikTok, YouTube, iklan, atau promosi produkmu sendiri.</p></details>
+      <details class="rv"><summary><i>Q6</i>Berapa lama aksesnya?</summary><p>Selamanya. Bayar sekali, dan update materi berikutnya ikut masuk tanpa biaya tambahan.</p></details>
+      <details class="rv"><summary><i>Q7</i>Cara daftarnya gimana?</summary><p>Klik "Gabung sekarang", selesaikan pembayaran, lalu masuk ke halaman member memakai email yang kamu pakai saat checkout.</p></details>
+    </div>
+  </section>
+
+  <!-- ACTION -->
+  <section class="action wrap rv">
+    <span class="masc" data-act="mega"></span>
+    <h2>Idemu<br><span class="o">berikutnya,</span><br><span class="hl">action!</span></h2>
+    <a class="btn btn-or" href="#harga">Gabung · <span data-price></span></a>
+    <p>sekali bayar · akses selamanya</p>
+  </section>
+</main>
+
+<footer>© 2026 Digify Product · <a href="./">@digify.product</a><br>Digify tidak berafiliasi dengan Anthropic maupun ElevenLabs.</footer>
+
+<div class="stick" id="stick"><div><b data-price></b><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" data-buy href="#">Gabung</a></div>
+
+<script src="assets/config.js"></script>
+<script src="assets/public.js"></script>
+<script src="assets/mascot.js"></script>
+<script src="assets/shorts-youtube.js"></script>
+<script src="assets/player.js"></script>
+<script>
+const S=window.SITE, C=window.PUB;
+const tick='<svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+const ig='https://instagram.com/'+S.instagram;
+document.querySelectorAll('[data-price]').forEach(e=>e.textContent=S.harga);
+document.querySelectorAll('[data-coret]').forEach(e=>e.textContent=S.hargaCoret||'');
+document.querySelectorAll('[data-buy]').forEach(e=>{e.href='checkout.html'});
+document.getElementById('newWay').innerHTML=['Ketik ide di Claude Code','Skill Digify Motion','Suara otomatis','Revisi satu kalimat'].map(t=>`<li>${tick}${t}</li>`).join('');
+// film strip
+const T={'produk-hidup':'Produk digital bisa basi','jembatan':'Pinjam audiens lewat kolaborasi','tangga-harga':'Satu keahlian, tiga harga','berani-garansi':'Berani kasih garansi?',
+ 'beli-lubang':'Orang tidak butuh bor','perahu-kertas':'Jangan numpang di Instagram','satu-ayunan-lagi':'Tinggal satu ayunan lagi','resep-rini':'Di-PHK, resep sambalnya jadi produk',
+ 'jelaskan-sekali':'Jelaskan sekali, jual berkali-kali','judul-bikin-sepi':'Produk sepi karena judulnya','keahlian-dibungkus':'Keahlianmu bisa jadi produk digital',
+ 'ebook-200-juta':'Ebook laku 200 juta tanpa iklan gede','cari-masalah-dulu':'Cari masalahnya dulu','pilih-satu-sasaran':'Jangan jual ke semua orang',
+ 'jangan-tunggu-sempurna':'Jangan tunggu sempurna','harga-murahan':'Harga murah belum tentu laku','butuh-saksi':'Produk sepi karena belum ada saksi',
+ 'jangan-jual-jam':'Freelancer, berhenti jual waktu','lima-langkah':'5 langkah produk digital pertama'};
+const tall=Object.entries(T).map(([k,t])=>{const w=C.works.find(w=>w.slug==='digify-'+k);return w&&{...w,t}}).filter(Boolean);
+const fr=window.shortFrame;
+document.getElementById('film').innerHTML=tall.map(fr).join('')+tall.map(fr).join('');
+document.getElementById('counts').innerHTML=[[tall.length+'+','video contoh'],['100%','dibuat lewat chat'],['2','format: 9:16 & 16:9']].map(([b,s])=>`<div><b>${b}</b><small>${s}</small></div>`).join('');
+// playhead & bilah harga
+const ruler=document.getElementById('ruler'),stick=document.getElementById('stick'),harga=document.getElementById('harga');
+function onScroll(){const max=document.documentElement.scrollHeight-innerHeight;ruler.style.width=(max>0?scrollY/max*100:0)+'%';
+  const r=harga.getBoundingClientRect();stick.classList.toggle('on',scrollY>innerHeight*.8&&!(r.top<innerHeight&&r.bottom>0));}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+</script>
+</body>
+</html>

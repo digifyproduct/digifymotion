@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digify Product · Dari ketikan jadi video animasi</title>
+<meta name="description" content="Digify Motion Course: bikin konten animasi bersuara untuk jualan tanpa sewa editor. Ketik idenya, AI yang menggarap sampai jadi MP4.">
+<link rel="icon" href="assets/img/favicon-digify.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+body{color:#fff;overflow-x:clip;background:#120904}
+/* kanvas editor: grid tipis + cahaya oranye */
+.canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(70% 50% at 85% 0%,rgba(242,106,33,.22),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(242,106,33,.12),transparent 70%),
+  linear-gradient(rgba(255,200,160,.045) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(255,200,160,.045) 1px,transparent 1px) 0 0/48px 48px}
+header,main,footer{position:relative;z-index:1}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:20px}
+.mono{font-family:var(--fm)}
+/* playhead atas */
+.top{position:sticky;top:0;z-index:20;background:rgba(18,9,4,.82);backdrop-filter:blur(10px);border-bottom:1px solid #2e1c10}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800}
+.brand img{width:30px}
+.brand small{display:block;font-size:10.5px;color:var(--or2);letter-spacing:1.4px;margin-top:-2px}
+.tc{font-family:var(--fm);font-size:13px;color:#cdb3a2;display:flex;align-items:center;gap:8px}
+.tc i{width:8px;height:8px;border-radius:50%;background:#ff3b30;animation:rec 1.2s steps(1) infinite}
+@keyframes rec{50%{opacity:.2}}
+.ruler{height:4px;background:#2e1c10;position:relative}
+.ruler b{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--or),var(--or2))}
+.ruler b::after{content:"";position:absolute;right:-6px;top:-5px;width:12px;height:14px;background:var(--or2);clip-path:polygon(0 0,100% 0,100% 60%,50% 100%,0 60%)}
+/* label adegan */
+.scene{display:flex;align-items:center;gap:10px;font-family:var(--fm);font-size:12.5px;font-weight:700;color:var(--or2);letter-spacing:1px;margin-bottom:14px}
+.scene::before{content:"";width:10px;height:10px;background:var(--or2);rotate:45deg}
+.scene span{color:#8d6f5c}
+h2.big{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(34px,5vw,56px);line-height:1;margin:0 0 12px}
+.lead{color:#dcc4b2;font-size:17px;max-width:560px;margin:0}
+section{padding-block:80px;scroll-margin-top:50px}
+/* ===== SCENE 01 hero ===== */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:56px 0 40px}
+.chip-line{display:inline-flex;gap:8px;align-items:center;border:1px solid #4a2e1b;border-radius:999px;padding:6px 12px 6px 6px;font-size:13px;font-weight:700;color:#e6cfbe}
+.chip-line b{background:var(--or);color:#fff;border-radius:999px;padding:3px 9px;font-size:11.5px;letter-spacing:.6px}
+.hero h1{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(50px,7.4vw,96px);line-height:.95;margin:20px 0 18px}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:inline-block;animation:up .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.12s}.hero h1 .ln:nth-child(3)>span{animation-delay:.24s}
+@keyframes up{from{transform:translateY(105%)}}
+.hero h1 .o{color:transparent;-webkit-text-stroke:2px var(--or2)}
+.acts{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 26px}
+.btn-wh{background:#fff;color:var(--ink)}
+.stats{display:flex;gap:26px;flex-wrap:wrap}
+.stats div{border-left:2px solid var(--or);padding-left:12px}
+.stats b{display:block;font-family:var(--fd);font-weight:400;font-size:28px;line-height:1}
+.stats small{color:#b99a86;font-weight:600;font-size:13px}
+/* panggung isometrik */
+.stage{position:relative;aspect-ratio:1/1;max-width:440px;margin-left:auto;width:100%}
+.stage .floor{position:absolute;left:8%;right:8%;bottom:6%;height:26%;border-radius:50%;background:radial-gradient(closest-side,rgba(242,106,33,.35),transparent);filter:blur(2px)}
+.stage .cube{position:absolute;left:14%;top:14%;width:52%;animation:hover 5s ease-in-out infinite}
+.stage .cube img{width:100%;filter:drop-shadow(0 30px 30px rgba(0,0,0,.55))}
+@keyframes hover{50%{transform:translateY(-12px)}}
+.stage .hero-m{position:absolute;right:6%;bottom:12%;width:30%;animation:breathe 3.2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes breathe{50%{transform:scaleY(1.03) translateY(-2px)}}
+.tag{position:absolute;background:#fff;color:var(--text);font-weight:800;font-size:13px;border-radius:12px;padding:7px 11px;box-shadow:0 12px 24px -10px #000;display:flex;gap:7px;align-items:center;white-space:nowrap}
+.tag .d{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.tag.t1{left:0;top:58%;animation:hover 4s ease-in-out .5s infinite}
+.tag.t2{right:2%;top:8%;animation:hover 4.6s ease-in-out 1s infinite}
+.tag.t3{left:30%;bottom:0;animation:hover 4.2s ease-in-out 1.6s infinite}
+.say{position:absolute;right:30%;bottom:46%;background:var(--or);color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:14px 14px 4px 14px;opacity:0;animation:say 6s ease-in-out 1.5s infinite}
+@keyframes say{0%,8%{opacity:0;transform:translateY(6px)}14%,46%{opacity:1;transform:none}54%,100%{opacity:0}}
+/* ===== SCENE 02 paket ===== */
+.pack{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:start}
+.clap{background:var(--paper);color:var(--text);border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -30px #000}
+.clap-top{height:46px;background:repeating-linear-gradient(-45deg,var(--ink) 0 22px,var(--or) 22px 44px);transform-origin:18px 100%;transition:transform .5s cubic-bezier(.3,1.7,.5,1)}
+.clap:not(.in) .clap-top{transform:rotate(-12deg)}
+.clap-bar{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:2px solid var(--ink);font-family:var(--fm);font-size:11.5px;font-weight:700}
+.clap-bar div{padding:8px 14px;border-right:2px solid var(--ink)}.clap-bar div:last-child{border:0}
+.clap-bar small{display:block;color:var(--muted);font-weight:500;font-size:10px;letter-spacing:1px}
+.clap-in{padding:26px;position:relative}
+.clap h3{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(30px,3.4vw,42px);line-height:1;max-width:80%}
+.clap ul{list-style:none;padding:0;margin:20px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.clap li{display:flex;gap:9px;font-weight:600;font-size:14.5px}
+.clap li svg{color:var(--or);flex:none}
+.sticker{position:absolute;top:-26px;right:22px;width:118px;height:118px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-content:center;text-align:center;rotate:12deg;box-shadow:0 12px 24px -10px rgba(0,0,0,.5)}
+.sticker::before{content:"";position:absolute;inset:6px;border-radius:50%;border:2px dashed rgba(255,255,255,.6);animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sticker small{font-size:10.5px;font-weight:800;letter-spacing:1px}
+.sticker b{font-family:var(--fd);font-weight:400;font-size:28px;line-height:1}
+.sticker s{font-size:11px;opacity:.8}
+.clap .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;border-top:2px dashed var(--line);padding-top:18px}
+.clap .row span{color:var(--muted);font-weight:600;font-size:14px}
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;background:#1f1209;border:1px solid #3a2414;border-radius:18px;padding:16px;text-decoration:none;min-height:122px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s,border-color .2s;cursor:pointer;font:inherit;color:inherit;text-align:left;overflow:hidden}
+.tile:hover{transform:translateY(-3px);border-color:var(--or)}
+.tile .ico{width:26px;height:26px;color:var(--or2)}
+.tile b{display:block;font-size:15px}
+.tile small{display:block;color:#b99a86;font-size:12.5px;font-weight:600}
+.tile .n{position:absolute;right:12px;top:10px;font-family:var(--fm);font-size:11px;color:#6f5240}
+.tile .lock{position:absolute;right:12px;bottom:12px;font-size:10.5px;font-weight:800;color:var(--or2);background:rgba(242,106,33,.12);border:1px solid rgba(242,106,33,.35);border-radius:999px;padding:2px 8px}
+.tile.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:14px;min-height:0;background:linear-gradient(135deg,#2a170c,#1f1209)}
+.tile.wide .masc{width:56px;flex:none}
+.tile.or{background:var(--or);border-color:var(--or)}
+.tile.or small{color:#ffe1cc}.tile.or .ico{color:#fff}.tile.or .n{color:#ffd2b5}
+/* ===== SCENE 03 monitor + film ===== */
+.mon{display:grid;grid-template-columns:1fr 260px;gap:18px}
+.screen{background:#000;border:10px solid #2a170c;border-radius:20px;position:relative;aspect-ratio:16/9;overflow:hidden;box-shadow:0 30px 60px -30px #000}
+.screen img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.screen .hud{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(transparent,rgba(0,0,0,.75));display:flex;align-items:center;gap:12px;font-family:var(--fm);font-size:12px}
+.screen .hud .pb{flex:1;height:4px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.screen .hud .pb i{display:block;height:100%;width:0;background:var(--or2);animation:pb 5s linear infinite}
+@keyframes pb{to{width:100%}}
+.screen .rec{position:absolute;left:14px;top:12px;font-family:var(--fm);font-size:12px;display:flex;gap:6px;align-items:center;background:rgba(0,0,0,.5);padding:3px 8px;border-radius:6px}
+.screen .rec i{width:7px;height:7px;border-radius:50%;background:#ff3b30;animation:rec 1.2s steps(1) infinite}
+.eps{display:flex;flex-direction:column;gap:8px}
+.ep{display:flex;gap:10px;align-items:center;background:#1f1209;border:1px solid #3a2414;border-radius:12px;padding:6px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .2s,background .2s}
+.ep img{width:74px;aspect-ratio:16/9;object-fit:cover;border-radius:7px}
+.ep b{font-size:13px;line-height:1.25}
+.ep.on{border-color:var(--or);background:#2a170c}
+.film{margin-top:34px;background:#0b0603;padding:18px 0;position:relative;overflow:hidden;border-block:1px solid #2e1c10}
+.film::before,.film::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,transparent 0 10px,#2e1c10 10px 22px);z-index:2}
+.film::before{top:4px}.film::after{bottom:4px}
+.film-track{display:flex;gap:12px;width:max-content;animation:roll 70s linear infinite;padding:0 6px}
+.film:hover .film-track{animation-play-state:paused}
+@keyframes roll{to{transform:translateX(-50%)}}
+.frame{width:150px;flex:none;text-decoration:none}
+.frame .im{aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#000;transition:transform .25s}
+.frame:hover .im{transform:scale(1.04)}
+.frame img{width:100%;height:100%;object-fit:cover}
+.frame p{margin:7px 2px 0;font-size:12.5px;font-weight:700;color:#e6cfbe;line-height:1.25}
+/* ===== SCENE 04 timeline ===== */
+.tl{position:relative;margin-top:30px;padding-top:86px}
+.track{position:relative;height:6px;background:#2e1c10;border-radius:6px}
+.track i{position:absolute;left:0;top:0;bottom:0;width:calc(var(--t,0)*100%);background:linear-gradient(90deg,var(--or),var(--or2));border-radius:6px}
+.walker{position:absolute;top:0;left:calc(var(--t,0)*100%);width:64px;translate:-50% 0;transition:left .1s linear}
+.walker .masc{width:100%;animation:step .5s ease-in-out infinite alternate;transform-origin:50% 100%}
+@keyframes step{from{rotate:-5deg}to{rotate:5deg;translate:0 -3px}}
+.keys{display:grid;grid-template-columns:repeat(5,1fr);margin-top:-14px}
+.key{text-align:center;padding:0 6px}
+.key .k{width:22px;height:22px;margin:0 auto;background:#3a2414;rotate:45deg;border:2px solid #120904;transition:background .3s,transform .3s}
+.key.on .k{background:var(--or2);transform:scale(1.25)}
+.key b{display:block;margin-top:16px;font-size:15.5px}
+.key small{display:block;color:#b99a86;font-size:13px;font-weight:600;margin-top:2px}
+.key code{display:inline-block;margin-top:8px;font-family:var(--fm);font-size:11.5px;background:#1f1209;border:1px solid #3a2414;border-radius:8px;padding:4px 8px;color:#ffc79f}
+/* ===== SCENE 05 FAQ ===== */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.faq details{background:#1f1209;border:1px solid #3a2414;border-radius:16px;padding:0 18px;transition:border-color .2s}
+.faq details[open]{border-color:var(--or)}
+.faq summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:800;display:flex;gap:12px;align-items:baseline}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{font-family:var(--fm);font-style:normal;font-size:12px;color:var(--or2);flex:none}
+.faq summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2px solid var(--or2);border-bottom:2px solid var(--or2);rotate:45deg;flex:none;transition:rotate .2s;align-self:center}
+.faq details[open] summary::after{rotate:225deg}
+.faq p{margin:0 0 16px;color:#dcc4b2}
+/* ===== akhir ===== */
+.action{text-align:center;padding:90px 0 70px}
+.action .masc{width:90px;margin:0 auto 10px;display:block;animation:jumpy 2.4s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes jumpy{0%,60%,100%{transform:none}70%{transform:scale(1.06,.92)}80%{transform:translateY(-18px) scale(.96,1.05)}90%{transform:none}}
+.action h2{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(52px,9vw,120px);line-height:.92;margin:0 0 18px}
+.action h2 .o{color:transparent;-webkit-text-stroke:2px var(--or2)}
+.action p{color:#cdb3a2;margin:16px 0 0}
+.credits{border-top:1px solid #2e1c10;overflow:hidden;padding:26px 0 30px}
+.marq{display:flex;width:max-content;animation:roll 30s linear infinite;font-family:var(--fd);font-size:clamp(60px,12vw,150px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #4a2e1b;white-space:nowrap}
+.marq span{padding-right:40px}
+.cred{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#8d6f5c;font-size:13px;font-family:var(--fm);margin-top:16px}
+/* DM melayang */
+.fab{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:flex-end;gap:8px;text-decoration:none}
+.fab .bub{background:#fff;color:var(--text);font-weight:800;font-size:13px;padding:8px 12px;border-radius:14px 14px 4px 14px;box-shadow:0 10px 24px -8px #000;transform-origin:100% 100%;animation:pop .4s 2.5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{transform:scale(0)}}
+.fab .hd{width:58px;height:58px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 10px 24px -8px #000;overflow:hidden;transition:transform .2s}
+.fab:hover .hd{transform:scale(1.08) rotate(-6deg)}
+.fab .hd .masc{width:50px;margin-top:6px}
+/* dialog isi kelas */
+dialog{border:0;padding:0;border-radius:22px;max-width:480px;width:calc(100% - 24px);max-height:88vh;background:var(--paper);color:var(--text);box-shadow:0 40px 80px -20px #000}
+dialog::backdrop{background:rgba(10,5,2,.7);backdrop-filter:blur(3px)}
+.dlg{padding:22px 20px 20px;overflow-y:auto;max-height:88vh}
+.dlg header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dlg h2{font-family:var(--fd);font-weight:400;font-size:30px;text-transform:uppercase;line-height:1}
+.dlg .x{border:0;background:var(--paper2);width:36px;height:36px;border-radius:50%;font-size:20px;line-height:1;flex:none}
+.dlg .meta{color:var(--muted);font-weight:600;margin:6px 0 16px}
+.mod{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.mod h4{margin:0 0 6px;font-size:15.5px;display:flex;gap:10px;align-items:center}
+.mod h4 span{width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--or2);display:grid;place-items:center;font-family:var(--fd);font-weight:400}
+.mod ol{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.mod li{display:flex;gap:10px;font-size:14px;font-weight:600}
+.mod li i{font-style:normal;color:var(--soft);font-weight:800;min-width:26px}
+.mod li em{margin-left:auto;font-style:normal;color:var(--soft);font-size:12.5px;font-weight:700}
+.dlg .incl{list-style:none;padding:0;margin:16px 0;display:grid;gap:8px}
+.dlg .incl li{display:flex;gap:10px;font-weight:600;font-size:14.5px}
+.dlg .incl svg{color:var(--ok);flex:none}
+.dlg .buy{position:sticky;bottom:-20px;background:var(--paper);padding:14px 0 4px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:2px dashed var(--line)}
+.dlg .buy b{font-family:var(--fd);font-weight:400;font-size:28px}
+.dlg .buy small{display:block;color:var(--muted);font-weight:600;font-size:12.5px}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}.rv.in{opacity:1;transform:none}
+/* maskot mengintip dari pojok kiri & kanan */
+.peeks{position:absolute;left:0;right:0;top:0;height:640px;overflow:hidden;pointer-events:none;z-index:0}
+.peek{position:absolute;width:130px;transform-origin:50% 100%}
+.hero{position:relative;z-index:1}
+.nw{white-space:nowrap}
+.bye{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:22px}
+.bye-b{position:relative;background:#fff;color:var(--text);font-weight:800;font-size:15px;padding:8px 16px;border-radius:16px;box-shadow:0 10px 24px -10px #000;animation:byeB 2.6s ease-in-out infinite;margin-left:70px}
+.bye-b::after{content:"";position:absolute;left:26px;bottom:-8px;border:8px solid transparent;border-bottom:0;border-top-color:#fff}
+@keyframes byeB{50%{transform:translateY(-5px)}}
+.peek.l{left:0;top:300px;animation:peekL 9s ease-in-out 1s infinite;transform:translateX(-190%) rotate(70deg)}
+.peek.r{right:0;top:120px;animation:peekRt 9s ease-in-out 1s infinite;transform:translateX(190%) rotate(-70deg)}
+@keyframes peekL{0%,4%{transform:translateX(-190%) rotate(70deg)}12%,34%{transform:translateX(-80%) rotate(70deg)}22%{transform:translateX(-78%) rotate(60deg)}42%,100%{transform:translateX(-190%) rotate(70deg)}}
+@keyframes peekRt{0%,48%{transform:translateX(190%) rotate(-70deg)}56%,80%{transform:translateX(80%) rotate(-70deg)}66%{transform:translateX(78%) rotate(-60deg)}88%,100%{transform:translateX(190%) rotate(-70deg)}}
+@media (max-width:600px){.peek{width:72px}.peek.l{top:170px}.peek.r{top:150px}}
+/* satu kolom rata tengah */
+.wrap{max-width:500px;padding-inline:16px}
+section{padding-block:56px}
+.hero,.pack,.mon{display:block}
+.hero{text-align:center;padding:40px 0 20px}
+.hero h1{font-size:clamp(46px,13vw,68px)}
+.lead{margin-inline:auto}
+.acts,.stats{justify-content:center}
+.stats{gap:18px}.stats b{font-size:24px}
+.stats div{text-align:left}
+.stage{max-width:380px;margin:18px auto 0;aspect-ratio:1/.95}
+.stage .cube{left:4%;top:6%;width:44%}
+.stage .hero-m{right:2%;bottom:6%;width:56%;animation:none}
+.say{right:6%;bottom:auto;top:28%}
+.tag.t1{left:0;top:auto;bottom:22%}.tag.t2{right:0;top:4%}.tag.t3{left:8%;bottom:4%}
+.scene{justify-content:center}
+.sec-m{display:flex;justify-content:center;margin:-6px 0 6px}
+h2.big{text-align:center;font-size:clamp(34px,10vw,48px)}
+.lead.c{text-align:center}
+.clap ul{grid-template-columns:1fr}
+.clap h3{max-width:62%;font-size:32px}
+.sticker{width:100px;height:100px;top:-20px;right:12px}.sticker b{font-size:22px}
+.clap-bar div{padding:7px 10px}
+.bento{margin-top:14px}
+.eps{flex-direction:row;overflow-x:auto;scrollbar-width:none;margin-top:12px}.eps::-webkit-scrollbar{display:none}
+.ep{flex:0 0 190px}
+.film{max-width:468px;margin:28px auto 0;border-radius:16px;border:1px solid #2e1c10}
+@media (max-width:500px){.film{margin-inline:16px}}
+.faq{grid-template-columns:1fr}
+.keys{grid-template-columns:1fr;gap:20px;margin-top:0}
+.tl{padding-top:0;padding-left:84px;margin-top:34px}
+.track{position:absolute;left:30px;top:0;bottom:0;width:6px;height:auto}
+.track i{width:100%;height:calc(var(--t,0)*100%)}
+.walker{left:-12px;top:calc(var(--t,0)*100%);translate:0 -50%;width:84px;z-index:2}
+.walker .masc{animation:none}
+.key{text-align:left;padding:0;position:relative}
+.key .k{position:absolute;left:-65px;top:2px;margin:0}
+.key b{margin-top:0}
+.action .masc{width:170px;animation:none}
+.credits .cred{justify-content:center;text-align:center}
+@media (max-width:600px){.tc span{display:none}.fab .bub{display:none}}</style>
+</head>
+<body>
+<div class="canvas"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/img/logo-digify.png" alt=""><span>DIGIFY<small>@digify.product</small></span></a>
+    <div class="tc"><i></i><span>REC</span><b id="tc">00:00:00</b></div>
+    <a class="btn btn-line btn-sm" href="kelas.html#/masuk">Masuk</a>
+  </div>
+  <div class="ruler"><b id="ruler"></b></div>
+</header>
+
+<main>
+  <div class="peeks" aria-hidden="true"><span class="masc peek l" data-m="tall"></span><span class="masc peek r" data-m="tall"></span></div>
+  <!-- SCENE 01 -->
+  <div class="wrap hero">
+    <div>
+      <span class="chip-line"><b>BARU</b>Kelas online · Digify Motion Course</span>
+      <h1><span class="ln"><span>Ketik idenya.</span></span><span class="ln"><span class="o">Jadi video</span></span><span class="ln"><span class="hl">animasi.</span></span></h1>
+      <p class="lead">Konten animasi bersuara buat jualan, tanpa sewa editor dan tanpa software rumit. Kamu yang mengarahkan, AI yang menggarap visual, suara, sampai MP4.</p>
+      <div class="acts"><a class="btn btn-or" href="motion-course.html">Gabung · <span data-price></span></a><a class="btn btn-line" href="#galeri">Lihat hasilnya</a></div>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <div class="floor"></div>
+      <div class="cube"><img src="assets/img/logo-digify.png" alt=""></div>
+      <span class="masc hero-m" data-act="type"></span>
+      <span class="say">lagi bikin video…</span>
+      <span class="tag t1"><span class="d"></span>voiceover siap</span>
+      <span class="tag t2">🎬 render 100%</span>
+      <span class="tag t3">9:16 · 16:9</span>
+    </div>
+  </div>
+
+  <!-- SCENE 02 -->
+  <section class="wrap" id="paket">
+    <div class="scene rv">SCENE 02 <span>· PAKET KELAS</span></div>
+    <div class="sec-m rv"><span class="masc" data-act="clap" style="width:130px"></span></div>
+    <div class="pack">
+      <article class="clap rv" id="clap">
+        <div class="clap-top"></div>
+        <div class="clap-bar"><div><small>PRODUKSI</small>DIGIFY</div><div><small>ADEGAN</small><span id="nLesson"></span> LESSON</div><div><small>TAKE</small>01</div></div>
+        <div class="clap-in">
+          <div class="sticker"><small>HANYA</small><b data-price></b><s data-coret></s></div>
+          <h3>Dari ketikan jadi video animasi bersuara</h3>
+          <ul id="ticks"></ul>
+          <div class="row"><a class="btn btn-or" href="motion-course.html">Lihat kelasnya</a><span>bayar sekali · akses selamanya</span></div>
+        </div>
+      </article>
+      <nav class="bento rv">
+        <a class="tile wide" data-ig-dm href="#" target="_blank" rel="noopener"><span class="masc" data-m="head"></span><span><b>Masih ragu? Ngobrol dulu</b><small>Tanya apa saja lewat DM Instagram</small></span></a>
+        <a class="tile or" href="kelas.html#/masuk"><span class="n">01</span><svg class="ico" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg><span><b>Member</b><small>Lanjut belajar</small></span></a>
+        <a class="tile" href="motion-course.html"><span class="n">02</span><svg class="ico" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span><b>Kelasnya</b><small>Detail &amp; harga</small></span></a>
+        <a class="tile" href="kelas.html#/komunitas"><span class="n">03</span><svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.8"/><path d="M16 14.2a5 5 0 0 1 5.5 4.8"/></svg><span><b>Grup Komunitas</b><small>🔒 Khusus member</small></span></a>
+        <a class="tile" href="#faq"><span class="n">04</span><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg><span><b>Tanya jawab</b><small>Sebelum gabung</small></span></a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- SCENE 03 -->
+  <section id="galeri">
+    <div class="wrap">
+      <div class="scene rv">SCENE 03 <span>· RUANG PUTAR</span></div>
+      <div class="sec-m rv"><span class="masc" data-act="camera" style="width:130px"></span></div>
+      <h2 class="big rv">Semua dibikin<br><span class="hl nw">lewat chat</span></h2>
+      <p class="lead c rv">Cuplikan kelasnya di layar, dan di bawahnya konten 9:16 yang semuanya dibuat lewat chat.</p>
+      <div class="mon rv" style="margin-top:26px">
+        <a class="screen" href="motion-course.html" style="display:block"><span class="rec"><i></i>CUPLIKAN</span><img src="assets/thumbs/0.1.jpg" alt="Cuplikan Digify Motion Course"><div class="hud"><span>Digify Motion Course</span><span class="pb"><i></i></span><span>16:9</span></div></a>
+      </div>
+    </div>
+    <div class="film rv"><div class="film-track" id="film"></div></div>
+  </section>
+
+  <!-- SCENE 04 -->
+  <section class="wrap" id="alur">
+    <div class="scene rv">SCENE 04 <span>· ALUR KERJA</span></div>
+    <h2 class="big rv">Lima langkah,<br><span class="hl nw">satu chat</span></h2>
+    <p class="lead c rv">Scroll pelan-pelan: maskot merekam perjalanan dari ide sampai file MP4.</p>
+    <div class="tl" id="tl">
+      <div class="track"><i></i></div>
+      <div class="walker"><span class="masc" data-act="camera"></span></div>
+      <div class="keys" id="keys"></div>
+    </div>
+  </section>
+
+  <!-- SCENE 05 -->
+  <section class="wrap" id="faq">
+    <div class="scene rv">SCENE 05 <span>· TANYA JAWAB</span></div>
+    <div class="sec-m rv"><span class="masc" data-act="think" style="width:130px"></span></div>
+    <h2 class="big rv">Sebelum <span class="hl">action</span></h2>
+    <div class="faq">
+      <details class="rv"><summary><i>Q1</i>Kelas ini cocok buat siapa?</summary><p>Buat kreator, penjual produk digital, dan pemilik usaha yang butuh konten video rutin tapi tidak punya waktu belajar software animasi atau budget sewa editor.</p></details>
+      <details class="rv"><summary><i>Q2</i>Perlu jago desain atau coding?</summary><p>Tidak sama sekali. Kamu menulis permintaan dengan bahasa sehari-hari, Claude yang menyusun gambar, gerak, dan kodenya. Tugasmu menilai hasil dan minta revisi.</p></details>
+      <details class="rv"><summary><i>Q3</i>Laptopku biasa saja, kuat nggak?</summary><p>Laptop Mac atau Windows yang lancar membuka Chrome sudah cukup. Tidak perlu kartu grafis khusus; render MP4 cukup ditunggu beberapa menit.</p></details>
+      <details class="rv"><summary><i>Q4</i>Ada biaya lain selain kelas?</summary><p>Ada dua langganan terpisah ke penyedianya: Claude paket Pro (sudah termasuk Claude Code) dan ElevenLabs untuk suara. Paket gratis ElevenLabs cukup untuk mencoba.</p></details>
+      <details class="rv"><summary><i>Q5</i>Hasil videonya boleh dipakai jualan?</summary><p>Boleh. Video yang kamu buat sepenuhnya milikmu: pakai untuk Reels, TikTok, YouTube, iklan, atau promosi produkmu sendiri.</p></details>
+      <details class="rv"><summary><i>Q6</i>Setelah bayar, aksesnya gimana?</summary><p>Buka halaman member, masuk pakai email yang kamu pakai saat checkout, lalu mulai dari video pertama. Semua materi dan update berikutnya langsung terbuka.</p></details>
+    </div>
+  </section>
+
+  <!-- ACTION -->
+  <section class="action wrap rv">
+    <span class="masc" data-act="mega"></span>
+    <h2>Siap?<br><span class="o">Kamera,</span> <span class="hl">action!</span></h2>
+    <a class="btn btn-or" href="motion-course.html">Gabung &amp; bikin video pertamamu</a>
+    <p><span data-price></span> · bayar sekali · akses selamanya</p>
+  </section>
+</main>
+
+<footer class="credits">
+  <div class="marq" aria-hidden="true"><span>DIGIFY MOTION COURSE ✦</span><span>DIGIFY MOTION COURSE ✦</span><span>DIGIFY MOTION COURSE ✦</span><span>DIGIFY MOTION COURSE ✦</span></div>
+  <div class="bye"><span class="bye-b">See you in class! 👋</span><span class="masc" data-act="wave" style="width:110px"></span></div>
+  <div class="wrap cred"><span>Disutradarai oleh kamu · Dianimasikan oleh AI</span><span>© 2026 Digify Product</span></div>
+</footer>
+
+<a class="fab" data-ig-dm href="#" target="_blank" rel="noopener" aria-label="DM Instagram"><span class="bub">tanya dulu? 💬</span><span class="hd"><span class="masc" data-m="full"></span></span></a>
+
+
+<script src="assets/config.js"></script>
+<script src="assets/public.js"></script>
+<script src="assets/mascot.js"></script>
+<script src="assets/shorts-youtube.js"></script>
+<script src="assets/player.js"></script>
+<script>
+const S=window.SITE, C=window.PUB;
+const tick='<svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+const ig='https://instagram.com/'+S.instagram, dm='https://ig.me/m/'+S.instagram;
+document.querySelectorAll('[data-price]').forEach(e=>e.textContent=S.harga);
+document.querySelectorAll('[data-coret]').forEach(e=>e.textContent=S.hargaCoret||'');
+document.querySelectorAll('[data-buy]').forEach(e=>{e.href=S.linkBeli;e.target='_blank';e.rel='noopener'});
+document.querySelectorAll('[data-ig]').forEach(e=>e.href=ig);
+document.querySelectorAll('[data-ig-dm]').forEach(e=>e.href=dm);
+const total=C.totalSeconds, lessons={length:C.lessonCount};
+document.getElementById('nLesson').textContent=lessons.length;
+document.getElementById('stats').innerHTML=[[lessons.length,'lesson singkat'],['±'+Math.round(total/60),'menit materi'],['2','format video']].map(([b,s])=>`<div><b>${b}</b><small>${s}</small></div>`).join('');
+document.getElementById('ticks').innerHTML=['Tanpa After Effects & coding','Naskah sampai render digarap AI','Reels 9:16 dan YouTube 16:9','Revisi cukup satu kalimat','Materi ±1 menit per video','Skill siap pasang + alat prompt'].map(t=>`<li>${tick}${t}</li>`).join('');
+// film strip 9:16
+const T={'produk-hidup':'Produk digital bisa basi','jembatan':'Pinjam audiens lewat kolaborasi','tangga-harga':'Satu keahlian, tiga harga','berani-garansi':'Berani kasih garansi?',
+ 'beli-lubang':'Orang tidak butuh bor','perahu-kertas':'Jangan numpang di Instagram','satu-ayunan-lagi':'Tinggal satu ayunan lagi','resep-rini':'Di-PHK, resep sambalnya jadi produk',
+ 'jelaskan-sekali':'Jelaskan sekali, jual berkali-kali','judul-bikin-sepi':'Produk sepi karena judulnya','keahlian-dibungkus':'Keahlianmu bisa jadi produk digital',
+ 'ebook-200-juta':'Ebook laku 200 juta tanpa iklan gede','cari-masalah-dulu':'Cari masalahnya dulu','pilih-satu-sasaran':'Jangan jual ke semua orang',
+ 'jangan-tunggu-sempurna':'Jangan tunggu sempurna','harga-murahan':'Harga murah belum tentu laku','butuh-saksi':'Produk sepi karena belum ada saksi',
+ 'jangan-jual-jam':'Freelancer, berhenti jual waktu','lima-langkah':'5 langkah produk digital pertama'};
+const tall=Object.entries(T).map(([k,t])=>{const w=C.works.find(w=>w.slug==='digify-'+k);return w&&{...w,t}}).filter(Boolean);
+const fr=window.shortFrame;
+document.getElementById('film').innerHTML=tall.map(fr).join('')+tall.map(fr).join('');
+// timeline langkah
+const steps=[['Ide','tulis brief 5 hal','bikin explainer 35 detik…'],['Naskah','AI menulis 5 adegan','setuju, lanjut'],['Suara','voiceover + efek','tes suara adegan 1'],['Animasi','visual & gerak','adegan 2 lebih besar'],['MP4','siap diunggah','render jadi mp4']];
+const keysEl=document.getElementById('keys');
+keysEl.innerHTML=steps.map(s=>`<div class="key"><div class="k"></div><b>${s[0]}</b><small>${s[1]}</small><code>${s[2]}</code></div>`).join('');
+const tl=document.getElementById('tl'),keys=[...keysEl.children];
+// playhead, timecode, timeline
+const ruler=document.getElementById('ruler'),tc=document.getElementById('tc');
+function onScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight,p=max>0?scrollY/max:0;
+  ruler.style.width=(p*100)+'%';
+  const s=Math.round(p*60*30);tc.textContent=`00:${String(Math.floor(s/30/60)).padStart(2,'0')}:${String(Math.floor(s/30)%60).padStart(2,'0')}`;
+  const r=tl.getBoundingClientRect(),start=innerHeight*.85,end=innerHeight*.3;
+  let t=(start-r.top)/(start-end+r.height*.5);t=Math.max(0,Math.min(1,t));
+  tl.style.setProperty('--t',t.toFixed(3));
+  keys.forEach((k,i)=>k.classList.toggle('on',t>=i/(keys.length-1)-.02));
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+// muncul saat discroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+</script>
+</body>
+</html>

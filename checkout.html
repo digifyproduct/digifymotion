@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout · Digify Motion Course</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-digify.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+body{color:#fff;background:#120904;overflow-x:clip}
+.canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(70% 50% at 85% 0%,rgba(242,106,33,.22),transparent 70%),
+  linear-gradient(rgba(255,200,160,.045) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(255,200,160,.045) 1px,transparent 1px) 0 0/48px 48px}
+header,main,footer{position:relative;z-index:1}
+.wrap{max-width:560px;margin-inline:auto;padding-inline:16px}
+.top{border-bottom:1px solid #2e1c10;background:rgba(18,9,4,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800}
+.brand img{width:28px}.brand small{display:block;font-size:10px;color:var(--or2);letter-spacing:1.4px;margin-top:-2px}
+.secure{font-size:12.5px;font-weight:700;color:#b99a86}
+.steps{display:flex;justify-content:center;gap:10px;margin:22px 0 8px;font-family:var(--fm);font-size:11.5px;font-weight:700;color:#6f5240;flex-wrap:wrap}
+.steps span.on{color:var(--or2)}
+h1{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(34px,9vw,46px);line-height:1;text-align:center;margin:6px 0 18px}
+.card{background:#1f1209;border:1px solid #3a2414;border-radius:20px;padding:18px;margin-bottom:14px}
+.card h2{font-size:15px;letter-spacing:.4px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.card h2 i{font-style:normal;width:26px;height:26px;border-radius:8px;background:var(--or);color:#fff;display:grid;place-items:center;font-size:13px}
+.sum{display:flex;gap:14px;align-items:center}
+.sum .ic{width:52px;height:52px;border-radius:14px;background:#120904;border:1px solid #3a2414;display:grid;place-items:center;flex:none}
+.sum .ic img{width:30px}
+.sum b{display:block}.sum small{display:block;color:#b99a86;font-weight:600;font-size:13px}
+.sum .pr{margin-left:auto;text-align:right;white-space:nowrap}
+.sum .pr s{display:block;color:#8d6f5c;font-size:12px;font-weight:700}
+.sum .pr strong{font-family:var(--fd);font-weight:400;font-size:26px;color:var(--or2)}
+label{display:block;font-weight:700;font-size:13.5px;color:#e6cfbe;margin:12px 0 6px}
+label:first-of-type{margin-top:0}
+.in{width:100%;background:#120904;border:1.5px solid #3a2414;border-radius:12px;padding:12px 14px;color:#fff;font:inherit;font-size:15px;transition:border-color .2s}
+.in:focus{outline:none;border-color:var(--or2)}
+.in::placeholder{color:#6f5240}
+.hint{font-size:12.5px;color:#b99a86;margin:6px 0 0}
+.wa{display:flex;gap:8px}.wa span{background:#120904;border:1.5px solid #3a2414;border-radius:12px;padding:12px;font-weight:700;color:#cdb3a2}
+.pm{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;background:#120904;border:1.5px solid #3a2414;border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .2s,background .2s;font:inherit;color:inherit;text-align:left;width:100%}
+.opt:hover{border-color:#6f5240}
+.opt.on{border-color:var(--or);background:rgba(242,106,33,.1)}
+.opt .dot{width:18px;height:18px;border-radius:50%;border:2px solid #6f5240;flex:none;display:grid;place-items:center}
+.opt.on .dot{border-color:var(--or)}.opt.on .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--or)}
+.opt .tag{width:62px;height:30px;border-radius:8px;background:#fff;color:#2a0b00;display:grid;place-items:center;font-weight:800;font-size:10.5px;letter-spacing:.3px;flex:none}
+.opt b{font-size:14.5px}.opt small{display:block;color:#b99a86;font-size:12px;font-weight:600}
+.more{background:none;border:0;color:var(--or2);font-weight:800;font-size:13.5px;padding:6px 0;cursor:pointer}
+.total{display:flex;justify-content:space-between;align-items:baseline}
+.total span{color:#b99a86;font-weight:600}.total b{font-family:var(--fd);font-weight:400;font-size:28px}
+.go{width:100%;justify-content:center;padding:15px;font-size:16px;margin-top:14px}
+.err{background:rgba(217,69,43,.15);border:1px solid rgba(217,69,43,.5);color:#ffb4a6;border-radius:12px;padding:10px 12px;font-size:13.5px;font-weight:600;margin-top:12px}
+.trust{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;color:#8d6f5c;font-size:12px;font-weight:700;margin:12px 0 0}
+/* langkah bayar */
+.paybox{text-align:center}
+.qr{background:#fff;border-radius:18px;padding:16px;width:min(280px,100%);margin:6px auto 12px;display:grid;place-items:center}
+.qr canvas,.qr img{width:100%!important;height:auto!important}
+.amount{font-family:var(--fd);font-weight:400;font-size:36px;color:var(--or2);margin:4px 0}
+.va{background:#120904;border:1.5px dashed var(--or);border-radius:14px;padding:14px;margin:10px 0}
+.va small{display:block;color:#b99a86;font-weight:700;font-size:12px}
+.va b{display:block;font-family:var(--fm);font-size:clamp(17px,5.4vw,24px);letter-spacing:1px;margin:6px 0;white-space:nowrap}
+.wait{display:flex;align-items:center;justify-content:center;gap:10px;color:#cdb3a2;font-weight:700;font-size:14px;margin:10px 0}
+.wait i{width:10px;height:10px;border-radius:50%;background:var(--or2);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.how{text-align:left;color:#cdb3a2;font-size:13.5px;line-height:1.7;padding-left:18px;margin:10px 0 0}
+.ok-m{width:130px;margin:0 auto}
+.alt{text-align:center;color:#8d6f5c;font-size:12.5px;margin:10px 0 0}.alt a{color:var(--or2)}
+.frame{background:#fff;border-radius:18px;overflow:hidden}.frame iframe{display:block;width:100%;height:1500px;border:0}
+footer{text-align:center;color:#8d6f5c;font-size:12.5px;font-family:var(--fm);padding:14px 16px 40px}
+footer a{color:#cdb3a2}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="canvas"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="motion-course.html"><img src="assets/img/logo-digify.png" alt=""><span>DIGIFY<small>MOTION COURSE</small></span></a>
+  <span class="secure">🔒 Pembayaran aman</span>
+</div></header>
+
+<main class="wrap">
+  <div class="steps" id="steps"><span class="on" data-s="1">1 · Isi data</span><span data-s="2">2 · Bayar</span><span data-s="3">3 · Masuk kelas</span></div>
+  <h1 id="title">Satu langkah lagi<br><span class="hl">ke kelasmu</span></h1>
+
+  <div class="card"><div class="sum">
+    <div class="ic"><img src="assets/img/logo-digify.png" alt=""></div>
+    <div><b>Digify Motion Course</b><small>Sekali bayar · akses selamanya</small></div>
+    <div class="pr"><s data-coret></s><strong data-price></strong></div>
+  </div></div>
+
+  <!-- LANGKAH 1: formulir (dipakai bila Storefront API aktif) -->
+  <form id="form" hidden novalidate>
+    <div class="card">
+      <h2><i>1</i>Data pembeli</h2>
+      <label for="nm">Nama lengkap</label><input class="in" id="nm" name="nm" autocomplete="name" placeholder="Nama kamu" required>
+      <label for="em">Email</label><input class="in" id="em" name="em" type="email" autocomplete="email" placeholder="nama@email.com" required>
+      <p class="hint">Email ini dipakai untuk masuk ke kelas. Pastikan benar ya.</p>
+      <label for="wa">No. WhatsApp</label><div class="wa"><span>+62</span><input class="in" id="wa" name="wa" inputmode="tel" autocomplete="tel-national" placeholder="812xxxxxxx" required></div>
+    </div>
+    <div class="card">
+      <h2><i>2</i>Metode pembayaran</h2>
+      <div class="pm" id="pm"><p class="hint">Memuat metode pembayaran…</p></div>
+      <button type="button" class="more" id="more" hidden>Lihat bank lainnya ▾</button>
+    </div>
+    <div class="card">
+      <div class="total"><span>Total bayar</span><b data-price></b></div>
+      <button class="btn btn-or go" id="go">Bayar sekarang</button>
+      <div class="err" id="err" hidden></div>
+      <div class="trust"><span>✓ Sekali bayar</span><span>✓ Akses selamanya</span><span>✓ Otomatis aktif</span></div>
+    </div>
+  </form>
+
+  <!-- LANGKAH 2: instruksi bayar -->
+  <section class="card paybox" id="pay" hidden></section>
+
+  <!-- LANGKAH 3: sukses -->
+  <section class="card paybox" id="done" hidden>
+    <span class="masc ok-m" data-act="wave"></span>
+    <h2 style="justify-content:center;font-size:20px;margin:8px 0">Pembayaran berhasil! 🎉</h2>
+    <p style="color:#cdb3a2;margin:0 0 6px">Akses kelas sudah aktif untuk <b id="doneEmail"></b>.</p>
+    <a class="btn btn-or go" href="kelas.html#/masuk">Daftar &amp; masuk kelas</a>
+    <p class="hint">Pilih <b>Daftar</b>, pakai email yang sama dengan email checkout.</p>
+  </section>
+
+  <!-- Cadangan: formulir Scalev bila Storefront API belum aktif -->
+  <div id="fallback" hidden>
+    <div class="frame" id="frame"></div>
+    <p class="alt">Formulir tidak muncul? <a id="altLink" href="#" target="_blank" rel="noopener">Buka di tab baru</a></p>
+  </div>
+</main>
+
+<footer>© 2026 Digify Product · <a href="motion-course.html">kembali ke halaman kelas</a></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/mascot.js"></script>
+<script>
+(() => {
+const S = window.SITE, $ = id => document.getElementById(id);
+document.querySelectorAll('[data-price]').forEach(e => e.textContent = S.harga);
+document.querySelectorAll('[data-coret]').forEach(e => e.textContent = S.hargaCoret || '');
+const step = n => document.querySelectorAll('#steps span').forEach(s => s.classList.toggle('on', +s.dataset.s <= n));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// ---------- Mode pratinjau desain (?demo): data contoh, tidak membuat pesanan ----------
+const DEMO = /[?&]demo\b/.test(location.search);
+// ---------- Cadangan: tanam Checkout Flow Scalev ----------
+if (!DEMO && (!S.scalevStoreId || !S.scalevStorefrontKey)) {
+  const url = S.linkCheckout || S.linkBeli;
+  $('fallback').hidden = false; $('altLink').href = url;
+  const f = document.createElement('iframe'); f.src = url; f.title = 'Formulir pembayaran'; f.allow = 'payment; clipboard-write';
+  $('frame').appendChild(f);
+  return;
+}
+
+// ---------- Storefront API Scalev ----------
+const API = `https://api.scalev.com/v3/stores/${S.scalevStoreId}/public`;
+const KEY_SLUG = 'dmc-order';
+async function api(path, opt = {}) {
+  if (DEMO) {
+    await new Promise(r => setTimeout(r, 400));
+    if (path === '/payment-methods') return ['qris', 'va_bca', 'va_bni', 'va_bri', 'va_mandiri', 'va_permata', 'va_cimb', 'va_danamon'];
+    if (path.startsWith('/products/')) return { variants: [{ id: 1 }] };
+    if (path === '/checkout') return { secret_slug: 'demo' };
+    const m = (JSON.parse(localStorage.getItem(KEY_SLUG) || '{}').method) || 'qris';
+    return { net_revenue: '199000', pg_payment_info: m === 'qris' ? { qr_string: 'DEMO-DIGIFY-MOTION-COURSE-QRIS' } :
+      { payment_method: { virtual_account: { channel_properties: { virtual_account_number: '8808 1234 5678 9012' } } } } };
+  }
+  const r = await fetch(API + path, { ...opt, headers: { 'Content-Type': 'application/json', 'X-Scalev-Storefront-Api-Key': S.scalevStorefrontKey, ...(opt.headers || {}) } });
+  let j = null; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) { const m = j && (j.error?.message || j.message || j.errors && JSON.stringify(j.errors)); throw new Error(m || ('HTTP ' + r.status)); }
+  return j && j.data !== undefined ? j.data : j;
+}
+const NAMES = { qris: ['QRIS', 'Semua e-wallet & m-banking', 'QRIS'] };
+const bankName = code => {
+  const k = code.replace(/^va_/, '');
+  const map = { bca: 'BCA', bni: 'BNI', bri: 'BRI', mandiri: 'Mandiri', permata: 'Permata', cimb: 'CIMB Niaga', bsi: 'BSI', btn: 'BTN', danamon: 'Danamon', maybank: 'Maybank', muamalat: 'Muamalat', ocbc: 'OCBC NISP', bnc: 'Neo Commerce', sampoerna: 'Sahabat Sampoerna', bjb: 'BJB' };
+  return map[k] || k.toUpperCase();
+};
+const label = code => NAMES[code] || (code.startsWith('va_') ? [bankName(code) + ' Virtual Account', 'Transfer ke nomor VA', bankName(code).split(' ')[0].toUpperCase().slice(0, 7)] : [code.toUpperCase(), '', code.slice(0, 6).toUpperCase()]);
+const MAIN = ['qris', 'va_bca', 'va_bni', 'va_bri', 'va_mandiri'];
+let methods = [], picked = 'qris', variantId = S.scalevVariantId || null;
+
+function renderPM(all) {
+  const list = all ? methods : methods.filter(m => MAIN.includes(m));
+  $('pm').innerHTML = list.map(m => { const [n, d, t] = label(m);
+    return `<button type="button" class="opt ${m === picked ? 'on' : ''}" data-m="${esc(m)}"><span class="dot"></span><span class="tag">${esc(t)}</span><span><b>${esc(n)}</b>${d ? `<small>${esc(d)}</small>` : ''}</span></button>`; }).join('');
+  $('more').hidden = all || methods.length <= list.length;
+}
+$('pm').addEventListener('click', e => { const b = e.target.closest('.opt'); if (!b) return; picked = b.dataset.m; $('pm').querySelectorAll('.opt').forEach(o => o.classList.toggle('on', o === b)); });
+$('more').addEventListener('click', () => renderPM(true));
+
+async function findVariant() {
+  if (variantId) return variantId;
+  const p = await api('/products/' + encodeURIComponent(S.scalevProductSlug || 'digify-motion-course'));
+  const v = (p.variants || p.product?.variants || [])[0];
+  variantId = v && (v.id || v.variant_id);
+  if (!variantId) throw new Error('Produk tidak ditemukan');
+  return variantId;
+}
+
+async function init() {
+  const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY_SLUG) || 'null'); } catch (e) { return null; } })();
+  if (saved && saved.slug) return showPayment(saved.slug, saved.method, saved.email);
+  $('form').hidden = false;
+  try {
+    const pm = await api('/payment-methods');
+    methods = (Array.isArray(pm) ? pm : (pm.payment_methods || pm.items || [])).map(x => typeof x === 'string' ? x : (x.code || x.payment_method || x.id)).filter(Boolean);
+    methods.sort((a, b) => (MAIN.indexOf(a) + 1 || 99) - (MAIN.indexOf(b) + 1 || 99));
+    if (!methods.includes(picked)) picked = methods[0];
+    renderPM(false);
+    findVariant().catch(() => {});
+  } catch (e) { $('pm').innerHTML = `<div class="err">Gagal memuat metode pembayaran (${esc(e.message)}).</div>`; }
+}
+
+$('form').addEventListener('submit', async e => {
+  e.preventDefault(); $('err').hidden = true;
+  const name = $('nm').value.trim(), email = $('em').value.trim().toLowerCase(), wa = $('wa').value.replace(/\D/g, '').replace(/^0+/, '').replace(/^62/, '');
+  const bad = !name ? 'Isi nama lengkap.' : !/^\S+@\S+\.\S+$/.test(email) ? 'Email belum benar.' : wa.length < 8 ? 'No. WhatsApp belum benar.' : !picked ? 'Pilih metode pembayaran.' : '';
+  if (bad) { $('err').textContent = bad; $('err').hidden = false; return; }
+  const b = $('go'); b.disabled = true; b.textContent = 'Membuat pesanan…';
+  try {
+    const order = await api('/checkout', { method: 'POST', body: JSON.stringify({
+      items: [{ type: 'variant', variant_id: await findVariant(), quantity: 1 }],
+      customer_name: name, customer_email: email, customer_phone: '62' + wa, payment_method: picked }) });
+    const slug = order.secret_slug || order.order?.secret_slug;
+    if (!slug) throw new Error('Pesanan tidak terbentuk');
+    try { localStorage.setItem(KEY_SLUG, JSON.stringify({ slug, method: picked, email })); } catch (e) {}
+    showPayment(slug, picked, email);
+  } catch (err) {
+    $('err').textContent = 'Gagal membuat pesanan: ' + err.message; $('err').hidden = false;
+    b.disabled = false; b.textContent = 'Bayar sekarang';
+  }
+});
+
+const pick = (o, paths) => { for (const p of paths) { const v = p.split('.').reduce((a, k) => a && a[k], o); if (v) return v; } return null; };
+let pollT = 0;
+async function showPayment(slug, method, email) {
+  step(2); $('form').hidden = true; $('title').innerHTML = 'Selesaikan<br><span class="hl">pembayaran</span>';
+  const box = $('pay'); box.hidden = false; box.innerHTML = '<span class="masc ok-m" data-act="type"></span><div class="wait"><i></i>Menyiapkan instruksi pembayaran…</div>';
+  let o = null;
+  for (let i = 0; i < 15; i++) {
+    try { o = await api(`/orders/${encodeURIComponent(slug)}/payment`, { method: 'POST' }); } catch (e) { o = null; }
+    if (o && (o.pg_payment_info || isPaid(o))) break;
+    await new Promise(r => setTimeout(r, 1500));
+  }
+  if (!o) { box.innerHTML = `<div class="err">Instruksi pembayaran belum tersedia. Coba muat ulang halaman ini.</div>${resetBtn()}`; return; }
+  if (isPaid(o)) return done(email);
+  const info = o.pg_payment_info || {};
+  const amount = pick(o, ['net_revenue', 'gross_revenue', 'total', 'total_price', 'amount']) || '';
+  const rp = amount ? 'Rp ' + Number(amount).toLocaleString('id-ID') : S.harga;
+  const qr = pick(info, ['qr_string', 'payment_method.qr_code.channel_properties.qr_string']);
+  const va = pick(info, ['payment_method.virtual_account.channel_properties.virtual_account_number', 'va_number', 'virtual_account_number']);
+  const url = pick(o, ['redirect_url']) || pick(info, ['invoice_url', 'redirect_url']);
+  if (method === 'qris' && qr) {
+    box.innerHTML = `<h2 style="justify-content:center">Scan QRIS untuk bayar</h2><div class="qr" id="qr"></div>
+      <div class="amount">${esc(rp)}</div><p class="hint">Buka aplikasi m-banking atau e-wallet (GoPay, OVO, DANA, ShopeePay, dll.), lalu scan kode ini.</p>
+      <div class="wait"><i></i>Menunggu pembayaran…</div>${resetBtn()}`;
+    new QRCode($('qr'), { text: qr, width: 512, height: 512, correctLevel: QRCode.CorrectLevel.M });
+  } else if (va) {
+    box.innerHTML = `<h2 style="justify-content:center">Transfer ke Virtual Account</h2>
+      <div class="va"><small>${esc(bankName(method))} Virtual Account</small><b id="vaNum">${esc(va)}</b>
+      <button type="button" class="btn btn-line btn-sm" id="copyVa">Salin nomor</button></div>
+      <div class="amount">${esc(rp)}</div>
+      <ol class="how"><li>Buka m-banking / ATM ${esc(bankName(method))}.</li><li>Pilih <b>Transfer → Virtual Account</b>.</li><li>Masukkan nomor di atas, pastikan nominalnya sama, lalu bayar.</li></ol>
+      <div class="wait"><i></i>Menunggu pembayaran…</div>
+      <button type="button" class="btn btn-line btn-sm" id="checkNow">Saya sudah bayar, cek status</button>${resetBtn()}`;
+    $('copyVa').onclick = async () => { try { await navigator.clipboard.writeText(va); $('copyVa').textContent = 'Tersalin ✓'; } catch (e) {} };
+    $('checkNow').onclick = () => checkStatus(slug, email, true);
+  } else if (url) {
+    box.innerHTML = `<h2 style="justify-content:center">Lanjutkan pembayaran</h2><p class="hint">Klik tombol di bawah untuk menyelesaikan pembayaran.</p>
+      <a class="btn btn-or go" href="${esc(url)}" target="_blank" rel="noopener">Buka halaman pembayaran</a><div class="wait"><i></i>Menunggu pembayaran…</div>${resetBtn()}`;
+  } else { box.innerHTML = `<div class="err">Instruksi pembayaran tidak ditemukan.</div>${resetBtn()}`; return; }
+  clearInterval(pollT); pollT = setInterval(() => checkStatus(slug, email), 5000);
+}
+const isPaid = o => ['paid', 'settled'].includes(String(o && (o.payment_status || o.order?.payment_status) || '').toLowerCase());
+async function checkStatus(slug, email, manual) {
+  try { const o = await api(`/orders/${encodeURIComponent(slug)}`); if (isPaid(o)) return done(email);
+    if (manual) alert('Pembayaran belum terdeteksi. Tunggu 1–2 menit lalu cek lagi.'); } catch (e) {}
+}
+function done(email) {
+  clearInterval(pollT); try { localStorage.removeItem(KEY_SLUG); } catch (e) {}
+  step(3); $('pay').hidden = true; $('form').hidden = true; $('done').hidden = false; $('doneEmail').textContent = email || 'emailmu';
+  $('title').innerHTML = 'Selamat datang<br><span class="hl">di kelas!</span>';
+}
+const resetBtn = () => `<p class="alt"><a href="#" onclick="localStorage.removeItem('${KEY_SLUG}');location.reload();return false">Ganti metode / buat pesanan baru</a></p>`;
+init();
+})();
+</script>
+</body>
+</html>
