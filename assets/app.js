@@ -348,6 +348,17 @@ function pKomunitas() {
       <li>Saat bertanya, sertakan tangkapan layar atau pesan error-nya.</li>
       <li>Saling bantu dan jaga obrolan tetap sopan.</li></ul></div>`;
 }
+// File member disimpan di Supabase Storage (bucket privat). secrets.skill_zip = "storage:<bucket>/<path>".
+// Link unduhan sementara (2 menit) dibuat hanya untuk member yang sedang login.
+async function unduh(b) {
+  const [, bucket, path] = S.linkSkillZip.match(/^storage:([^/]+)\/(.+)$/) || [];
+  if (!bucket || !REAL || !sb) return toast('Unduhan belum tersedia');
+  const label = b.innerHTML; b.disabled = true; b.textContent = 'Menyiapkan…';
+  const { data, error } = await sb.storage.from(bucket).createSignedUrl(path, 120, { download: path.split('/').pop() });
+  b.disabled = false; b.innerHTML = label;
+  if (error || !data) return toast('Gagal menyiapkan unduhan, coba lagi');
+  location.href = data.signedUrl;
+}
 function pDownload() {
   const ok = !!S.linkSkillZip, pr = 'pasang skill dari zip ini ke folder skill Claude Code';
   return `<h1 class="ph1">Download</h1><p class="sub">Cukup <b>1 zip</b> yang dipasang ke Claude Code.</p>
@@ -356,7 +367,9 @@ function pDownload() {
       <div style="width:64px;height:64px;border-radius:16px;background:var(--ink);display:grid;place-items:center"><img src="assets/img/logo-digify.png" alt="" style="width:34px"></div>
       <div style="flex:1;min-width:220px"><span class="chip chip-ok">Wajib</span><h3 style="font-size:21px;margin:6px 0 4px">Skill Digify Motion ${esc(S.versiSkill)}</h3>
         <span style="color:var(--muted)">Alur kerja kelas ini: brief, gaya, suara, animasi, revisi, sampai render MP4.</span></div>
-      ${ok ? `<a class="btn btn-or" href="${esc(S.linkSkillZip)}" target="_blank" rel="noopener">${ic('down')}Unduh</a>` : `<button class="btn btn-or" disabled>${ic('down')}Segera</button>`}
+      ${!ok ? `<button class="btn btn-or" disabled>${ic('down')}Segera</button>`
+        : /^storage:/.test(S.linkSkillZip) ? `<button class="btn btn-or" data-act="unduh">${ic('down')}Unduh</button>`
+        : `<a class="btn btn-or" href="${esc(S.linkSkillZip)}" target="_blank" rel="noopener">${ic('down')}Unduh</a>`}
     </div>
     <ol style="background:var(--paper);border-radius:16px;padding:16px 16px 16px 36px;margin:0;line-height:2">
       <li>Unduh zip-nya. <b>Jangan diekstrak.</b></li><li>Buka chat baru di Claude Code, lampirkan zip-nya, lalu kirim prompt di bawah.</li><li>Setelah Claude selesai memasang, tutup lalu buka lagi aplikasi Claude.</li></ol>
@@ -468,6 +481,7 @@ document.addEventListener('click', e => {
   if (a === 'fav') { const s = T[+b.dataset.t], i = st.favs.indexOf(s); i < 0 ? st.favs.push(s) : st.favs.splice(i, 1); save(); toast(i < 0 ? 'Disimpan ke favorit ★' : 'Dihapus dari favorit'); return rerender(); }
   if (a === 'done') { const id = b.dataset.id; st.done[id] = !st.done[id]; if (!st.done[id]) delete st.done[id]; save(); toast(st.done[id] ? 'Mantap, lesson selesai ✓' : 'Tanda selesai dihapus', st.done[id]); return rerender(); }
   if (a === 'menu') return document.getElementById('shell').classList.toggle('open');
+  if (a === 'unduh') return unduh(b);
   if (a === 'logout') { logout(); return; }
   if (a === 'lv') { loginView = v; loginMsg = null; return render(); }
   if (a === 'reset') { if (confirm('Hapus semua tanda selesai dan checklist?')) { st.done = {}; st.checks = {}; save(); toast('Progres direset'); rerender(); } return; }
