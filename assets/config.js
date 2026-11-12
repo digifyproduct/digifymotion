@@ -24,7 +24,7 @@ window.SITE = {
   supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3d3BsbWtncHBlanJwcHBydGpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzMDgyMjcsImV4cCI6MjEwOTg4NDIyN30.QNZj5gY7f7kKqUQyZbYHhI1Utw1271Rre5go5JBF7lY",
 
   // Link grup komunitas & zip skill sekarang disimpan di tabel "secrets" Supabase (khusus member).
-  versiSkill: "v1.0.0",
+  versiSkill: "v2.0.0",
   // Template email Supabase sudah memuat {{ .Token }} (SMTP Gmail aktif), jadi kolom kode ditampilkan.
   loginKode: true,
 };
