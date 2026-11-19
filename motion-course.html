@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611192030">
-<link rel="stylesheet" href="assets/karya.css?v=2611192030">
-<link rel="stylesheet" href="assets/checkout.css?v=2611192030">
+<link rel="stylesheet" href="assets/base.css?v=2611192047">
+<link rel="stylesheet" href="assets/karya.css?v=2611192047">
+<link rel="stylesheet" href="assets/checkout.css?v=2611192047">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 .canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -287,6 +287,14 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 .sgrid span.alt:nth-child(odd){background:#fff;border-color:#f0dcc8;color:var(--text)}
 .sgrid span.alt:nth-child(even){background:var(--orsoft);border-color:#ffc79f;color:#9a3a08}
 .sgrid span.flip{transform:rotateX(90deg)}
+
+/* bisa video apa saja: 4 kotak bergantian */
+.vgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;perspective:600px}
+.vgrid span{display:grid;place-items:center;min-height:44px;padding:6px 8px;border-radius:12px;text-align:center;font-weight:800;font-size:13.5px;line-height:1.2;background:#2a170c;border:1.5px solid #3a2414;color:#e6cfbe;opacity:0;transform:translateY(10px) scale(.92);transition:opacity .35s,transform .3s cubic-bezier(.3,1.5,.5,1),background .3s,border-color .3s,color .3s}
+.vgrid.go span{opacity:1;transform:none}
+.vgrid span:nth-child(1),.vgrid span:nth-child(4),.vgrid span.alt:nth-child(2),.vgrid span.alt:nth-child(3){background:rgba(242,106,33,.16);border-color:rgba(242,106,33,.45);color:#ffc79f}
+.vgrid span.alt:nth-child(1),.vgrid span.alt:nth-child(4){background:#2a170c;border-color:#3a2414;color:#e6cfbe}
+.vgrid.go span.flip{transform:rotateX(90deg);transition:transform .22s ease-in}
 </style>
 </head>
 <body>
@@ -329,7 +337,7 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
       <article class="panel rv"><h3>Gayanya tetap konsisten</h3><p>Skill menjaga warna, gaya gambar, dan prinsip gerak. Video kesepuluh tetap serapi video pertama.</p>
         <div class="demo trio-wrap"><div class="trio" id="trio"></div><div class="lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>gaya terkunci</span><i style="background:#F26A21"></i><i style="background:#FFB66B"></i><i style="background:#2a170c"></i><i style="background:#f7ead9"></i></div></div></article>
       <article class="panel rv"><h3>Bisa video apa saja</h3><p>Alur kerjanya sama, tinggal ganti idenya.</p>
-        <div class="demo tags" id="vidTags"><span>Explainer</span><span>Promo produk</span><span>Intro & opener</span><span>Iklan jualan</span><span>Konten edukasi</span><span>Kinetic type</span><span>Shorts 9:16</span><span>YouTube 16:9</span></div></article>
+        <div class="demo"><div class="vgrid" id="vidTags" data-all="Explainer|Promo produk|Intro & opener|Iklan jualan|Konten edukasi|Kinetic type|Shorts 9:16|YouTube 16:9"></div></div></article>
     </div>
   </section>
 
@@ -372,11 +380,11 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
         <div class="sticker"><small>HANYA</small><b data-price></b><s data-coret></s></div>
         <h3>Digify Motion Course</h3>
         <ul class="get">
-          <li><i><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4-2.5z"/></svg></i><span><b>Video materi singkat & berurutan</b><small>Langsung praktik dari video pertama.</small></span></li>
+          <li><i><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4-2.5z"/></svg></i><span><b>Video materi lengkap & berurutan</b><small>Langsung praktik dari video pertama.</small></span></li>
           <li><i><svg class="ico" viewBox="0 0 24 24"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></i><span><b>Skill Digify Motion siap pasang</b><small>Sekali pasang di Claude Code, dipakai untuk semua videomu.</small></span></li>
           <li><i><svg class="ico" viewBox="0 0 24 24"><path d="M4 19 10 5l2 5 3-3 5 12z"/></svg></i><span><b>Studi kasus nyata dari nol</b><small>Dikerjakan sungguhan sampai jadi MP4.</small></span></li>
           <li><i><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg></i><span><b>Racik Prompt & Perpustakaan Prompt</b><small>Prompt siap tempel untuk tiap tahap.</small></span></li>
-          <li><i><svg class="ico" viewBox="0 0 24 24"><path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3zM21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/></svg></i><span><b>Kamus Motion</b><small>Istilah animasi lengkap dengan contoh gerak.</small></span></li>
+          <li><i><svg class="ico" viewBox="0 0 24 24"><path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3zM21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/></svg></i><span><b>Kamus Motion & Style Animasi</b><small>Ide referensi style dan istilah animasi lengkap dengan contoh gerak.</small></span></li>
           <li><i><svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 4.5"/></svg></i><span><b>Grup komunitas khusus member</b><small>Tanya kendala dan pamer hasil bareng.</small></span></li>
           <li><i><svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></i><span><b>Materi selalu diupdate gratis</b><small>Materi baru langsung masuk ke akunmu.</small></span></li>
         </ul>
@@ -475,12 +483,12 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 <div class="stick" id="stick"><div><b data-price></b><s data-coret></s><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" href="#daftar">Daftar</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/config.js?v=2611192030"></script>
-<script src="assets/mascot.js?v=2611192030"></script>
-<script src="assets/player.js?v=2611192030"></script>
-<script src="assets/karya.js?v=2611192030"></script>
-<script src="assets/credit.js?v=2611192030"></script>
-<script src="assets/smooth.js?v=2611192030"></script>
+<script src="assets/config.js?v=2611192047"></script>
+<script src="assets/mascot.js?v=2611192047"></script>
+<script src="assets/player.js?v=2611192047"></script>
+<script src="assets/karya.js?v=2611192047"></script>
+<script src="assets/credit.js?v=2611192047"></script>
+<script src="assets/smooth.js?v=2611192047"></script>
 <script>
 // halaman selalu dibuka dari atas (kecuali link menuju bagian tertentu, mis. #daftar)
 if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -542,10 +550,15 @@ document.getElementById('trio').innerHTML=shorts.slice(0,3).map((x,i)=>`<div><b 
     ai.classList.add('in');await wait(1300);ai.classList.add('talk');await type(aiT,B,40);await wait(300);
     mini.classList.add('in');await wait(1900);mini.classList.add('ok');await wait(2400);}run=false;};
   new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)loop()},{threshold:.4}).observe(box);
-  const tg=document.getElementById('vidTags');if(!tg)return;const sp=[...tg.children];let k=0,iv=0;
-  sp.forEach((s,i)=>s.style.transitionDelay=`${i*.07}s`);
-  new IntersectionObserver(e=>{const tv=e[0].isIntersecting;if(tv&&!tg.classList.contains('go')){tg.classList.add('go');setTimeout(()=>sp.forEach(s=>s.style.transitionDelay=''),1200)}
-    clearInterval(iv);if(tv)iv=setInterval(()=>{sp.forEach(s=>s.classList.remove('hot'));sp[k%sp.length].classList.add('hot');k++},850)},{threshold:.4}).observe(tg);
+  // 4 kotak muncul, lalu bergantian satu per satu dengan 4 jenis video lainnya
+  const tg=document.getElementById('vidTags');if(!tg)return;const all=tg.dataset.all.split('|');let set=0,tv=false,trun=false;
+  tg.innerHTML=all.slice(0,4).map((t,i)=>`<span style="transition-delay:${i*.09}s"><b>${esc(t)}</b></span>`).join('');const cells=[...tg.children];
+  const tloop=async()=>{if(trun)return;trun=true;
+    if(!tg.classList.contains('go')){tg.classList.add('go');await wait(900);cells.forEach(c=>c.style.transitionDelay='');}
+    while(tv){await wait(1700);if(!tv)break;set=(set+1)%2;
+      for(let i=0;i<4;i++){const c=cells[i];c.classList.add('flip');await wait(220);c.firstChild.textContent=all[set*4+i];c.classList.remove('flip');c.classList.toggle('alt',set===1);await wait(240);}}
+    trun=false;};
+  new IntersectionObserver(e=>{tv=e[0].isIntersecting;if(tv)tloop()},{threshold:.4}).observe(tg);
 })();
 
 // 04: demo 6 langkah, berjalan sendiri saat terlihat
@@ -582,6 +595,6 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 </script>
-<script src="assets/checkout.js?v=2611192030"></script>
+<script src="assets/checkout.js?v=2611192047"></script>
 </body>
 </html>
