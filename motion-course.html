@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191903">
-<link rel="stylesheet" href="assets/karya.css?v=2611191903">
-<link rel="stylesheet" href="assets/checkout.css?v=2611191903">
+<link rel="stylesheet" href="assets/base.css?v=2611191908">
+<link rel="stylesheet" href="assets/karya.css?v=2611191908">
+<link rel="stylesheet" href="assets/checkout.css?v=2611191908">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 .canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -231,6 +231,12 @@ footer a{color:#cdb3a2}
 @keyframes pop{0%,100%{transform:scale(1)}40%{transform:scale(1.14)}}
 .sb .hrt{animation:up2 1.4s ease-out infinite}
 @keyframes up2{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(-14px);opacity:0}}
+
+/* pemenggalan baris seimbang */
+h1,h2,h3,h4,.lead,.scene,summary{text-wrap:balance}
+p,small,li,blockquote,figcaption{text-wrap:balance}
+.faq details p{text-wrap:pretty}
+@media(max-width:370px){.faq summary{font-size:14px;gap:9px}.faq details{padding:0 14px}}
 </style>
 </head>
 <body>
@@ -336,7 +342,6 @@ footer a{color:#cdb3a2}
     <div class="daftar-head">
       <div class="scene rv">SCENE 06 <span>· DAFTAR</span></div>
       <h2 class="big" id="title">Satu langkah lagi<br><span class="hl">ke kelasmu</span></h2>
-      <p class="lead">Isi data, pilih cara bayar, selesai. Semua langsung di halaman ini.</p>
       <div class="steps" id="steps"><span class="on" data-s="1">1 · Isi data</span><span data-s="2">2 · Bayar</span><span data-s="3">3 · Masuk kelas</span></div>
     </div>
 
@@ -394,14 +399,15 @@ footer a{color:#cdb3a2}
     <div class="scene rv">SCENE 07 <span>· TANYA JAWAB</span></div>
     <h2 class="big rv">Masih <span class="hl">ragu?</span></h2>
     <div class="faq">
-      <details class="rv"><summary><i>Q1</i>Aku nol soal animasi. Bisa ikut?</summary><p>Bisa. Materinya dimulai dari persiapan paling dasar, lalu langsung praktik bikin video pertama yang sudah bersuara.</p></details>
-      <details class="rv"><summary><i>Q2</i>Perlu jago desain atau coding?</summary><p>Tidak. Semua perintah ditulis dengan bahasa sehari-hari. Kode animasinya dikerjakan Claude; tugasmu menilai hasil dan minta revisi.</p></details>
-      <details class="rv"><summary><i>Q3</i>Apa saja yang perlu disiapkan?</summary><p>Laptop Mac atau Windows, akun Claude paket Pro (sudah termasuk Claude Code), dan akun ElevenLabs untuk suara. Langganan itu dibayar terpisah ke penyedianya.</p></details>
-      <details class="rv"><summary><i>Q4</i>Perlu jago menulis prompt?</summary><p>Tidak. Ada Racik Prompt dan Perpustakaan Prompt: tinggal pilih format, durasi, dan gaya, prompt-nya jadi sendiri.</p></details>
-      <details class="rv"><summary><i>Q5</i>Hasil videonya boleh dipakai jualan atau untuk klien?</summary><p>Boleh. Video yang kamu buat sepenuhnya milikmu, untuk Reels, TikTok, YouTube, iklan, atau pekerjaan klien.</p></details>
+      <details class="rv"><summary><i>Q1</i>Nol soal animasi, bisa ikut?</summary><p>Bisa. Materinya dimulai dari persiapan paling dasar, lalu langsung praktik bikin video pertama yang sudah bersuara.</p></details>
+      <details class="rv"><summary><i>Q2</i>Perlu bisa desain/coding?</summary><p>Tidak. Semua perintah ditulis dengan bahasa sehari-hari. Kode animasinya dikerjakan Claude; tugasmu menilai hasil dan minta revisi.</p></details>
+      <details class="rv"><summary><i>Q3</i>Apa yang perlu disiapkan?</summary><p>Laptop Mac atau Windows, akun Claude paket Pro (sudah termasuk Claude Code), dan akun ElevenLabs untuk suara. Langganan itu dibayar terpisah ke penyedianya.</p></details>
+      <details class="rv"><summary><i>Q4</i>Harus jago menulis prompt?</summary><p>Tidak. Ada Racik Prompt dan Perpustakaan Prompt: tinggal pilih format, durasi, dan gaya, prompt-nya jadi sendiri.</p></details>
+      <details class="rv"><summary><i>Q5</i>Boleh untuk jualan & klien?</summary><p>Boleh. Video yang kamu buat sepenuhnya milikmu, untuk Reels, TikTok, YouTube, iklan, atau pekerjaan klien.</p></details>
       <details class="rv"><summary><i>Q6</i>Berapa lama aksesnya?</summary><p>Selamanya. Bayar sekali, dan update materi berikutnya ikut masuk tanpa biaya tambahan.</p></details>
-      <details class="rv"><summary><i>Q7</i>Cara daftar dan bayarnya gimana?</summary><p>Isi formulir di bagian Daftar, pilih QRIS, Virtual Account, atau e-wallet, lalu bayar langsung di halaman ini. Setelah lunas, akses aktif otomatis. Masuk ke halaman member memakai email yang sama.</p></details>
-      <details class="rv"><summary><i>Q8</i>Kalau aku stuck, tanya ke siapa?</summary><p>Ada grup komunitas khusus member untuk tanya kendala dan berbagi hasil. Kamu juga bisa DM Instagram kami.</p></details>
+      <details class="rv"><summary><i>Q7</i>Ada garansinya?</summary><p>Ada, garansi 7 hari uang kembali. Kalau dalam 7 hari sejak bergabung kamu tetap tidak bisa membuat video, hubungi kami lewat DM Instagram dan uangmu kami kembalikan.</p></details>
+      <details class="rv"><summary><i>Q8</i>Cara daftar & bayarnya?</summary><p>Isi formulir di bagian Daftar, pilih QRIS, Virtual Account, atau e-wallet, lalu bayar langsung di halaman ini. Setelah lunas, akses aktif otomatis. Masuk ke halaman member memakai email yang sama.</p></details>
+      <details class="rv"><summary><i>Q9</i>Kalau stuck, tanya siapa?</summary><p>Ada grup komunitas khusus member untuk tanya kendala dan berbagi hasil. Kamu juga bisa DM Instagram kami.</p></details>
     </div>
     <div class="ask panel rv"><span class="masc" data-m="head"></span><div><b>Pertanyaanmu belum ada?</b><small>Kirim DM ke Instagram Digify. Kami bantu jawab.</small><a class="btn btn-line btn-sm" data-ig-dm href="#" target="_blank" rel="noopener">DM di Instagram</a></div></div>
   </section>
@@ -420,10 +426,10 @@ footer a{color:#cdb3a2}
 <div class="stick" id="stick"><div><b data-price></b><s data-coret></s><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" href="#daftar">Daftar</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/config.js?v=2611191903"></script>
-<script src="assets/mascot.js?v=2611191903"></script>
-<script src="assets/player.js?v=2611191903"></script>
-<script src="assets/karya.js?v=2611191903"></script>
+<script src="assets/config.js?v=2611191908"></script>
+<script src="assets/mascot.js?v=2611191908"></script>
+<script src="assets/player.js?v=2611191908"></script>
+<script src="assets/karya.js?v=2611191908"></script>
 <script>
 // halaman selalu dibuka dari atas (kecuali link menuju bagian tertentu, mis. #daftar)
 if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -503,6 +509,6 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 </script>
-<script src="assets/checkout.js?v=2611191903"></script>
+<script src="assets/checkout.js?v=2611191908"></script>
 </body>
 </html>
