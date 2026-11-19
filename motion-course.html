@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191958">
-<link rel="stylesheet" href="assets/karya.css?v=2611191958">
-<link rel="stylesheet" href="assets/checkout.css?v=2611191958">
+<link rel="stylesheet" href="assets/base.css?v=2611192001">
+<link rel="stylesheet" href="assets/karya.css?v=2611192001">
+<link rel="stylesheet" href="assets/checkout.css?v=2611192001">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 .canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -475,11 +475,11 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 <div class="stick" id="stick"><div><b data-price></b><s data-coret></s><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" href="#daftar">Daftar</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/config.js?v=2611191958"></script>
-<script src="assets/mascot.js?v=2611191958"></script>
-<script src="assets/player.js?v=2611191958"></script>
-<script src="assets/karya.js?v=2611191958"></script>
-<script src="assets/credit.js?v=2611191958"></script>
+<script src="assets/config.js?v=2611192001"></script>
+<script src="assets/mascot.js?v=2611192001"></script>
+<script src="assets/player.js?v=2611192001"></script>
+<script src="assets/karya.js?v=2611192001"></script>
+<script src="assets/credit.js?v=2611192001"></script>
 <script>
 // halaman selalu dibuka dari atas (kecuali link menuju bagian tertentu, mis. #daftar)
 if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -521,7 +521,7 @@ document.getElementById('trio').innerHTML=shorts.slice(0,3).map((x,i)=>`<div><b 
   ['Bisnis & UMKM','Butuh konten promosi rutin, tapi budget editor terbatas.','Bikin <b>konten jualan sendiri</b> kapan pun, dengan gaya yang konsisten untuk brand-mu.','bikin iklan 15 detik produk…'],
   ['Guru & edukator','Materi bagus, tapi muridnya cepat bosan.','Ubah materi jadi <b>video penjelasan bergambar</b> yang gampang dipahami.','jelaskan proses fotosintesis…']];
   const tabs=document.getElementById('whoTabs'),box=document.getElementById('whoBox');
-  tabs.innerHTML=W.map((w,i)=>`<button type="button" role="tab" data-i="${i}">${w[0]}</button>`).join('');
+  tabs.innerHTML=W.map((w,i)=>`<button type="button" role="tab" data-i="${i}">${w[0]}</button>`+(i===1?'<i class="brk-d"></i>':'')).join('');
   const show=i=>{tabs.querySelectorAll('button').forEach((b,j)=>{b.classList.remove('on');if(i===j){void b.offsetWidth;b.classList.add('on')}b.setAttribute('aria-selected',i===j)});
     const w=W[i];box.innerHTML=`<p class="pain"><span>${w[1]}</span></p><p class="gain">${w[2]}</p><code><span class="ty"></span><b class="car"></b></code>`;box.classList.remove('swapin');void box.offsetWidth;box.classList.add('swapin');
     cur=i;clearTimeout(tt);const ty=box.querySelector('.ty'),txt=w[3];let n=0;tt=setTimeout(function go(){ty.textContent=txt.slice(0,++n);if(n<txt.length)tt=setTimeout(go,43)},1500);
@@ -581,6 +581,6 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 </script>
-<script src="assets/checkout.js?v=2611191958"></script>
+<script src="assets/checkout.js?v=2611192001"></script>
 </body>
 </html>
