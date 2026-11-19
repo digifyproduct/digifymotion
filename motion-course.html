@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191843">
-<link rel="stylesheet" href="assets/karya.css?v=2611191843">
-<link rel="stylesheet" href="assets/checkout.css?v=2611191843">
+<link rel="stylesheet" href="assets/base.css?v=2611191850">
+<link rel="stylesheet" href="assets/karya.css?v=2611191850">
+<link rel="stylesheet" href="assets/checkout.css?v=2611191850">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 .canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -209,9 +209,8 @@ footer a{color:#cdb3a2}
     <h1><span class="ln"><span>Ubah ide jadi</span></span><span class="ln"><span class="hl">video animasi.</span></span></h1>
     <p class="lead">Cukup ngobrol dengan AI di Claude Code. Naskah, gambar, gerak, suara, sampai file MP4 dikerjakan untukmu, tanpa After Effects dan tanpa editor.</p>
     <div class="acts"><a class="btn btn-or" href="#daftar">Daftar sekarang · <span data-price></span></a><a class="btn btn-line" href="#hasil">Lihat hasilnya</a></div>
-    <div class="note">sekali bayar · akses selamanya · bayar langsung di halaman ini</div>
+    <div class="note">sekali bayar · akses selamanya</div>
     <div class="mon rv"><div class="screen" id="tv"></div><nav class="eps" id="eps" aria-label="Daftar video"></nav></div>
-    <div class="proof rv"><span>MP4 bersuara</span><span>9:16 & 16:9</span><span>revisi lewat chat</span><span>ramah pemula</span></div>
   </div>
 
   <!-- 01 MEMPERKENALKAN -->
@@ -370,7 +369,7 @@ footer a{color:#cdb3a2}
     <span class="masc" data-act="mega"></span>
     <h2>Idemu<br><span class="o">berikutnya,</span><br><span class="hl">action!</span></h2>
     <a class="btn btn-or" href="#daftar">Daftar sekarang · <span data-price></span></a>
-    <p>sekali bayar · akses selamanya</p>
+    <p>Garansi 7 hari uang kembali jika tidak bisa membuat video.</p>
   </section>
 </main>
 
@@ -379,10 +378,10 @@ footer a{color:#cdb3a2}
 <div class="stick" id="stick"><div><b data-price></b><s data-coret></s><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" href="#daftar">Daftar</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/config.js?v=2611191843"></script>
-<script src="assets/mascot.js?v=2611191843"></script>
-<script src="assets/player.js?v=2611191843"></script>
-<script src="assets/karya.js?v=2611191843"></script>
+<script src="assets/config.js?v=2611191850"></script>
+<script src="assets/mascot.js?v=2611191850"></script>
+<script src="assets/player.js?v=2611191850"></script>
+<script src="assets/karya.js?v=2611191850"></script>
 <script>
 // halaman selalu dibuka dari atas (kecuali link menuju bagian tertentu, mis. #daftar)
 if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -445,6 +444,6 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 </script>
-<script src="assets/checkout.js?v=2611191843"></script>
+<script src="assets/checkout.js?v=2611191850"></script>
 </body>
 </html>

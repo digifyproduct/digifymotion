@@ -62,7 +62,9 @@ const bankName = code => {
   return map[k] || k.toUpperCase();
 };
 const WALLET = { dana: 'DANA', gopay: 'GoPay', ovo: 'OVO', shopeepay: 'ShopeePay', linkaja: 'LinkAja' };
-const logo = code => LOGO[code] || SV(T(esc((code.startsWith('va_') ? bankName(code).split(' ')[0] : code).toUpperCase().slice(0, 8)), '#2a0b00', 40, 19, 13));
+// logo resmi (gambar) untuk metode utama
+const IMG = { qris: 'qris', dana: 'dana', va_bca: 'bca', va_bni: 'bni', va_bri: 'bri', va_mandiri: 'mandiri' };
+const logo = code => IMG[code] ? `<img src="assets/img/pay/${IMG[code]}.webp" alt="" draggable="false">` : LOGO[code] || SV(T(esc((code.startsWith('va_') ? bankName(code).split(' ')[0] : code).toUpperCase().slice(0, 8)), '#2a0b00', 40, 19, 13));
 const label = code => code === 'qris' ? ['QRIS', 'Scan pakai e-wallet / m-banking apa saja']
   : code.startsWith('va_') ? ['Virtual Account ' + bankName(code), 'Transfer ke nomor VA']
   : WALLET[code] ? [WALLET[code], 'Bayar lewat aplikasi ' + WALLET[code]] : [code.toUpperCase(), ''];
