@@ -3,8 +3,9 @@
 // Markup: <h2 class="credit"><span class="cl"><small>Disutradarai oleh</small><b>kamu</b></span><span class="cl">…</span></h2>
 (() => {
   const css = `
-.action h2.credit,h2.credit{display:grid;justify-items:center;margin:0 0 22px;font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(28px,8.6vw,52px);line-height:1;white-space:nowrap;text-wrap:nowrap}
-.credit .cl{grid-area:1/1;display:block;white-space:nowrap;text-wrap:nowrap}
+.action h2.credit,h2.credit{display:grid;justify-items:center;margin:0 0 22px;font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(28px,8.6vw,46px);line-height:1;white-space:nowrap;text-wrap:nowrap}
+.credit .cl{grid-area:1/1;display:block}
+.credit .cl,.credit .cl *{white-space:nowrap;text-wrap:nowrap}
 .credit .cl small,.credit .cl b{font:inherit;color:#fff3e8}
 .credit .cl b{color:var(--or2)}
 .credit .ch{display:inline-block;opacity:0;transform:translateY(.5em);filter:blur(5px);transition:opacity .4s,transform .5s cubic-bezier(.2,1.4,.4,1),filter .4s;transition-delay:var(--d,0s)}
