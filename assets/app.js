@@ -181,7 +181,7 @@ function racikFields() {
     add('Untuk siapa?', txt('penonton', 'contoh: anak SMP, ibu muda, pemilik UMKM'));
     f.push(`<div class="row2">${F(n++, 'Durasi', sel('durasi', ['15 detik', '20 detik', '30 detik', '35 detik', '45 detik', '60 detik']))}${F(n++, 'Format', sel('format', ['16:9 untuk YouTube', '9:16 untuk Reels/TikTok/Shorts', '1:1 untuk feed']))}</div>`);
     add('Nuansa', sel('nuansa', ['santai', 'ceria', 'serius', 'sinematik', 'lucu', 'menegangkan']));
-    add('Gaya visual', `<select class="inp" data-r="gaya"><option value="tawarkan" ${R.gaya === 'tawarkan' ? 'selected' : ''}>belum tahu, tawarkan 3 pilihan</option>${X.gaya.map(g => `<option value="${g.id}" ${R.gaya === g.id ? 'selected' : ''}>${esc(g.nama)}</option>`).join('')}</select>`);
+    add('Style Visual', `<select class="inp" data-r="gaya"><option value="tawarkan" ${R.gaya === 'tawarkan' ? 'selected' : ''}>belum tahu, tawarkan 3 pilihan</option>${(X.style || []).map(g => `<option value="${g.id}" ${R.gaya === g.id ? 'selected' : ''}>${esc(g.nama)}</option>`).join('')}</select>`);
     add('Suara <small style="color:var(--soft);font-weight:700">ElevenLabs</small>', `<label class="tog"><input type="checkbox" data-r="vo" ${R.vo ? 'checked' : ''}>Voiceover</label><label class="tog"><input type="checkbox" data-r="sfx" ${R.sfx ? 'checked' : ''}>Efek suara</label>`);
   } else if (s === 'Naskah') {
     add('Topik', txt('topik', 'contoh: kenapa bulan ngikutin kita?', 1));
@@ -207,10 +207,10 @@ function racikFields() {
 function racikGen() {
   const s = R.stage, v = (x, ph) => (x || '').trim() || `[${ph}]`;
   if (s === 'Brief') {
-    const g = X.gaya.find(g => g.id === R.gaya);
+    const g = (X.style || []).find(g => g.id === R.gaya);
     const suara = R.vo && R.sfx ? 'pakai voiceover dan efek suara dari ElevenLabs.' : R.vo ? 'pakai voiceover dari ElevenLabs, tanpa efek suara.' : R.sfx ? 'efek suara saja, tanpa voiceover.' : 'tanpa suara.';
     return `bikin ${R.jenis} ${R.durasi}: ${v(R.topik, 'topik')}. untuk ${v(R.penonton, 'penonton')}. format ${R.format}. nuansa ${R.nuansa}. ${suara}\n`
-      + (g ? `gaya: ${g.nama.toLowerCase()} — ${g.ciri.join(', ').toLowerCase()}.\n` : 'sebelum mulai, tawarkan 3 pilihan gaya visual, nanti aku pilih.\n')
+      + (g ? `style ${g.nama}: ${g.ciri}.\n` : 'sebelum mulai, tawarkan 3 pilihan style visual, nanti aku pilih.\n')
       + 'tulis rencananya dulu (adegan, naskah, perkiraan kredit) sebelum membuat apa pun.';
   }
   if (s === 'Naskah') return `tulis naskah video ${R.durasi} tentang ${v(R.topik, 'topik')}, untuk ${v(R.penonton, 'penonton')}, nuansa ${R.nuansa}. bagi jadi 5 adegan, tiap adegan maksimal 2 kalimat. buka dengan hook maksimal 8 kata. jangan buat animasi dulu, tunggu persetujuanku.`;
