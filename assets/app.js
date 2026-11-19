@@ -80,7 +80,7 @@ function shell(route, html) {
   <div class="top-m"><a class="brand" href="#/beranda"><img src="assets/img/logo-digify.png" alt="">DIGIFY</a>
     <button data-act="menu" aria-label="Menu">${ic('menu')}</button></div>
   <aside class="side">
-    <a class="brand" href="./"><img src="assets/img/logo-digify.png" alt=""><span>DIGIFY<small>Motion Course</small></span></a>
+    <a class="brand" href="#/beranda"><img src="assets/img/logo-digify.png" alt=""><span>DIGIFY<small>Motion Course</small></span></a>
     ${NAV.map(([h, items]) => `<h6>${h}</h6><nav class="nav">${items.map(([r, n, i, b]) =>
       `<a href="#/${r}" class="${r === act ? 'on' : ''}">${ic(i)}${n}${b ? `<span class="beta">${b}</span>` : ''}</a>`).join('')}</nav>`).join('')}
     <div class="mine"><small>KELASMU</small><b>${esc(S.namaKelas)}</b><span>Akses selamanya</span></div>
