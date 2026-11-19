@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191636">
+<link rel="stylesheet" href="assets/base.css?v=2611191642">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 /* kanvas editor: grid tipis + cahaya oranye */
@@ -68,6 +68,35 @@ section{padding-block:52px;scroll-margin-top:50px}
 .tag.t3{left:30%;bottom:0;animation:hover 4.2s ease-in-out 1.6s infinite}
 .say{position:absolute;right:30%;bottom:46%;background:var(--or);color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:14px 14px 4px 14px;opacity:0;animation:say 6s ease-in-out 1.5s infinite}
 @keyframes say{0%,8%{opacity:0;transform:translateY(6px)}14%,46%{opacity:1;transform:none}54%,100%{opacity:0}}
+/* kotak demo chat di hero */
+.chatdemo{max-width:460px;margin:30px auto 0;text-align:left;background:#fff8ef;color:var(--text);border-radius:22px;box-shadow:0 0 0 1px rgba(255,138,61,.35),0 30px 60px -24px #000,0 0 80px -30px var(--orglow);overflow:hidden}
+.cd-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid #f0dcc8}
+.cd-app{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px}
+.cd-app svg{width:20px;height:20px;stroke:var(--or);stroke-width:2.2;fill:none;stroke-linecap:round}
+.cd-skill{background:var(--ink);color:#fff;border-radius:999px;padding:6px 12px;font-size:11.5px;font-weight:800;white-space:nowrap}
+.cd-body{padding:16px;display:grid;gap:12px;min-height:350px;align-content:start}
+.cd-me{justify-self:end;max-width:88%;background:var(--ink);color:#fff;border-radius:16px 16px 4px 16px;padding:11px 14px;font-size:15px;line-height:1.45;min-height:22px}
+.cd-me b{color:var(--or2)}
+.cd-caret{display:inline-block;width:2px;height:1.05em;background:var(--or2);vertical-align:-2px;margin-left:2px;animation:cdBlink .9s steps(1) infinite}
+@keyframes cdBlink{50%{opacity:0}}
+.cd-ai{justify-self:start;max-width:94%;background:#fff;border:1.5px solid #f0dcc8;border-radius:16px 16px 16px 4px;padding:11px 14px;font-size:14.5px;animation:cdIn .35s ease-out both}
+@keyframes cdIn{from{opacity:0;transform:translateY(8px)}}
+#cdWork{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:700;color:var(--muted)}
+#cdWork[hidden],#cdRes[hidden]{display:none}
+.cd-dots{display:flex;gap:4px}.cd-dots i{width:6px;height:6px;border-radius:50%;background:var(--or);animation:cdDot 1s ease-in-out infinite}
+.cd-dots i:nth-child(2){animation-delay:.15s}.cd-dots i:nth-child(3){animation-delay:.3s}
+@keyframes cdDot{50%{transform:translateY(-4px);opacity:.4}}
+.cd-bar{flex-basis:100%;height:5px;border-radius:5px;background:#f3e3d3;overflow:hidden}.cd-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--or),var(--or2));transition:width .3s linear}
+.cd-res p{margin:0 0 10px;font-weight:600}
+.cd-card{all:unset;display:flex;gap:14px;align-items:center;cursor:pointer}
+.cd-th{position:relative;width:96px;aspect-ratio:9/16;border-radius:12px;overflow:hidden;background:#111;box-shadow:5px 5px 0 #f0dcc8;flex:none}
+.cd-th img{width:100%;height:100%;object-fit:cover}
+.cd-play{position:absolute;left:50%;top:50%;width:38px;height:38px;translate:-50% -50%;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.35);transition:transform .2s}
+.cd-play::after{content:"";position:absolute;left:13px;top:9px;border:8px solid transparent;border-left:12px solid #fff;border-right:0}
+.cd-card:hover .cd-play{transform:scale(1.12)}
+.cd-meta b{display:block;font-size:16px;word-break:break-all}.cd-meta small{display:block;color:var(--muted);font-weight:600;margin:2px 0 10px}
+.cd-meta em{font-style:normal;font-weight:800;color:var(--or)}
+@media (max-width:600px){.chatdemo{margin-top:24px}.cd-body{min-height:345px}.cd-me{font-size:14.5px}}
 /* ===== SCENE 02 paket ===== */
 .pack{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:start}
 .clap{background:var(--paper);color:var(--text);border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -30px #000}
@@ -275,6 +304,20 @@ h2.big{text-align:center;font-size:clamp(34px,10vw,48px)}
       <span class="chip-line"><b>BARU</b>Kelas online · Digify Motion Course</span>
       <h1><span class="ln"><span>Ketik idenya.</span></span><span class="ln"><span class="o">Jadi video</span></span><span class="ln"><span class="hl">animasi.</span></span></h1>
       <p class="lead">Belajar bikin video animasi tanpa sewa editor, tanpa software editing. AI yang selesaikan videonya.</p>
+      <div class="chatdemo" id="chatdemo" aria-label="Contoh: bikin video lewat chat">
+        <div class="cd-top"><span class="cd-app"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>Claude Code</span><span class="cd-skill">+ skill digify motion</span></div>
+        <div class="cd-body">
+          <div class="cd-me"><span id="cdTyped"></span><i class="cd-caret"></i></div>
+          <div class="cd-ai" id="cdWork" hidden><span class="cd-dots"><i></i><i></i><i></i></span><span id="cdStep">menulis naskah…</span><span class="cd-bar"><i id="cdBar"></i></span></div>
+          <div class="cd-ai cd-res" id="cdRes" hidden>
+            <p>Videonya jadi, udah bersuara ✓</p>
+            <button type="button" class="cd-card" id="cdCard" aria-label="Tonton hasilnya">
+              <span class="cd-th"><img id="cdImg" alt=""><span class="cd-play" aria-hidden="true"></span></span>
+              <span class="cd-meta"><b id="cdFile">video.mp4</b><small>9:16 · MP4 bersuara</small><em>▶ tonton hasilnya</em></span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -363,11 +406,11 @@ h2.big{text-align:center;font-size:clamp(34px,10vw,48px)}
 <a class="fab" data-ig-dm href="#" target="_blank" rel="noopener" aria-label="DM Instagram"><span class="bub">tanya dulu? 💬</span><span class="hd"><span class="masc" data-m="full"></span></span></a>
 
 
-<script src="assets/config.js?v=2611191636"></script>
-<script src="assets/public.js?v=2611191636"></script>
-<script src="assets/mascot.js?v=2611191636"></script>
-<script src="assets/player.js?v=2611191636"></script>
-<script src="assets/karya.js?v=2611191636"></script>
+<script src="assets/config.js?v=2611191642"></script>
+<script src="assets/public.js?v=2611191642"></script>
+<script src="assets/mascot.js?v=2611191642"></script>
+<script src="assets/player.js?v=2611191642"></script>
+<script src="assets/karya.js?v=2611191642"></script>
 <script>
 const S=window.SITE, C=window.PUB;
 const tick='<svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
@@ -381,6 +424,36 @@ document.querySelectorAll('[data-ig-dm]').forEach(e=>e.href=dm);
 const total=C.totalSeconds, lessons={length:C.lessonCount};
 document.getElementById('ticks').innerHTML=['Tanpa After Effects & coding','Naskah sampai render digarap AI','Reels 9:16 dan YouTube 16:9','Revisi cukup satu kalimat','Materi selalu diupdate gratis','Skill siap pasang + alat prompt'].map(t=>`<li>${tick}${t}</li>`).join('');
 // film strip & layar: lihat assets/karya.js
+// kotak demo chat: ketik prompt → proses → hasil video (Shorts asli dari karya.js)
+(()=>{
+  const D=[['bikinin Shorts 30 detik cara bedain ','ikan koi Kohaku, Sanke & Showa','w6uPqYqbSv8','ikan-koi.mp4'],
+    ['bikin video kisah ','SpaceX nyaris bangkrut di 2008','NVebMedytuY','spacex-2008.mp4'],
+    ['jelasin cara ','mesin las melelehkan besi',      'HzOSZtuP500','mesin-las.mp4'],
+    ['bikinin Shorts asal-usul nama ','Studio Ghibli','30BK5EyCCrc','ghibli.mp4'],
+    ['video peta ','migrasi burung jenjang lewat 3 negara','HewaQ7GXloI','burung-jenjang.mp4']];
+  const $=id=>document.getElementById(id), box=$('chatdemo'); if(!box) return;
+  const typed=$('cdTyped'), work=$('cdWork'), res=$('cdRes'), step=$('cdStep'), bar=$('cdBar');
+  const STEPS=['menulis naskah…','merekam suara…','menganimasikan adegan…','render MP4…'];
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const set=(a,b)=>typed.innerHTML=a.replace(/</g,'&lt;')+(b?'<b>'+b.replace(/</g,'&lt;')+'</b>':'');
+  const show=d=>{$('cdImg').src='https://i.ytimg.com/vi/'+d[2]+'/oar2.jpg';$('cdFile').textContent=d[3];$('cdCard').dataset.yt=d[2];};
+  if(reduce){const d=D[0];set(d[0],d[1]);show(d);res.hidden=false;return;}
+  let vis=true; new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(box);
+  (async()=>{
+    for(let k=0;;k=(k+1)%D.length){
+      const d=D[k]; while(!vis) await wait(400);
+      work.hidden=true; res.hidden=true; set('',''); new Image().src='https://i.ytimg.com/vi/'+d[2]+'/oar2.jpg';
+      await wait(500);
+      const full=d[0]+d[1];
+      for(let i=1;i<=full.length;i++){ set(full.slice(0,Math.min(i,d[0].length)), i>d[0].length?full.slice(d[0].length,i):''); await wait(38+Math.random()*40); }
+      await wait(450); work.hidden=false; bar.style.width='0';
+      for(let i=0;i<STEPS.length;i++){ step.textContent=STEPS[i]; bar.style.width=((i+1)/STEPS.length*100)+'%'; await wait(650); }
+      await wait(250); work.hidden=true; show(d); res.hidden=false;
+      await wait(4200);
+    }
+  })();
+})();
 // timeline langkah
 const steps=[['Ide','tulis brief 5 hal','bikin explainer 35 detik…'],['Naskah','AI menulis 5 adegan','setuju, lanjut'],['Suara','voiceover + efek','tes suara adegan 1'],['Animasi','visual & gerak','adegan 2 lebih besar'],['MP4','siap diunggah','render jadi mp4']];
 const keysEl=document.getElementById('keys');
