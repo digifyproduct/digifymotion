@@ -9,8 +9,9 @@
 
   function smoothTo(el) {
     const off = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
-    const max = document.documentElement.scrollHeight - innerHeight;
-    const to = Math.max(0, Math.min(max, el.getBoundingClientRect().top + scrollY - off));
+    // posisi tujuan dihitung ulang tiap frame → tidak "loncat" bila tata letak berubah di tengah jalan
+    const target = () => Math.max(0, Math.min(document.documentElement.scrollHeight - innerHeight, el.getBoundingClientRect().top + scrollY - off));
+    let to = target();
     const from = scrollY, dist = to - from;
     if (reduce || Math.abs(dist) < 2) { scrollTo(0, to); return; }
     const dur = Math.min(1200, Math.max(550, Math.abs(dist) * .45));
@@ -20,7 +21,8 @@
     const t0 = performance.now();
     const step = now => {
       const p = Math.min(1, (now - t0) / dur);
-      scrollTo(0, from + dist * ease(p));
+      to = target();
+      scrollTo(0, from + (to - from) * ease(p));
       if (p < 1) anim = requestAnimationFrame(step); else { anim = 0; root.style.scrollBehavior = prev; }
     };
     anim = requestAnimationFrame(step);

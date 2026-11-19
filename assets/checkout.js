@@ -152,7 +152,7 @@ $('form').addEventListener('submit', async e => {
     if (!slug) throw new Error('Pesanan tidak terbentuk');
     try { localStorage.setItem(KEY_SLUG, JSON.stringify({ slug, method: picked, email })); } catch (e) {}
     showPayment(slug, picked, email);
-    setTimeout(() => $('pay').scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+    setTimeout(() => window.smoothTo ? smoothTo($('pay')) : $('pay').scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   } catch (err) {
     $('err').textContent = 'Gagal membuat pesanan: ' + err.message; $('err').hidden = false;
     b.disabled = false; b.textContent = 'Bayar sekarang';
