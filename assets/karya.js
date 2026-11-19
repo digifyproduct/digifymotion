@@ -46,6 +46,9 @@ window.KARYA = {
       : `<button type="button" class="tv-play" aria-label="Putar video"><img src="${thumb16(id)}" onerror="${fb16}" alt=""><span class="big-play" aria-hidden="true"></span>
          <div class="hud"><span data-tt="${id}">${esc(titles[id] || 'Video Digify')}</span><span class="pb"><i></i></span><span>16:9</span></div></button>`;
     eps && eps.querySelectorAll('.ep').forEach((e, j) => e.classList.toggle('on', j === i));
+    // garis durasi penuh → tampilkan video berikutnya (tidak diputar sampai tombol play ditekan)
+    const bar = !play && vids.length > 1 && tv.querySelector('.pb i');
+    if (bar) { bar.style.animation = 'pb 7s linear 1 forwards'; bar.addEventListener('animationend', () => showTv((cur + 1) % vids.length, false), { once: true }); }
   }
   if (tv && vids.length) {
     tv.addEventListener('click', e => { if (e.target.closest('.tv-play')) showTv(cur, true); });
@@ -65,7 +68,7 @@ window.KARYA = {
     film.innerHTML = one + one;   // dua kali agar bisa berputar tanpa ujung
     const box = film.parentElement, sc = document.createElement('div');
     sc.className = 'film-scroll'; box.insertBefore(sc, film); sc.appendChild(film); box.classList.add('manual');
-    box.insertAdjacentHTML('beforeend', '<button type="button" class="film-nav l" aria-label="Geser ke kiri">‹</button><button type="button" class="film-nav r" aria-label="Geser ke kanan">›</button>');
+    box.insertAdjacentHTML('afterend', '<div class="film-navs"><button type="button" class="film-nav l" aria-label="Geser ke kiri">‹</button><button type="button" class="film-nav r" aria-label="Geser ke kanan">›</button></div>');
     const half = () => film.scrollWidth / 2;
     let pos = 0, idleUntil = 0, drag = null, moved = false, vis = true;
     const hold = (ms = 2500) => { idleUntil = performance.now() + ms; };
@@ -76,7 +79,7 @@ window.KARYA = {
     addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 5) moved = true; sc.scrollLeft = drag.s - dx; wrap(); hold(); });
     addEventListener('pointerup', () => { if (drag) { drag = null; box.classList.remove('dragging'); hold(); } });
     sc.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
-    box.querySelectorAll('.film-nav').forEach(b => b.addEventListener('click', () => {
+    box.nextElementSibling.querySelectorAll('.film-nav').forEach(b => b.addEventListener('click', () => {
       hold(3500); const step = (film.firstElementChild?.offsetWidth || 150) + 12;
       if (b.classList.contains('l') && sc.scrollLeft < step) sc.scrollLeft += half();
       sc.scrollBy({ left: b.classList.contains('l') ? -step * 2 : step * 2, behavior: 'smooth' });
