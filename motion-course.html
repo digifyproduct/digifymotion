@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191943">
-<link rel="stylesheet" href="assets/karya.css?v=2611191943">
-<link rel="stylesheet" href="assets/checkout.css?v=2611191943">
+<link rel="stylesheet" href="assets/base.css?v=2611191953">
+<link rel="stylesheet" href="assets/karya.css?v=2611191953">
+<link rel="stylesheet" href="assets/checkout.css?v=2611191953">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 .canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -174,12 +174,12 @@ section{padding-block:34px;scroll-margin-top:60px}
 .ask .masc{width:64px;flex:none}
 .ask b{display:block}.ask small{display:block;color:#b99a86;font-weight:600;font-size:13.5px;margin:2px 0 10px}
 /* akhir */
-.action{text-align:center;padding:60px 0 110px}
+.action{text-align:center;padding:40px 0 34px}
 .action .masc{width:160px;margin:0 auto 10px;display:block}
 .action h2{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(50px,14vw,84px);line-height:.92;margin:0 0 18px}
 .action h2 .o{color:transparent;-webkit-text-stroke:2px var(--or2)}
 .action p{color:#cdb3a2;margin:14px 0 0}
-footer{border-top:1px solid #2e1c10;padding:22px 16px 100px;text-align:center;color:#8d6f5c;font-size:13px;font-family:var(--fm)}
+footer{border-top:1px solid #2e1c10;padding:18px 16px 92px;text-align:center;color:#8d6f5c;font-size:13px;font-family:var(--fm)}
 footer a{color:#cdb3a2}
 /* bilah harga menempel */
 .stick{position:fixed;left:50%;bottom:14px;translate:-50% 0;z-index:30;width:min(520px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(31,18,9,.92);backdrop-filter:blur(10px);border:1px solid #4a2e1b;border-radius:18px;padding:10px 10px 10px 16px;box-shadow:0 20px 40px -16px #000;transform:translateY(140%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
@@ -274,6 +274,17 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 @keyframes tail{from{transform:scaleY(.75) skewY(-8deg)}to{transform:scaleY(1) skewY(8deg)}}
 .sb .rip{transform-origin:center;animation:rip 2.2s ease-out infinite}
 @keyframes rip{from{transform:scale(.3);opacity:.9}to{transform:scale(2.4);opacity:0}}
+
+/* revisi 4 */
+.br-m{display:none}
+@media(max-width:600px){.br-m{display:inline}.action{padding-top:10px}}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;perspective:600px}
+@media(max-width:600px){.sgrid{grid-template-columns:repeat(2,1fr)}}
+.sgrid span{display:grid;place-items:center;min-height:46px;padding:6px 8px;border-radius:12px;background:#fff;border:1.5px solid #f0dcc8;text-align:center;font-weight:800;font-size:13px;line-height:1.2;color:var(--text);transition:transform .22s ease-in,background .3s,border-color .3s,color .3s;transform-origin:center}
+.sgrid span:nth-child(odd){background:var(--orsoft);border-color:#ffc79f;color:#9a3a08}
+.sgrid span.alt:nth-child(odd){background:#fff;border-color:#f0dcc8;color:var(--text)}
+.sgrid span.alt:nth-child(even){background:var(--orsoft);border-color:#ffc79f;color:#9a3a08}
+.sgrid span.flip{transform:rotateX(90deg)}
 </style>
 </head>
 <body>
@@ -345,7 +356,7 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
     <div class="scene rv">SCENE 04 <span>· CARA PAKAI</span></div>
     <div class="sm rv"><span class="masc" data-act="type"></span></div>
     <h2 class="big rv">Segampang <span class="hl">ngobrol</span></h2>
-    <p class="lead rv">Tidak perlu <span class="nw">hafal prompt rumit.</span> Ceritakan idenya, pilih konsepnya, sisanya dikerjakan AI.</p>
+    <p class="lead rv">Tidak perlu <span class="nw">hafal prompt rumit.</span> <br class="br-m">Ceritakan idenya, pilih konsepnya, sisanya dikerjakan AI.</p>
     <div class="how-box panel rv"><div class="how-nav" id="howNav"></div><div class="how-screen" id="howScreen"></div></div>
   </section>
 
@@ -367,7 +378,7 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
           <li><i><svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 4.5"/></svg></i><span><b>Grup komunitas khusus member</b><small>Tanya kendala dan pamer hasil bareng.</small></span></li>
           <li><i><svg class="ico" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></i><span><b>Materi selalu diupdate gratis</b><small>Materi baru langsung masuk ke akunmu.</small></span></li>
         </ul>
-        <div class="styles"><h4>Style Visual Animasi</h4><p>Tinggal sebut gayanya, atau racik sendiri.</p><div class="tags" id="styleTags"></div></div>
+        <div class="styles"><h4>Style Visual Animasi</h4><p>Tinggal sebut gayanya, atau racik sendiri.</p><div class="sgrid" id="styleTags"></div></div>
         <div class="cta"><a class="btn btn-or" href="#daftar">Daftar sekarang · <span data-price></span></a><p>Bayar langsung di bawah. Akses aktif otomatis setelah lunas.</p></div>
       </div>
     </article>
@@ -462,11 +473,11 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 <div class="stick" id="stick"><div><b data-price></b><s data-coret></s><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" href="#daftar">Daftar</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/config.js?v=2611191943"></script>
-<script src="assets/mascot.js?v=2611191943"></script>
-<script src="assets/player.js?v=2611191943"></script>
-<script src="assets/karya.js?v=2611191943"></script>
-<script src="assets/credit.js?v=2611191943"></script>
+<script src="assets/config.js?v=2611191953"></script>
+<script src="assets/mascot.js?v=2611191953"></script>
+<script src="assets/player.js?v=2611191953"></script>
+<script src="assets/karya.js?v=2611191953"></script>
+<script src="assets/credit.js?v=2611191953"></script>
 <script>
 // halaman selalu dibuka dari atas (kecuali link menuju bagian tertentu, mis. #daftar)
 if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -492,7 +503,15 @@ document.getElementById('trio').innerHTML=shorts.slice(0,3).map((x,i)=>`<div><b 
 
 // 02 & 05: jumlah dan daftar gaya
 
-document.getElementById('styleTags').innerHTML=[...styles.map(s=>s.replace(/ Style$/,'')),'Kartun Cel','Promo Produk','Puluhan Style Animasi Lainnya','Buat Style Sendiri'].map(s=>`<span>${esc(s)}</span>`).join('');
+// 05: 6 kotak style, berganti satu per satu ke 6 style berikutnya
+(()=>{const all=[...styles.map(s=>s.replace(/ Style$/,'')),'Kartun Cel','Promo Produk','Puluhan Style Animasi Lainnya','Buat Style Sendiri'];
+  while(all.length%6)all.push(all[all.length%6]);
+  const g=document.getElementById('styleTags'),sets=all.length/6;let set=0,vis=false,run=false;
+  g.innerHTML=all.slice(0,6).map(s=>`<span><b>${esc(s)}</b></span>`).join('');
+  const cells=[...g.children],wait=ms=>new Promise(r=>setTimeout(r,ms));
+  const loop=async()=>{if(run)return;run=true;while(vis){await wait(1800);if(!vis)break;set=(set+1)%sets;
+    for(let i=0;i<6;i++){const c=cells[i];c.classList.add('flip');await wait(220);c.firstChild.textContent=all[set*6+i];c.classList.remove('flip');c.classList.toggle('alt',set%2===1);await wait(260);}}run=false;};
+  new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)loop()},{threshold:.4}).observe(g);})();
 
 // 03: tab untuk siapa
 (()=>{const W=[['Pemula','Buka software animasi, lihat timeline, langsung pusing.','Kamu cukup <b>menulis permintaan</b>. Tidak ada timeline atau keyframe yang perlu dipelajari.','bikin video 30 detik tentang…'],
@@ -503,7 +522,7 @@ document.getElementById('styleTags').innerHTML=[...styles.map(s=>s.replace(/ Sty
   tabs.innerHTML=W.map((w,i)=>`<button type="button" role="tab" data-i="${i}">${w[0]}</button>`).join('');
   const show=i=>{tabs.querySelectorAll('button').forEach((b,j)=>{b.classList.remove('on');if(i===j){void b.offsetWidth;b.classList.add('on')}b.setAttribute('aria-selected',i===j)});
     const w=W[i];box.innerHTML=`<p class="pain"><span>${w[1]}</span></p><p class="gain">${w[2]}</p><code><span class="ty"></span><b class="car"></b></code>`;box.classList.remove('swapin');void box.offsetWidth;box.classList.add('swapin');
-    cur=i;clearTimeout(tt);const ty=box.querySelector('.ty'),txt=w[3];let n=0;tt=setTimeout(function go(){ty.textContent=txt.slice(0,++n);if(n<txt.length)tt=setTimeout(go,24)},1500);
+    cur=i;clearTimeout(tt);const ty=box.querySelector('.ty'),txt=w[3];let n=0;tt=setTimeout(function go(){ty.textContent=txt.slice(0,++n);if(n<txt.length)tt=setTimeout(go,30)},1500);
     clearTimeout(nx);nx=setTimeout(()=>{if(vis&&Date.now()>user)show((cur+1)%W.length);else nx=setTimeout(()=>show(cur),1000)},5600);};
   let cur=0,tt=0,nx=0,vis=false,user=0;tabs.style.setProperty('--dur','5600ms');
   new IntersectionObserver(e=>{vis=e[0].isIntersecting},{threshold:.3}).observe(box);
@@ -516,8 +535,8 @@ document.getElementById('styleTags').innerHTML=[...styles.map(s=>s.replace(/ Sty
   const type=async(el,txt,sp)=>{for(let i=1;i<=txt.length;i++){el.textContent=txt.slice(0,i);await wait(sp)}};
   const loop=async()=>{if(run)return;run=true;while(vis){
     me.className='bub me';ai.className='bub ai';mini.className='mini';meT.textContent='';aiT.textContent='';await wait(300);
-    me.classList.add('in');await type(meT,A,24);me.classList.add('done');await wait(450);
-    ai.classList.add('in');await wait(1300);ai.classList.add('talk');await type(aiT,B,22);await wait(300);
+    me.classList.add('in');await type(meT,A,30);me.classList.add('done');await wait(450);
+    ai.classList.add('in');await wait(1300);ai.classList.add('talk');await type(aiT,B,28);await wait(300);
     mini.classList.add('in');await wait(1900);mini.classList.add('ok');await wait(2400);}run=false;};
   new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)loop()},{threshold:.4}).observe(box);
   const tg=document.getElementById('vidTags');if(!tg)return;const sp=[...tg.children];let k=0,iv=0;
@@ -560,6 +579,6 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 </script>
-<script src="assets/checkout.js?v=2611191943"></script>
+<script src="assets/checkout.js?v=2611191953"></script>
 </body>
 </html>
