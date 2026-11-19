@@ -406,7 +406,7 @@ const tabBtn = (v, label) => `<button type="button" class="pill ${loginView === 
 function pMasuk() {
   const m = loginMsg, em = esc(pendingEmail);
   const shell = (inner, head = '') => `<div class="login"><div class="card"><span class="masc login-m"></span><span class="login-b">halo! 👋</span>${head}${inner}
-    <p style="text-align:center;margin:18px 0 0;font-size:14px;color:var(--muted)">Belum punya akses? <a href="motion-course.html" style="color:var(--or);font-weight:800">Lihat kelasnya</a></p></div></div>`;
+    <p style="text-align:center;margin:18px 0 0;font-size:14px;color:var(--muted)">Belum punya akses? <a href="motion-course" style="color:var(--or);font-weight:800">Lihat kelasnya</a></p></div></div>`;
   if (!REAL) return shell(`<form data-form="demo"><h1>Masuk kelas</h1><p style="color:var(--muted);margin:6px 0 0">Pakai email yang kamu gunakan saat membeli kelas.</p>
     <label for="lnm">Nama panggilan</label><input class="inp" id="lnm" name="name" placeholder="contoh: Rina" required>
     <label for="lem">Email pembelian</label><input class="inp" id="lem" name="email" type="email" placeholder="nama@email.com" required>

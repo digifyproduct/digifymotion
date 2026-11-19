@@ -1,0 +1,57 @@
+/* Layar video & film strip Shorts (dipakai karya.js). Disalin dari homepage. */
+@keyframes rec{50%{opacity:.2}}
+.screen{background:#000;border:10px solid #2a170c;border-radius:20px;position:relative;aspect-ratio:16/9;overflow:hidden;box-shadow:0 30px 60px -30px #000}
+.screen img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.screen .hud{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(transparent,rgba(0,0,0,.75));display:flex;align-items:center;gap:12px;font-family:var(--fm);font-size:12px}
+.screen .hud .pb{flex:1;height:4px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.screen .hud .pb i{display:block;height:100%;width:0;background:var(--or2);animation:pb 5s linear infinite}
+@keyframes pb{to{width:100%}}
+.screen .rec{position:absolute;left:14px;top:12px;font-family:var(--fm);font-size:12px;display:flex;gap:6px;align-items:center;background:rgba(0,0,0,.5);padding:3px 8px;border-radius:6px}
+.screen .rec i{width:7px;height:7px;border-radius:50%;background:#ff3b30;animation:rec 1.2s steps(1) infinite}
+.eps{display:flex;flex-direction:column;gap:8px}
+.ep{display:flex;gap:10px;align-items:center;background:#1f1209;border:1px solid #3a2414;border-radius:12px;padding:6px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .2s,background .2s}
+.ep img{width:74px;aspect-ratio:16/9;object-fit:cover;border-radius:7px}
+.ep b{font-size:13px;line-height:1.25}
+.ep.on{border-color:var(--or);background:#2a170c}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tv-play{all:unset;display:block;position:absolute;inset:0;cursor:pointer}
+.tv-play .big-play{position:absolute;left:50%;top:50%;width:68px;height:68px;translate:-50% -50%;border-radius:50%;background:rgba(242,106,33,.94);box-shadow:0 12px 30px -8px #000;transition:transform .2s}
+.tv-play .big-play::after{content:"";position:absolute;left:27px;top:21px;border:13px solid transparent;border-left:20px solid #fff;border-right:0}
+.tv-play:hover .big-play{transform:scale(1.1)}
+.tv-play .hud span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%}
+.ep b{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.frame p.sty{margin:8px 2px 0;font-family:var(--fm);font-size:11.5px;font-weight:700;color:var(--or2);letter-spacing:.3px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.film.manual .film-track{animation:none}
+.film-scroll{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;padding:4px 0}
+.film-scroll::-webkit-scrollbar{display:none}
+.film.dragging .film-scroll{cursor:grabbing}.film.dragging .frame{pointer-events:none}
+.film.manual{padding-bottom:26px}
+.film-slide{padding:12px 22px 0}
+.film-slide input{-webkit-appearance:none;appearance:none;display:block;width:100%;height:22px;margin:0;background:transparent;cursor:grab;--p:0%}
+.film-slide input:active{cursor:grabbing}
+.film-slide input::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--or) var(--p),#3a2414 var(--p))}
+.film-slide input::-moz-range-track{height:6px;border-radius:6px;background:#3a2414}
+.film-slide input::-moz-range-progress{height:6px;border-radius:6px;background:var(--or)}
+.film-slide input::-webkit-slider-thumb{-webkit-appearance:none;width:46px;height:22px;margin-top:-8px;border-radius:999px;border:2px solid #fff;background:var(--or) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M7 2 2 6l5 4M17 2l5 4-5 4M2 6h20' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px 11px no-repeat;box-shadow:0 4px 12px -3px #000}
+.film-slide input::-moz-range-thumb{width:42px;height:18px;border-radius:999px;border:2px solid #fff;background:var(--or) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M7 2 2 6l5 4M17 2l5 4-5 4M2 6h20' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px 11px no-repeat;box-shadow:0 4px 12px -3px #000}
+.film-slide input:focus-visible{outline:2px solid var(--or2);outline-offset:4px;border-radius:8px}
+.film{margin-top:34px;background:#0b0603;padding:18px 0;position:relative;overflow:hidden;border-block:1px solid #2e1c10}
+.film::before,.film::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,transparent 0 10px,#2e1c10 10px 22px);z-index:2}
+.film::before{top:4px}.film::after{bottom:4px}
+.film-track{display:flex;gap:12px;width:max-content;animation:roll 70s linear infinite;padding:0 6px}
+.film:hover .film-track{animation-play-state:paused}
+@keyframes roll{to{transform:translateX(-50%)}}
+.frame{width:150px;flex:none;text-decoration:none}
+.frame .im{aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#000;transition:transform .25s}
+.frame:hover .im{transform:scale(1.04)}
+.frame img{width:100%;height:100%;object-fit:cover}
+.frame p{margin:7px 2px 0;font-size:12.5px;font-weight:700;color:#e6cfbe;line-height:1.25}
+.eps{flex-direction:row;overflow-x:auto;scrollbar-width:none;margin-top:12px}.eps::-webkit-scrollbar{display:none}
+.ep{flex:0 0 190px}
+.film{max-width:468px;margin:28px auto 0;border-radius:16px;border:1px solid #2e1c10}
+/* tata letak satu kolom */
+.mon{display:block}
+.eps{flex-direction:row;overflow-x:auto;scrollbar-width:none;margin-top:12px}.eps::-webkit-scrollbar{display:none}
+.ep{flex:0 0 190px}
+.film{max-width:468px;margin:28px auto 0;border-radius:16px;border:1px solid #2e1c10}
+@media (max-width:500px){.film{margin-inline:16px}}
