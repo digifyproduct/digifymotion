@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191936">
+<link rel="stylesheet" href="assets/base.css?v=2611191943">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 /* kanvas editor: grid tipis + cahaya oranye */
@@ -203,7 +203,7 @@ section{padding-block:38px;scroll-margin-top:50px}
 .faq details[open] summary::after{rotate:225deg}
 .faq p{margin:0 0 16px;color:#dcc4b2}
 /* ===== akhir ===== */
-.action{text-align:center;padding:90px 0 70px}
+.action{text-align:center;padding:52px 0 40px}
 .action .masc{width:90px;margin:0 auto 10px;display:block;animation:jumpy 2.4s ease-in-out infinite;transform-origin:50% 100%}
 @keyframes jumpy{0%,60%,100%{transform:none}70%{transform:scale(1.06,.92)}80%{transform:translateY(-18px) scale(.96,1.05)}90%{transform:none}}
 .action h2{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(52px,9vw,120px);line-height:.92;margin:0 0 18px}
@@ -212,7 +212,7 @@ section{padding-block:38px;scroll-margin-top:50px}
 .credits{border-top:1px solid #2e1c10;overflow:hidden;padding:26px 0 30px}
 .marq{display:flex;width:max-content;animation:roll 30s linear infinite;font-family:var(--fd);font-size:clamp(60px,12vw,150px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #4a2e1b;white-space:nowrap}
 .marq span{padding-right:40px}
-.cred{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#8d6f5c;font-size:13px;font-family:var(--fm);margin-top:16px}
+.cred{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;color:#8d6f5c;font-size:13px;font-family:var(--fm);margin-top:16px}
 /* DM melayang */
 .fab{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:flex-end;gap:8px;text-decoration:none}
 .fab .bub{background:#fff;color:var(--text);font-weight:800;font-size:13px;padding:8px 12px;border-radius:14px 14px 4px 14px;box-shadow:0 10px 24px -8px #000;transform-origin:100% 100%;animation:pop .4s 2.5s cubic-bezier(.3,1.6,.5,1) both}
@@ -296,7 +296,7 @@ h2.big{text-align:center;font-size:clamp(34px,10vw,48px)}
 .key b{margin-top:0}
 .action .masc{width:170px;animation:none}
 .credits .cred{justify-content:center;text-align:center}
-@media (max-width:600px){.tc span{display:none}.fab .bub{display:none}}
+@media (max-width:600px){.tc span{display:none}.fab .bub{display:none}.action{padding:26px 0 24px}.credits{padding:18px 0 24px}}
 /* pemenggalan baris seimbang */
 h1,h2,h3,h4,.lead,.scene,summary{text-wrap:balance}
 p,small,li,blockquote,figcaption{text-wrap:balance}
@@ -369,7 +369,7 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
   <section id="galeri">
     <div class="wrap">
       <div class="scene rv">SCENE 03 <span>· HASIL KARYA</span></div>
-      <div class="sec-m rv"><span class="masc" data-act="type" style="width:130px"></span></div>
+      <div class="sec-m rv"><span class="masc" data-act="type" style="width:130px;translate:11% 0"></span></div>
       <h2 class="big rv">Semua dibikin<br><span class="hl nw">lewat chat</span></h2>
       <div class="mon rv" style="margin-top:26px">
         <div class="screen" id="tv"></div>
@@ -417,18 +417,18 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 <footer class="credits">
   <div class="marq" aria-hidden="true"><span>DIGIFY MOTION COURSE ✦</span><span>DIGIFY MOTION COURSE ✦</span><span>DIGIFY MOTION COURSE ✦</span><span>DIGIFY MOTION COURSE ✦</span></div>
   <div class="bye"><span class="bye-b">See you in class!</span><span class="masc" data-act="wave" style="width:110px"></span></div>
-  <div class="wrap cred"><span>Disutradarai oleh kamu · Dianimasikan oleh AI</span><span>© 2026 Digify Product</span></div>
+  <div class="wrap cred"><span>© 2026 Digify Product</span></div>
 </footer>
 
 <a class="fab" data-ig-dm href="#" target="_blank" rel="noopener" aria-label="DM Instagram"><span class="bub">tanya dulu?</span><span class="hd"><span class="masc" data-m="full"></span></span></a>
 
 
-<script src="assets/config.js?v=2611191936"></script>
-<script src="assets/public.js?v=2611191936"></script>
-<script src="assets/mascot.js?v=2611191936"></script>
-<script src="assets/player.js?v=2611191936"></script>
-<script src="assets/karya.js?v=2611191936"></script>
-<script src="assets/credit.js?v=2611191936"></script>
+<script src="assets/config.js?v=2611191943"></script>
+<script src="assets/public.js?v=2611191943"></script>
+<script src="assets/mascot.js?v=2611191943"></script>
+<script src="assets/player.js?v=2611191943"></script>
+<script src="assets/karya.js?v=2611191943"></script>
+<script src="assets/credit.js?v=2611191943"></script>
 <script>
 const S=window.SITE, C=window.PUB;
 const tick='<svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
@@ -464,7 +464,7 @@ document.getElementById('ticks').innerHTML=['Tanpa After Effects & coding','Nask
       work.hidden=true; res.hidden=true; set('',''); new Image().src='https://i.ytimg.com/vi/'+d[2]+'/maxresdefault.jpg';
       await wait(500);
       const full=d[0]+d[1];
-      for(let i=1;i<=full.length;i++){ set(full.slice(0,Math.min(i,d[0].length)), i>d[0].length?full.slice(d[0].length,i):''); await wait(38+Math.random()*40); }
+      for(let i=1;i<=full.length;i++){ set(full.slice(0,Math.min(i,d[0].length)), i>d[0].length?full.slice(d[0].length,i):''); await wait(16+Math.random()*16); }
       await wait(450); work.hidden=false; bar.style.width='0';
       for(let i=0;i<STEPS.length;i++){ step.textContent=STEPS[i]; bar.style.width=((i+1)/STEPS.length*100)+'%'; await wait(650); }
       await wait(250); work.hidden=true; show(d); res.hidden=false;
