@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611192009">
+<link rel="stylesheet" href="assets/base.css?v=2611192022">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 /* kanvas editor: grid tipis + cahaya oranye */
@@ -37,7 +37,7 @@ header,main,footer{position:relative;z-index:1}
 h2.big{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:clamp(34px,5vw,56px);line-height:1;margin:0 0 12px}
 .lead{color:#dcc4b2;font-size:17px;max-width:560px;margin:0}
 section{padding-block:38px;scroll-margin-top:50px}
-/* ===== SCENE 01 hero ===== */
+/* ===== HERO hero ===== */
 .hero{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;padding:56px 0 40px;text-align:center}
 .chip-line{display:inline-flex;gap:8px;align-items:center;border:1px solid #4a2e1b;border-radius:999px;padding:6px 12px 6px 6px;font-size:13px;font-weight:700;color:#e6cfbe}
 .chip-line b{background:var(--or);color:#fff;border-radius:999px;padding:3px 9px;font-size:11.5px;letter-spacing:.6px}
@@ -97,7 +97,7 @@ section{padding-block:38px;scroll-margin-top:50px}
 .cd-meta b{display:block;font-size:16px;word-break:break-all}.cd-meta small{display:block;color:var(--muted);font-weight:600;margin:2px 0 10px}
 .cd-meta em{font-style:normal;font-weight:800;color:var(--or)}
 @media (max-width:600px){.chatdemo{margin-top:24px}.cd-body{min-height:345px}.cd-me{font-size:14.5px}}
-/* ===== SCENE 02 paket ===== */
+/* ===== SCENE 01 paket ===== */
 .pack{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:start}
 .clap{background:var(--paper);color:var(--text);border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -30px #000}
 .clap-top{height:46px;background:repeating-linear-gradient(-45deg,var(--ink) 0 22px,var(--or) 22px 44px);transform-origin:18px 100%;transition:transform .5s cubic-bezier(.3,1.7,.5,1)}
@@ -118,6 +118,7 @@ section{padding-block:38px;scroll-margin-top:50px}
 .sticker s{font-size:11px;opacity:.8}
 .clap .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;border-top:2px dashed var(--line);padding-top:18px}
 .clap .row span{color:var(--muted);font-weight:600;font-size:14px}
+@media(max-width:600px){.clap .row{gap:8px}.clap .row .btn{flex:1 1 0;justify-content:center;white-space:nowrap;padding-inline:10px;text-align:center}.clap .row span{flex-basis:100%;text-align:center}}
 .bento{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .tile{position:relative;background:#1f1209;border:1px solid #3a2414;border-radius:18px;padding:16px;text-decoration:none;min-height:122px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s,border-color .2s;cursor:pointer;font:inherit;color:inherit;text-align:left;overflow:hidden}
 .tile:hover{transform:translateY(-3px);border-color:var(--or)}
@@ -130,7 +131,7 @@ section{padding-block:38px;scroll-margin-top:50px}
 .tile.wide .masc{width:56px;flex:none}
 .tile.or{background:var(--or);border-color:var(--or)}
 .tile.or small{color:#ffe1cc}.tile.or .ico{color:#fff}.tile.or .n{color:#ffd2b5}
-/* ===== SCENE 03 monitor + film ===== */
+/* ===== SCENE 02 monitor + film ===== */
 .mon{display:grid;grid-template-columns:1fr 260px;gap:18px}
 .screen{background:#000;border:10px solid #2a170c;border-radius:20px;position:relative;aspect-ratio:16/9;overflow:hidden;box-shadow:0 30px 60px -30px #000}
 .screen img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
@@ -178,7 +179,7 @@ section{padding-block:38px;scroll-margin-top:50px}
 .frame:hover .im{transform:scale(1.04)}
 .frame img{width:100%;height:100%;object-fit:cover}
 .frame p{margin:7px 2px 0;font-size:12.5px;font-weight:700;color:#e6cfbe;line-height:1.25}
-/* ===== SCENE 04 timeline ===== */
+/* ===== SCENE 03 timeline ===== */
 .tl{position:relative;margin-top:30px;padding-top:86px}
 .track{position:relative;height:6px;background:#2e1c10;border-radius:6px}
 .track i{position:absolute;left:0;top:0;bottom:0;width:calc(var(--t,0)*100%);background:linear-gradient(90deg,var(--or),var(--or2));border-radius:6px}
@@ -192,7 +193,7 @@ section{padding-block:38px;scroll-margin-top:50px}
 .key b{display:block;margin-top:16px;font-size:15.5px}
 .key small{display:block;color:#b99a86;font-size:13px;font-weight:600;margin-top:2px}
 .key code{display:inline-block;margin-top:8px;font-family:var(--fm);font-size:11.5px;background:#1f1209;border:1px solid #3a2414;border-radius:8px;padding:4px 8px;color:#ffc79f}
-/* ===== SCENE 05 FAQ ===== */
+/* ===== SCENE 04 FAQ ===== */
 .faq{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
 .faq details{background:#1f1209;border:1px solid #3a2414;border-radius:16px;padding:0 18px;transition:border-color .2s}
 .faq details[open]{border-color:var(--or)}
@@ -317,7 +318,7 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 
 <main>
   <div class="peeks" aria-hidden="true"><span class="masc peek l" data-m="tall"></span><span class="masc peek r" data-m="tall"></span></div>
-  <!-- SCENE 01 -->
+  <!-- HERO -->
   <div class="wrap hero">
     <div>
       <span class="chip-line"><b>BARU</b>Kelas online · Digify Motion Course</span>
@@ -340,9 +341,9 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
     </div>
   </div>
 
-  <!-- SCENE 02 -->
+  <!-- SCENE 01 -->
   <section class="wrap" id="paket">
-    <div class="scene rv">SCENE 02 <span>· PAKET KELAS</span></div>
+    <div class="scene rv">SCENE 01 <span>· PAKET KELAS</span></div>
     <div class="sec-m rv"><span class="masc" data-act="clap" style="width:130px"></span></div>
     <div class="pack">
       <article class="clap rv" id="clap">
@@ -350,9 +351,9 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
         <div class="clap-bar"><div><small>PRODUKSI</small>DIGIFY</div><div><small>TOOLS</small>CLAUDE CODE</div><div><small>TAKE</small>01</div></div>
         <div class="clap-in">
           <div class="sticker"><small>HANYA</small><b data-price></b><s data-coret></s></div>
-          <h3>Dari ketikan jadi video animasi</h3>
+          <h3>Cuma dari ketikan jadi video animasi</h3>
           <ul id="ticks"></ul>
-          <div class="row"><a class="btn btn-or" href="motion-course">Lihat kelasnya</a><span>bayar sekali · akses selamanya</span></div>
+          <div class="row"><a class="btn btn-or" href="motion-course">Lihat kelasnya</a><a class="btn btn-line" href="#galeri">Lihat hasilnya</a><span>bayar sekali · akses selamanya</span></div>
         </div>
       </article>
       <nav class="bento rv">
@@ -365,10 +366,10 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
     </div>
   </section>
 
-  <!-- SCENE 03 -->
+  <!-- SCENE 02 -->
   <section id="galeri">
     <div class="wrap">
-      <div class="scene rv">SCENE 03 <span>· HASIL KARYA</span></div>
+      <div class="scene rv">SCENE 02 <span>· HASIL KARYA</span></div>
       <div class="sec-m rv"><span class="masc" data-act="type" style="width:130px;translate:11% 0"></span></div>
       <h2 class="big rv">Semua dibikin<br><span class="hl nw">lewat chat</span></h2>
       <div class="mon rv" style="margin-top:26px">
@@ -379,9 +380,9 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
     <div class="film rv"><div class="film-track" id="film"></div></div>
   </section>
 
-  <!-- SCENE 04 -->
+  <!-- SCENE 03 -->
   <section class="wrap" id="alur">
-    <div class="scene rv">SCENE 04 <span>· ALUR KERJA</span></div>
+    <div class="scene rv">SCENE 03 <span>· ALUR KERJA</span></div>
     <h2 class="big rv">Lima langkah,<br><span class="hl nw">satu chat</span></h2>
     <div class="tl" id="tl">
       <div class="track"><i></i></div>
@@ -390,9 +391,9 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
     </div>
   </section>
 
-  <!-- SCENE 05 -->
+  <!-- SCENE 04 -->
   <section class="wrap" id="faq">
-    <div class="scene rv">SCENE 05 <span>· TANYA JAWAB</span></div>
+    <div class="scene rv">SCENE 04 <span>· TANYA JAWAB</span></div>
     <div class="sec-m rv"><span class="masc" data-act="think" style="width:130px"></span></div>
     <h2 class="big rv">Sebelum <span class="hl">action</span></h2>
     <div class="faq">
@@ -423,12 +424,12 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 <a class="fab" data-ig-dm href="#" target="_blank" rel="noopener" aria-label="DM Instagram"><span class="bub">tanya dulu?</span><span class="hd"><span class="masc" data-m="full"></span></span></a>
 
 
-<script src="assets/config.js?v=2611192009"></script>
-<script src="assets/public.js?v=2611192009"></script>
-<script src="assets/mascot.js?v=2611192009"></script>
-<script src="assets/player.js?v=2611192009"></script>
-<script src="assets/karya.js?v=2611192009"></script>
-<script src="assets/credit.js?v=2611192009"></script>
+<script src="assets/config.js?v=2611192022"></script>
+<script src="assets/public.js?v=2611192022"></script>
+<script src="assets/mascot.js?v=2611192022"></script>
+<script src="assets/player.js?v=2611192022"></script>
+<script src="assets/karya.js?v=2611192022"></script>
+<script src="assets/credit.js?v=2611192022"></script>
 <script>
 const S=window.SITE, C=window.PUB;
 const tick='<svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
