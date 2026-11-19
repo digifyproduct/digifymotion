@@ -74,7 +74,7 @@ const thumb = (l, cls = '') => `<div class="thumb ${cls}">${l.thumb ? `<img load
 const NAV = [
   ['BELAJAR', [['beranda', 'Beranda', 'home'], ['kelas', 'Kelas', 'play']]],
   ['ALAT', [['racik', 'Racik Prompt', 'spark'], ['prompt', 'Perpustakaan Prompt', 'book'], ['gaya', 'Referensi Style', 'palette'], ['kamus', 'Kamus Motion', 'type']]],
-  ['LAINNYA', [['komunitas', 'Grup Komunitas', 'users'], ['download', 'Download', 'down'], ['akun', 'Akun', 'user']]],
+  ['LAINNYA', [['komunitas', 'Grup Komunitas', 'users'], ['download', 'Download Skill', 'down'], ['akun', 'Akun', 'user']]],
 ];
 function shell(route, html) {
   const act = route === 'lesson' ? 'kelas' : route;
@@ -390,7 +390,7 @@ async function unduh(b) {
 }
 function pDownload() {
   const ok = !!S.linkSkillZip, pr = 'pasang skill dari zip ini ke folder skill Claude Code';
-  return `<h1 class="ph1">Download</h1><p class="sub">Cukup <b>1 zip</b> yang dipasang ke Claude Code.</p>
+  return `<h1 class="ph1">Download Skill</h1><p class="sub">Cukup <b>1 zip</b> yang dipasang ke Claude Code.</p>
   <div class="card" style="display:grid;gap:18px">
     <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
       <div style="width:64px;height:64px;border-radius:16px;background:var(--ink);display:grid;place-items:center"><img src="assets/img/logo-digify.png" alt="" style="width:34px"></div>
@@ -493,7 +493,7 @@ function render(keepScroll) {
   const pages = { beranda: pBeranda, kelas: pKelas, lesson: () => pLesson(id), racik: pRacik, prompt: pPrompt, gaya: pGaya, kamus: pKamus, download: pDownload, komunitas: pKomunitas, akun: pAkun };
   const y = window.scrollY;
   app.innerHTML = shell(r, (pages[r] || pBeranda)());
-  const titles = { beranda: 'Beranda', kelas: 'Kelas', lesson: id ? 'Lesson ' + id : 'Lesson', racik: 'Racik Prompt', prompt: 'Perpustakaan Prompt', gaya: 'Referensi Style', kamus: 'Kamus Motion', download: 'Download', komunitas: 'Grup Komunitas', akun: 'Akun' };
+  const titles = { beranda: 'Beranda', kelas: 'Kelas', lesson: id ? 'Lesson ' + id : 'Lesson', racik: 'Racik Prompt', prompt: 'Perpustakaan Prompt', gaya: 'Referensi Style', kamus: 'Kamus Motion', download: 'Download Skill', komunitas: 'Grup Komunitas', akun: 'Akun' };
   document.title = (titles[r] || 'Beranda') + ' · ' + S.namaKelas;
   if (keepScroll) window.scrollTo(0, y);
     else if (anchor && document.getElementById(anchor)) document.getElementById(anchor).scrollIntoView();
