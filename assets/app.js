@@ -251,8 +251,8 @@ function pPrompt() {
     <div class="seg"><button class="${LIB.fav ? '' : 'on'}" data-act="libfav" data-v="0">Semua</button><button class="${LIB.fav ? 'on' : ''}" data-act="libfav" data-v="1">★ Favoritku · ${st.favs.length}</button></div></div>
   <div class="search">${ic('search')}<input class="inp" id="libq" placeholder='Cari prompt, misal "hook" atau "9:16"' value="${esc(LIB.q)}"></div>
   <div class="pills">${['Semua', ...X.tahap].map(t => `<button class="pill ${LIB.t === t ? 'on' : ''}" data-act="libt" data-v="${t}">${t}</button>`).join('')}</div>
-  <div class="pcards" id="pcards">${items.length ? items.map(p => `<div class="pc"><div class="art"><small>${esc(p.t.toUpperCase())}</small><i style="width:72%"></i><i style="width:88%"></i><i style="width:55%"></i></div>
-    <div class="body"><h3>${esc(p.j)}</h3><pre class="pblock">${esc(p.p)}</pre><div class="prow" style="margin:0">${copyBtn(p.p)}${favBtn(p.p)}</div></div></div>`).join('')
+  <div class="pcards" id="pcards">${items.length ? items.map(p => `<div class="pc">
+    <div class="body"><small class="pt">${esc(p.t)}</small><h3>${esc(p.j)}</h3><pre class="pblock">${esc(p.p)}</pre><div class="prow" style="margin:0">${copyBtn(p.p)}${favBtn(p.p)}</div></div></div>`).join('')
     : `<p class="empty">${LIB.fav ? 'Belum ada favorit. Klik ☆ di prompt mana pun untuk menyimpannya.' : 'Tidak ada prompt yang cocok.'}</p>`}</div>`;
 }
 
