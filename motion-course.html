@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191712">
-<link rel="stylesheet" href="assets/karya.css?v=2611191712">
-<link rel="stylesheet" href="assets/checkout.css?v=2611191712">
+<link rel="stylesheet" href="assets/base.css?v=2611191719">
+<link rel="stylesheet" href="assets/karya.css?v=2611191719">
+<link rel="stylesheet" href="assets/checkout.css?v=2611191719">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 .canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -103,7 +103,7 @@ section{padding-block:56px;scroll-margin-top:60px}
 .easy li::before{content:"✓";width:24px;height:24px;border-radius:8px;background:rgba(242,106,33,.18);color:var(--or2);display:grid;place-items:center;flex:none;font-size:13px}
 /* 04 cara: demo langkah */
 .how-box{margin-top:24px;overflow:hidden}
-.how-nav{display:flex;gap:6px;padding:12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid #2e1c10}
+.how-nav{position:relative;display:flex;gap:6px;padding:12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid #2e1c10}
 .how-nav::-webkit-scrollbar{display:none}
 .how-nav button{flex:none;font:inherit;font-size:12.5px;font-weight:800;color:#8d6f5c;background:none;border:0;border-radius:10px;padding:8px 10px;cursor:pointer;position:relative;overflow:hidden}
 .how-nav button i{font-style:normal;font-family:var(--fm);margin-right:6px}
@@ -381,11 +381,14 @@ footer a{color:#cdb3a2}
 <div class="stick" id="stick"><div><b data-price></b><s data-coret></s><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" href="#daftar">Daftar</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/config.js?v=2611191712"></script>
-<script src="assets/mascot.js?v=2611191712"></script>
-<script src="assets/player.js?v=2611191712"></script>
-<script src="assets/karya.js?v=2611191712"></script>
+<script src="assets/config.js?v=2611191719"></script>
+<script src="assets/mascot.js?v=2611191719"></script>
+<script src="assets/player.js?v=2611191719"></script>
+<script src="assets/karya.js?v=2611191719"></script>
 <script>
+// halaman selalu dibuka dari atas (kecuali link menuju bagian tertentu, mis. #daftar)
+if('scrollRestoration' in history) history.scrollRestoration='manual';
+if(!location.hash) scrollTo(0,0);
 const S=window.SITE, K=window.KARYA||{};
 document.querySelectorAll('[data-price]').forEach(e=>e.textContent=S.harga);
 document.querySelectorAll('[data-coret]').forEach(e=>e.textContent=S.hargaCoret||'');
@@ -429,7 +432,7 @@ document.getElementById('styleTags').innerHTML=[...styles.map(s=>s.replace(/ Sty
   const nav=document.getElementById('howNav'),scr=document.getElementById('howScreen'),DUR=4200;
   nav.innerHTML=L.map((l,i)=>`<button type="button" data-i="${i}"><i>${i+1}</i>${l[0]}</button>`).join('');nav.style.setProperty('--dur',DUR+'ms');
   let cur=0,t=0,vis=false,user=0;
-  const show=i=>{cur=i;nav.querySelectorAll('button').forEach((b,j)=>{b.classList.remove('on');if(j===i){void b.offsetWidth;b.classList.add('on');b.scrollIntoView({block:'nearest',inline:'nearest'})}});
+  const show=i=>{cur=i;nav.querySelectorAll('button').forEach((b,j)=>{b.classList.remove('on');if(j===i){void b.offsetWidth;b.classList.add('on');nav.scrollTo({left:Math.max(0,b.offsetLeft-nav.clientWidth/2+b.offsetWidth/2),behavior:'smooth'})}});
     scr.innerHTML=`<h3>Langkah ${i+1}/6 · ${L[i][0]}</h3><p>${L[i][1]}</p><div class="term">${L[i][2]}</div>`;
     clearTimeout(t);t=setTimeout(()=>{if(vis&&Date.now()>user)show((cur+1)%L.length);else t=setTimeout(()=>show(cur),800)},DUR);};
   nav.addEventListener('click',e=>{const b=e.target.closest('button');if(b){user=Date.now()+6000;show(+b.dataset.i)}});
@@ -444,6 +447,6 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 </script>
-<script src="assets/checkout.js?v=2611191712"></script>
+<script src="assets/checkout.js?v=2611191719"></script>
 </body>
 </html>
