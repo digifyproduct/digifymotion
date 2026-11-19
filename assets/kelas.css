@@ -312,3 +312,11 @@ textarea.inp{min-height:84px;resize:vertical}
 .slist .after-done a.btn-or:hover{filter:brightness(.93);box-shadow:0 10px 22px -8px rgba(242,106,33,.55)}
 .slist .after-done a.btn-line:hover{background:var(--orsoft);border-color:var(--or2);color:var(--text)}
 .slist .after-done a{align-items:center;padding:8px 14px;border-radius:999px;font-size:13.5px}
+
+/* beranda: kartu lanjutkan belajar tanpa ringkasan, rapi & simetris */
+.cont{grid-template-columns:1fr 1fr;gap:32px;padding:28px}
+.cont .m{margin-bottom:22px}
+.cont .acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:440px}
+.cont .acts .btn{justify-content:center;padding-inline:14px}
+@media (max-width:900px){.cont{grid-template-columns:1fr;gap:20px}}
+@media (max-width:480px){.cont .acts{grid-template-columns:1fr}}

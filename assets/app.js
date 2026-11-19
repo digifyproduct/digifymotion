@@ -108,7 +108,6 @@ function pBeranda() {
     <div style="position:relative"><span class="k-lbl">${p === 100 ? 'Tonton lagi' : 'Lanjutkan belajar'}</span>
       <h2>${n.id} · ${esc(n.title)}</h2>
       <div class="m">${n.mod.label} · ${esc(n.mod.name)}${n.seconds ? ' · ' + fmt(n.seconds) : ''}</div>
-      <ul>${n.summary.slice(0, 3).map(s => `<li>${esc(s)}</li>`).join('')}</ul>
       <div class="acts"><a class="btn btn-or" href="#/lesson/${n.id}">Buka lesson & checklist</a>
         <button class="btn btn-line" data-act="done" data-id="${n.id}">${ic('check')}${st.done[n.id] ? 'Sudah selesai' : 'Tandai selesai'}</button></div></div>
   </div>
