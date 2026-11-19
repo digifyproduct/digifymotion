@@ -300,3 +300,10 @@ textarea.inp{min-height:84px;resize:vertical}
 .sum-more{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;font:inherit;font-weight:800;font-size:13.5px;color:var(--or);cursor:pointer}
 .sum-more:hover{border-color:var(--or2)}
 .sum-more .ico{width:16px;height:16px}
+
+/* tombol setelah lesson ditandai selesai */
+.after-done{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;animation:fadein .35s ease-out}
+.after-done .btn{justify-content:center;width:100%;white-space:nowrap}
+.after-done .btn-line{color:var(--text)}
+.after-done .btn:only-child{grid-column:1/-1}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}

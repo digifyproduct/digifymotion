@@ -157,13 +157,12 @@ function pLesson(id) {
       <div class="card"><h3>Sekarang coba kamu</h3>${l.checklist.map((c, k) => `<label class="chk"><input type="checkbox" data-act="chk" data-id="${l.id}" data-k="${k}" ${checks[k] ? 'checked' : ''}><span>${esc(c)}</span></label>`).join('') || '<p class="sub">Tidak ada checklist.</p>'}</div>
     </div>
     ${promptLines.length ? `<h3 style="margin:28px 0 12px;font-size:19px">Prompt di video ini</h3>${promptLines.map(p => `<pre class="pblock"><span class="lbl">prompt</span>${esc(p)}</pre><div class="prow">${copyBtn(p, 'Salin prompt')}${favBtn(p, 'Simpan ke favorit')}</div>`).join('')}` : ''}
-    <div class="pn">${prev ? `<a class="btn btn-line btn-sm" href="#/lesson/${prev.id}">${ic('left')}${prev.id}</a>` : '<span></span>'}
-      ${next ? `<a class="btn btn-line btn-sm" href="#/lesson/${next.id}">${next.id}${ic('right')}</a>` : ''}</div>
   </div>
   <aside class="card slist"><h4>${m.label} · ${doneCount(m.lessons)}/${m.lessons.length} selesai</h4>
     ${m.lessons.map(x => `<a href="#/lesson/${x.id}" class="${x.id === l.id ? 'on' : ''}"><span class="dot ${st.done[x.id] ? 'ok' : ''}">${st.done[x.id] ? ic('check') : ''}</span>${x.id} ${esc(x.title)}</a>`).join('')}
     <button class="btn ${st.done[l.id] ? 'btn-done' : 'btn-line'}" data-act="done" data-id="${l.id}">${ic('check')}${st.done[l.id] ? 'Sudah selesai' : 'Tandai selesai'}</button>
     ${!st.done[l.id] && next ? `<p style="margin:10px 4px 0;color:var(--muted);font-size:13.5px">Setelah ditandai, lanjut ke ${next.id}.</p>` : ''}
+    ${st.done[l.id] && (prev || next) ? `<div class="after-done">${prev ? `<a class="btn btn-line btn-sm" href="#/lesson/${prev.id}">${ic('left')}Kembali ${prev.id}</a>` : ''}${next ? `<a class="btn btn-or btn-sm" href="#/lesson/${next.id}">Lanjut ${next.id}${ic('right')}</a>` : ''}</div>` : ''}
   </aside></div>`;
 }
 
