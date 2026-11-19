@@ -7,7 +7,7 @@ function setData(d) {
   C = d.course; X = d.extra; YT = d.youtube || {};
   LES = C.modules.flatMap(m => m.lessons.map(l => ({ ...l, mod: m })));
   if (d.secrets) { S.linkKomunitas = d.secrets.komunitas || ''; S.linkSkillZip = d.secrets.skill_zip || ''; }
-  if (!G.id) G.id = X.gaya[0].id;
+  if (!G.id) G.id = (X.style && X.style[0] || X.gaya[0]).id;
 }
 // Mode sungguhan bila Supabase diisi di config.js; tanpa itu = mode demo lokal.
 const REAL = !!(S.supabaseUrl && S.supabaseAnonKey);
@@ -71,7 +71,7 @@ const thumb = (l, cls = '') => `<div class="thumb ${cls}">${l.thumb ? `<img load
 /* ---------- shell ---------- */
 const NAV = [
   ['BELAJAR', [['beranda', 'Beranda', 'home'], ['kelas', 'Kelas', 'play']]],
-  ['ALAT', [['racik', 'Racik Prompt', 'spark'], ['prompt', 'Perpustakaan Prompt', 'book'], ['gaya', 'Resep Gaya', 'palette', 'BETA'], ['kamus', 'Kamus Motion', 'type']]],
+  ['ALAT', [['racik', 'Racik Prompt', 'spark'], ['prompt', 'Perpustakaan Prompt', 'book'], ['gaya', 'Referensi Style', 'palette'], ['kamus', 'Kamus Motion', 'type']]],
   ['LAINNYA', [['komunitas', 'Grup Komunitas', 'users'], ['download', 'Download', 'down'], ['akun', 'Akun', 'user']]],
 ];
 function shell(route, html) {
@@ -256,35 +256,64 @@ function pPrompt() {
     : `<p class="empty">${LIB.fav ? 'Belum ada favorit. Klik ☆ di prompt mana pun untuk menyimpannya.' : 'Tidak ada prompt yang cocok.'}</p>`}</div>`;
 }
 
-/* ---------- resep gaya ---------- */
+/* ---------- referensi style ---------- */
 const G = { id: null, rev: 0 };
+const SELF = { id: 'sendiri', nama: 'Style sendiri', ciri: '[tulis ciri style-mu: medium, warna, tekstur, garis]', contoh: '[adegan yang kamu mau]', gerak: '[gerak utama subjek dan lingkungannya]' };
+const styList = () => X.style || [];
+const styOf = id => styList().find(x => x.id === id) || (id === 'sendiri' ? SELF : styList()[0]) || SELF;
+const styP1 = g => `pakai skill digify-motion. buat 1 gambar diam 9:16, belum perlu animasi.\nadegan: ${g.contoh}.\nstyle ${g.id === 'sendiri' ? '[nama style-mu]' : g.nama}: ${g.ciri}.\nharus terasa seperti medium aslinya, bukan filter digital. subjek utama di tengah, tiap lapisan dipisah supaya mudah dianimasikan. tanpa teks.`;
+const styP2 = g => `sudah cocok. sekarang animasikan jadi 6 detik yang loop mulus. tampilannya jangan diubah.\ngerak: ${g.gerak}.\nsemua elemen hidup: subjek bergerak jelas, sisanya gerak kecil (angin, air, cahaya). kamera pelan mendekat, semua gerak halus tanpa loncat.`;
+function styPanel() {
+  const g = styOf(G.id), fx = X.styleFix || [], f = fx[G.rev] || fx[0];
+  return `<div class="k-lbl" style="margin:0 0 10px">Pilih style</div>
+    <div class="pills spills">${[...styList(), SELF].map(x => `<button class="pill ${x.id === g.id ? 'on' : ''}" data-act="sty" data-v="${x.id}">${esc(x.nama)}</button>`).join('')}</div>
+    <div class="step-h"><b>1</b><h3>Buat gambarnya</h3></div>
+    <p style="color:var(--muted);margin:0 0 12px">Mulai chat baru di Claude Code, kirim ini. Ganti adegannya dengan topikmu.</p>
+    <pre class="pblock lite">${esc(styP1(g))}</pre><div class="prow">${copyBtn(styP1(g), 'Salin prompt 1')}${favBtn(styP1(g), 'Favorit')}</div>
+    <div class="step-h"><b>2</b><h3>Hidupkan</h3></div>
+    <p style="color:var(--muted);margin:0 0 12px">Kalau gambarnya sudah cocok, kirim ini di chat yang sama.</p>
+    <pre class="pblock lite">${esc(styP2(g))}</pre><div class="prow">${copyBtn(styP2(g), 'Salin prompt 2')}${favBtn(styP2(g), 'Favorit')}</div>
+    ${f ? `<div class="step-h"><b>3</b><h3>Kalau hasilnya…</h3></div>
+    <p style="color:var(--muted);margin:0 0 12px">Pilih yang paling mirip masalahnya, kirim satu per satu di chat yang sama.</p>
+    <div class="pills" style="margin-bottom:14px">${fx.map((r, k) => `<button class="pill ${k === G.rev ? 'on' : ''}" data-act="rev" data-v="${k}">${esc(r[0])}</button>`).join('')}</div>
+    <pre class="pblock lite">${esc(f[1])}</pre><div class="prow">${copyBtn(f[1], 'Salin perbaikan', 'btn-ink')}</div>` : ''}`;
+}
 function pGaya() {
-  const g = X.gaya.find(x => x.id === G.id), rv = g.revisi[G.rev] || g.revisi[0];
-  const imgs = g.contoh.map(s => C.works.find(w => w.slug === s)).filter(Boolean);
-  const pics = imgs.length ? imgs.map(w => `<img src="${w.img}" alt="">`).join('') : ['3.1', '2.1', '1.2'].map(id => byId(id)).filter(l => l && l.thumb).map(l => `<img src="${l.thumb}" alt="" style="aspect-ratio:16/9">`).join('');
+  const L = styList(), g = styOf(G.id);
   const own = [
     ['Dari gambar yang kamu suka', 'Lampirkan screenshot atau poster. Claude membaca cirinya lalu meracik versi baru.', 'lihat gambar terlampir. tulis 5 ciri gayanya (warna, bentuk, tekstur, gerak, huruf), lalu buat satu adegan uji dengan ciri itu untuk topik [topik]. jangan menyalin isinya.'],
     ['Campur dua gaya', 'Cara paling cepat dapat gaya yang terasa baru, misalnya siluet × kertas kolase.', 'campur dua gaya: [gaya A] dan [gaya B]. ambil warna dari [A] dan tekstur dari [B]. buat satu adegan uji untuk [topik].'],
     ['Pakai warna brand-ku', 'Satu langkah yang langsung bikin videomu beda dari punya orang lain.', 'pakai warna brand-ku di semua adegan: utama [kode warna], aksen [kode warna], latar [kode warna]. bagian lain jangan diubah.'],
     ['Kunci jadi gayamu', 'Setelah cocok, minta Claude menulis aturan gayamu. Video berikutnya tinggal bilang "pakai GAYA-SAYA.md".', 'tulis semua aturan gaya video ini ke file GAYA-SAYA.md: warna, font, bentuk tokoh, gerak, suara, dan larangan. supaya video berikutnya cukup bilang "pakai GAYA-SAYA.md".'],
   ];
-  return `<h1 class="ph1">Resep Gaya <span class="chip" style="background:var(--or);color:#fff;vertical-align:middle;font-family:var(--ff)">Beta</span></h1>
-  <p class="sub">Salin prompt awalnya, lalu pilih revisi sesuai yang kurang dari hasilmu.</p>
-  <div class="tabs">${X.gaya.map(x => `<button class="${x.id === G.id ? 'on' : ''}" data-act="gaya" data-v="${x.id}"><i style="background:${x.warna}"></i>${esc(x.nama)}</button>`).join('')}</div>
-  <div class="card gaya"><div>
-    <h2>${esc(g.nama)}</h2><p class="sub" style="margin:6px 0 0">${esc(g.desc)}</p>
-    <div class="k-lbl" style="color:var(--red);margin-top:22px">Ciri gayanya</div>
-    <ul class="ciri">${g.ciri.map(c => `<li>${ic('check')}${esc(c)}</li>`).join('')}</ul>
-    <div class="step-h"><b>1</b><h3>Prompt awal</h3></div>
-    <p style="color:var(--muted);margin:0 0 12px">Pastikan skill Digify Motion terpasang. Ganti bagian dalam [kurung] dengan topikmu.</p>
-    <pre class="pblock lite">${esc(g.prompt)}</pre><div class="prow">${copyBtn(g.prompt, 'Salin prompt')}${favBtn(g.prompt, 'Favorit')}</div>
-    <div class="step-h"><b>2</b><h3>Kalau hasilmu…</h3></div>
-    <p style="color:var(--muted);margin:0 0 12px">Pilih yang paling mirip dengan masalahmu, salin, lalu kirim satu per satu.</p>
-    <div class="pills" style="margin-bottom:14px">${g.revisi.map((r, k) => `<button class="pill ${k === G.rev ? 'on' : ''}" data-act="rev" data-v="${k}">${esc(r[0])}</button>`).join('')}</div>
-    <pre class="pblock lite">${esc(rv[1])}</pre><div class="prow">${copyBtn(rv[1], 'Salin revisi', 'btn-ink')}</div>
-  </div><div class="ex">${pics}</div></div>
+  return `<h1 class="ph1">Referensi Style</h1>
+  <p class="sub">${L.length} style siap pakai, akan terus bertambah. Lihat gerakannya, pilih yang cocok, lalu salin promptnya.</p>
+  ${L.length > 8 ? `<div class="search sty-q">${ic('search')}<input class="inp" id="styQ" placeholder="Cari style… (misal: anime, peta, tinta)" autocomplete="off"></div>` : ''}
+  <div class="sgal" id="sGal">${L.map((x, k) => `<button class="sv ${x.id === g.id ? 'on' : ''}" data-act="sty" data-v="${x.id}" data-n="${esc((x.nama + ' ' + x.ciri).toLowerCase())}">
+    <video muted loop playsinline preload="none" poster="assets/style/${x.id}.jpg" data-src="assets/style/${x.id}.mp4"></video>
+    <span class="no">${String(k + 1).padStart(2, '0')}</span><b>${esc(x.nama)}</b></button>`).join('')}</div>
+  <p class="empty" id="styNone" hidden>Belum ada style dengan kata itu.</p>
+  <div class="card sprompt" id="sPrompt">${styPanel()}</div>
   <h2 class="h2">Pengen bikin gayamu sendiri?</h2>
   <div class="own">${own.map((o, k) => `<div class="card"><span class="num">${k + 1}</span><h3 style="font-size:17px">${o[0]}</h3><p>${o[1]}</p>${copyBtn(o[2], 'Salin', 'btn-line')}</div>`).join('')}</div>`;
+}
+// klip hanya diputar saat terlihat (hemat baterai untuk 100+ style)
+let styIO = null;
+function wireStyle() {
+  const vids = [...document.querySelectorAll('#sGal video')];
+  if (styIO) styIO.disconnect();
+  styIO = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; const p = v.play(); if (p) p.catch(() => {}); } else v.pause();
+  }), { rootMargin: '120px' });
+  vids.forEach(v => styIO.observe(v));
+}
+function styPick(id, scroll) {
+  G.id = id; G.rev = 0;
+  document.querySelectorAll('#sGal .sv').forEach(b => b.classList.toggle('on', b.dataset.v === id));
+  const p = document.getElementById('sPrompt'); if (!p) return;
+  p.innerHTML = styPanel();
+  if (scroll) p.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* ---------- kamus ---------- */
@@ -464,11 +493,12 @@ function render(keepScroll) {
   const pages = { beranda: pBeranda, kelas: pKelas, lesson: () => pLesson(id), racik: pRacik, prompt: pPrompt, gaya: pGaya, kamus: pKamus, download: pDownload, komunitas: pKomunitas, akun: pAkun };
   const y = window.scrollY;
   app.innerHTML = shell(r, (pages[r] || pBeranda)());
-  const titles = { beranda: 'Beranda', kelas: 'Kelas', lesson: id ? 'Lesson ' + id : 'Lesson', racik: 'Racik Prompt', prompt: 'Perpustakaan Prompt', gaya: 'Resep Gaya', kamus: 'Kamus Motion', download: 'Download', komunitas: 'Grup Komunitas', akun: 'Akun' };
+  const titles = { beranda: 'Beranda', kelas: 'Kelas', lesson: id ? 'Lesson ' + id : 'Lesson', racik: 'Racik Prompt', prompt: 'Perpustakaan Prompt', gaya: 'Referensi Style', kamus: 'Kamus Motion', download: 'Download', komunitas: 'Grup Komunitas', akun: 'Akun' };
   document.title = (titles[r] || 'Beranda') + ' · ' + S.namaKelas;
   if (keepScroll) window.scrollTo(0, y);
-  else if (anchor && document.getElementById(anchor)) document.getElementById(anchor).scrollIntoView();
+    else if (anchor && document.getElementById(anchor)) document.getElementById(anchor).scrollIntoView();
   else window.scrollTo(0, 0);
+  if (r === 'gaya') wireStyle();
 }
 const rerender = () => render(true);
 
@@ -490,7 +520,8 @@ document.addEventListener('click', e => {
   if (a === 'libfav') { LIB.fav = v === '1'; return rerender(); }
   if (a === 'libt') { LIB.t = v; return rerender(); }
   if (a === 'gaya') { G.id = v; G.rev = 0; return rerender(); }
-  if (a === 'rev') { G.rev = +v; return rerender(); }
+  if (a === 'sty') return styPick(v, b.classList.contains('sv'));
+  if (a === 'rev') { G.rev = +v; const p = document.getElementById('sPrompt'); if (p) { p.innerHTML = styPanel(); return; } return rerender(); }
   if (a === 'kk') { K.k = v; return rerender(); }
 });
 document.addEventListener('change', e => {
@@ -502,6 +533,11 @@ let qTimer;
 document.addEventListener('input', e => {
   const t = e.target;
   if (t.dataset.r && t.type !== 'checkbox') R[t.dataset.r] = t.value;
+  if (t.id === 'styQ') {   // saring galeri style tanpa render ulang (klip tetap jalan)
+    const q = t.value.trim().toLowerCase(); let n = 0;
+    document.querySelectorAll('#sGal .sv').forEach(b => { const ok = !q || b.dataset.n.includes(q); b.hidden = !ok; if (ok) n++; });
+    document.getElementById('styNone').hidden = n > 0;
+  }
   if (t.id === 'libq' || t.id === 'kq') {
     (t.id === 'libq' ? LIB : K).q = t.value;
     clearTimeout(qTimer);
