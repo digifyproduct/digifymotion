@@ -1,4 +1,4 @@
-// ====== HASIL KARYA DI HOMEPAGE (Scene 03 · Ruang Putar) ======
+// ====== HASIL KARYA DI HOMEPAGE (Scene 03 · Hasil Karya) ======
 // Tambah karya baru: tempel link YouTube-nya di daftar yang sesuai (satu baris satu link).
 // Judul video & sampul (cover asli) diambil otomatis dari YouTube. Urutan di sini = urutan di website.
 window.KARYA = {
