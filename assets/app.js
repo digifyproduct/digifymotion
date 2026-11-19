@@ -35,6 +35,8 @@ const I = {
   palette: '<circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2a10 10 0 0 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.4-.7-.4-1.1 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6c0-4.4-4.5-8.3-10-8.3z"/>',
   type: '<path d="M4 7V4h16v3M9 20h6M12 4v16"/>',
   down: '<path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/>',
+  chd: '<path d="m6 9 6 6 6-6"/>',
+  chu: '<path d="m18 15-6-6-6 6"/>',
   user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
   out: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
@@ -151,7 +153,7 @@ function pLesson(id) {
     <h1>${l.id} · ${esc(l.title)}</h1>
     <span class="chip chip-ok">${promptLines.length ? 'tutorial + prompt' : 'tutorial'}${l.seconds ? ' · ' + fmt(l.seconds) : ''}</span>
     <div class="two">
-      <div class="card"><h3>Ringkasan</h3><ul>${l.summary.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div>
+      <div class="card sum"><h3>Ringkasan</h3><div class="sum-body"><ul>${l.summary.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div><button class="sum-more" data-act="summore" hidden>Baca selengkapnya ${ic('chd')}</button></div>
       <div class="card"><h3>Sekarang coba kamu</h3>${l.checklist.map((c, k) => `<label class="chk"><input type="checkbox" data-act="chk" data-id="${l.id}" data-k="${k}" ${checks[k] ? 'checked' : ''}><span>${esc(c)}</span></label>`).join('') || '<p class="sub">Tidak ada checklist.</p>'}</div>
     </div>
     ${promptLines.length ? `<h3 style="margin:28px 0 12px;font-size:19px">Prompt di video ini</h3>${promptLines.map(p => `<pre class="pblock"><span class="lbl">prompt</span>${esc(p)}</pre><div class="prow">${copyBtn(p, 'Salin prompt')}${favBtn(p, 'Simpan ke favorit')}</div>`).join('')}` : ''}
@@ -499,6 +501,8 @@ function render(keepScroll) {
     else if (anchor && document.getElementById(anchor)) document.getElementById(anchor).scrollIntoView();
   else window.scrollTo(0, 0);
   if (r === 'gaya') wireStyle();
+  // ringkasan panjang: tampilkan tombol buka
+  document.querySelectorAll('.sum').forEach(c => { const b = c.querySelector('.sum-body'); if (b.scrollHeight > b.clientHeight + 6) { c.classList.add('clip'); c.querySelector('.sum-more').hidden = false; } });
 }
 const rerender = () => render(true);
 
@@ -520,6 +524,7 @@ document.addEventListener('click', e => {
   if (a === 'libfav') { LIB.fav = v === '1'; return rerender(); }
   if (a === 'libt') { LIB.t = v; return rerender(); }
   if (a === 'gaya') { G.id = v; G.rev = 0; return rerender(); }
+  if (a === 'summore') { const c = b.closest('.sum'), open = c.classList.toggle('open'); b.innerHTML = (open ? 'Tutup ' : 'Baca selengkapnya ') + ic(open ? 'chu' : 'chd'); return; }
   if (a === 'sty') return styPick(v, b.classList.contains('sv'));
   if (a === 'rev') { G.rev = +v; const p = document.getElementById('sPrompt'); if (p) { p.innerHTML = styPanel(); return; } return rerender(); }
   if (a === 'kk') { K.k = v; return rerender(); }

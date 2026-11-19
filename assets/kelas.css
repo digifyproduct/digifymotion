@@ -290,3 +290,13 @@ textarea.inp{min-height:84px;resize:vertical}
 .pcards::before{width:340px;height:340px;left:-60px;top:40px;background:rgba(242,106,33,.22)}
 .pcards::after{width:300px;height:300px;right:-40px;top:45%;background:rgba(255,180,122,.3)}
 .pcards{isolation:isolate}
+
+/* ringkasan lesson: ringkas + tombol buka */
+.sum{display:flex;flex-direction:column}
+.sum .sum-body{position:relative;max-height:300px;overflow:hidden;transition:max-height .45s ease}
+.sum.clip .sum-body::after{content:"";position:absolute;left:0;right:0;bottom:0;height:64px;background:linear-gradient(rgba(255,255,255,0),#fff);pointer-events:none;transition:opacity .3s}
+.sum.open .sum-body{max-height:1600px}
+.sum.open .sum-body::after{opacity:0}
+.sum-more{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;font:inherit;font-weight:800;font-size:13.5px;color:var(--or);cursor:pointer}
+.sum-more:hover{border-color:var(--or2)}
+.sum-more .ico{width:16px;height:16px}

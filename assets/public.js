@@ -98,5 +98,5 @@ window.PUB = {
   }
  ],
  "lessonCount": 16,
- "totalSeconds": 1367
+ "totalSeconds": 1763
 };
