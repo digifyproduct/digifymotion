@@ -68,7 +68,10 @@ window.KARYA = {
     film.innerHTML = one + one;   // dua kali agar bisa berputar tanpa ujung
     const box = film.parentElement, sc = document.createElement('div');
     sc.className = 'film-scroll'; box.insertBefore(sc, film); sc.appendChild(film); box.classList.add('manual');
-    box.insertAdjacentHTML('afterend', '<div class="film-navs"><button type="button" class="film-nav l" aria-label="Geser ke kiri">‹</button><button type="button" class="film-nav r" aria-label="Geser ke kanan">›</button></div>');
+    box.insertAdjacentHTML('beforeend', '<div class="film-slide"><input type="range" min="0" max="1000" value="0" step="1" aria-label="Geser hasil karya"></div>');
+    const rng = box.querySelector('.film-slide input');
+    let sliding = false;
+    const syncRange = () => { if (sliding) return; const h = half(); if (h > 0) { const v = Math.round((sc.scrollLeft % h) / h * 1000); rng.value = v; rng.style.setProperty('--p', v / 10 + '%'); } };
     const half = () => film.scrollWidth / 2;
     let pos = 0, idleUntil = 0, drag = null, moved = false, vis = true;
     const hold = (ms = 2500) => { idleUntil = performance.now() + ms; };
@@ -79,11 +82,12 @@ window.KARYA = {
     addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 5) moved = true; sc.scrollLeft = drag.s - dx; wrap(); hold(); });
     addEventListener('pointerup', () => { if (drag) { drag = null; box.classList.remove('dragging'); hold(); } });
     sc.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
-    box.nextElementSibling.querySelectorAll('.film-nav').forEach(b => b.addEventListener('click', () => {
-      hold(3500); const step = (film.firstElementChild?.offsetWidth || 150) + 12;
-      if (b.classList.contains('l') && sc.scrollLeft < step) sc.scrollLeft += half();
-      sc.scrollBy({ left: b.classList.contains('l') ? -step * 2 : step * 2, behavior: 'smooth' });
-    }));
+    // slider: seret tombolnya untuk menggeser karya
+    const fromRange = () => { hold(3000); const h = half(); sc.scrollLeft = rng.value / 1000 * h; pos = sc.scrollLeft; rng.style.setProperty('--p', rng.value / 10 + '%'); };
+    rng.addEventListener('input', fromRange);
+    ['pointerdown', 'touchstart'].forEach(ev => rng.addEventListener(ev, () => { sliding = true; hold(3000); }, { passive: true }));
+    ['pointerup', 'touchend', 'change', 'blur'].forEach(ev => rng.addEventListener(ev, () => { sliding = false; hold(2500); }));
+    sc.addEventListener('scroll', syncRange, { passive: true });
     new IntersectionObserver(e => vis = e[0].isIntersecting).observe(box);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let last = performance.now();

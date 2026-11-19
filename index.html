@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/img/favicon-digify.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611191700">
+<link rel="stylesheet" href="assets/base.css?v=2611191702">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 /* kanvas editor: grid tipis + cahaya oranye */
@@ -157,9 +157,16 @@ section{padding-block:52px;scroll-margin-top:50px}
 .film-scroll{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;padding:4px 0}
 .film-scroll::-webkit-scrollbar{display:none}
 .film.dragging .film-scroll{cursor:grabbing}.film.dragging .frame{pointer-events:none}
-.film-navs{display:flex;justify-content:center;gap:14px;margin:14px auto 0}
-.film-nav{width:42px;height:42px;border-radius:50%;border:1px solid #4a2e1b;background:#1f1209;color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0 0 3px;transition:background .2s,border-color .2s}
-.film-nav:hover{background:var(--or);border-color:var(--or)}
+.film.manual{padding-bottom:26px}
+.film-slide{padding:12px 22px 0}
+.film-slide input{-webkit-appearance:none;appearance:none;display:block;width:100%;height:22px;margin:0;background:transparent;cursor:grab;--p:0%}
+.film-slide input:active{cursor:grabbing}
+.film-slide input::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--or) var(--p),#3a2414 var(--p))}
+.film-slide input::-moz-range-track{height:6px;border-radius:6px;background:#3a2414}
+.film-slide input::-moz-range-progress{height:6px;border-radius:6px;background:var(--or)}
+.film-slide input::-webkit-slider-thumb{-webkit-appearance:none;width:46px;height:22px;margin-top:-8px;border-radius:999px;border:2px solid #fff;background:var(--or) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M7 2 2 6l5 4M17 2l5 4-5 4M2 6h20' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px 11px no-repeat;box-shadow:0 4px 12px -3px #000}
+.film-slide input::-moz-range-thumb{width:42px;height:18px;border-radius:999px;border:2px solid #fff;background:var(--or) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M7 2 2 6l5 4M17 2l5 4-5 4M2 6h20' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px 11px no-repeat;box-shadow:0 4px 12px -3px #000}
+.film-slide input:focus-visible{outline:2px solid var(--or2);outline-offset:4px;border-radius:8px}
 .film{margin-top:34px;background:#0b0603;padding:18px 0;position:relative;overflow:hidden;border-block:1px solid #2e1c10}
 .film::before,.film::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,transparent 0 10px,#2e1c10 10px 22px);z-index:2}
 .film::before{top:4px}.film::after{bottom:4px}
@@ -413,11 +420,11 @@ h2.big{text-align:center;font-size:clamp(34px,10vw,48px)}
 <a class="fab" data-ig-dm href="#" target="_blank" rel="noopener" aria-label="DM Instagram"><span class="bub">tanya dulu? 💬</span><span class="hd"><span class="masc" data-m="full"></span></span></a>
 
 
-<script src="assets/config.js?v=2611191700"></script>
-<script src="assets/public.js?v=2611191700"></script>
-<script src="assets/mascot.js?v=2611191700"></script>
-<script src="assets/player.js?v=2611191700"></script>
-<script src="assets/karya.js?v=2611191700"></script>
+<script src="assets/config.js?v=2611191702"></script>
+<script src="assets/public.js?v=2611191702"></script>
+<script src="assets/mascot.js?v=2611191702"></script>
+<script src="assets/player.js?v=2611191702"></script>
+<script src="assets/karya.js?v=2611191702"></script>
 <script>
 const S=window.SITE, C=window.PUB;
 const tick='<svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
