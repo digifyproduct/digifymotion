@@ -307,3 +307,8 @@ textarea.inp{min-height:84px;resize:vertical}
 .after-done .btn-line{color:var(--text)}
 .after-done .btn:only-child{grid-column:1/-1}
 @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* hover tombol Kembali/Lanjut: jangan ikut hover daftar lesson (krem pucat) */
+.slist .after-done a.btn-or,.slist .after-done a.btn-or:hover{background:linear-gradient(135deg,var(--or),var(--or2));color:#fff}
+.slist .after-done a.btn-or:hover{filter:brightness(.93);box-shadow:0 10px 22px -8px rgba(242,106,33,.55)}
+.slist .after-done a.btn-line:hover{background:var(--orsoft);border-color:var(--or2);color:var(--text)}
+.slist .after-done a{align-items:center;padding:8px 14px;border-radius:999px;font-size:13.5px}
