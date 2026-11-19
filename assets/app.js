@@ -344,6 +344,11 @@ function demo(d) {
     case 'ratio': return box(c + 'border:3px solid var(--or2);border-radius:8px;animation:ratio 3.2s ease-in-out infinite');
     case 'fps': return dot(42, 'mvx 2s linear infinite', '60 FPS') + dot(108, 'mvx 2s steps(5) infinite', '12 FPS');
     case 'render': return `<div style="${c}width:68%;height:12px;border-radius:9px;background:#3a2414;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--or),var(--or2));animation:fill 2.6s ease-in-out infinite"></div></div><span class="chip chip-ok" style="left:50%;top:30%;translate:-50% 0;animation:pop 2.6s 1.6s infinite;opacity:0">MP4 ✓</span>`;
+    case 'parallax': return dot(30, 'mvx 3.2s ease-in-out infinite', 'LATAR JAUH · PELAN', 50).replace('class="o"', 'class="o" style="opacity:.45"').replace('" style="opacity:.45" style="', '" style="opacity:.45;') + dot(76, 'mvx 3.2s ease-in-out infinite', 'TENGAH', 110) + dot(122, 'mvx 3.2s ease-in-out infinite', 'DEPAN · CEPAT', 200);
+    case 'arc': return `<div class="ln" style="bottom:22px"></div><div style="left:22px;bottom:24px;--dx:210px;animation:mvx 2.6s linear infinite"><div class="o" style="position:relative;animation:arcy 2.6s ease-in-out infinite"></div></div>`;
+    case 'xfade': return `<span style="${c}color:#cdb3a2;font-family:var(--fd);font-size:30px;white-space:nowrap;animation:xf1 3s ease-in-out infinite">ADEGAN 1</span><span style="${c}color:var(--or2);font-family:var(--fd);font-size:30px;white-space:nowrap;opacity:0;animation:xf2 3s ease-in-out infinite">ADEGAN 2</span>`;
+    case 'shake': return `<div style="inset:0;animation:shake 2.4s infinite"><div class="ln" style="bottom:24px"></div><div style="position:absolute;left:calc(50% - 22px);bottom:26px;width:44px;height:44px;border-radius:9px;background:var(--or);animation:drop 2.4s cubic-bezier(.55,0,1,.45) infinite"></div></div>`;
+    case 'type': return `<div style="${c}font-family:var(--fm);font-size:21px;color:#fff;white-space:nowrap;overflow:hidden;border-right:3px solid var(--or2);width:0;animation:typew 3.4s steps(14) infinite,caret .7s step-end infinite">halo, kreator!</div>`;
     case 'loop': return box(c + 'width:84px;height:84px;border-radius:50%;border:3px dashed var(--or);animation:spin 5s linear infinite') + box(c + 'width:16px;height:16px;border-radius:50%;background:var(--or2)');
   }
   return '';
