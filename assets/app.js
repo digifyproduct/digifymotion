@@ -133,7 +133,7 @@ function pKelas() {
   <p class="sub">${C.modules.length} modul · ${LES.length} lesson · ${d} dari ${LES.length} selesai</p>
   ${C.modules.map(m => { const dn = doneCount(m.lessons), all = dn === m.lessons.length, t = m.lessons.reduce((a, l) => a + l.seconds, 0);
     return `<section class="mod" id="m${m.id}"><div class="mod-h"><div class="tile ${all ? 'ok' : ''}">${m.id}</div>
-      <div><h2>${m.label} · ${esc(m.name)}</h2><div class="meta">${dn}/${m.lessons.length} lesson · ${fmt(t)}<div class="bar ${all ? 'ok' : ''}"><i style="width:${dn / m.lessons.length * 100}%"></i></div></div></div>
+      <div><h2>${m.label} · ${esc(m.name)}</h2><div class="meta">${dn}/${m.lessons.length} lesson${t ? ' · ' + fmt(t) : ' · video segera tayang'}<div class="bar ${all ? 'ok' : ''}"><i style="width:${dn / m.lessons.length * 100}%"></i></div></div></div>
       ${all ? '<span class="chip chip-ok">Selesai</span>' : dn ? '<span class="chip chip-or">Berjalan</span>' : ''}</div>
       <p>${esc(m.desc)}</p>
       <div class="lgrid">${m.lessons.map(l => `<a class="lcard" href="#/lesson/${l.id}">${thumb(l)}<small>${l.id} · ${m.label}</small><b>${esc(l.title)}</b></a>`).join('')}</div></section>`; }).join('')}`;
