@@ -12,9 +12,6 @@ window.KARYA = {
   ],
   // Shorts 9:16 → tampil di film strip (bisa digeser). Format: ["link", "Nama style"]
   shorts: [
-    ["https://youtube.com/shorts/cauk8m5pcss", "ASCII Matrix Style"],
-    ["https://youtube.com/shorts/rlc2XzjGap8", "Product Shot Style"],
-    ["https://youtube.com/shorts/aBQD8PlXnZ8", "Paper Cut Style"],
     ["https://youtube.com/shorts/w6uPqYqbSv8", "Watercolour Style"],
     ["https://youtube.com/shorts/HewaQ7GXloI", "Ink Painting Style"],
     ["https://youtube.com/shorts/NVebMedytuY", "Cinematic 3D Style"],
@@ -23,6 +20,9 @@ window.KARYA = {
     ["https://youtube.com/shorts/RIgt7iYi3eQ", "3D Relief Map Style"],
     ["https://youtube.com/shorts/HzOSZtuP500", "Isometric Breakdown Style"],
     ["https://youtube.com/shorts/Xz3am7u3YmI", "Anime Illustration Style"],
+    ["https://youtube.com/shorts/cauk8m5pcss", "ASCII Matrix Style"],
+    ["https://youtube.com/shorts/rlc2XzjGap8", "Product Shot Style"],
+    ["https://youtube.com/shorts/aBQD8PlXnZ8", "Paper Cut Style"],
   ],
 };
 
