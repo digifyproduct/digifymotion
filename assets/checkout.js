@@ -124,6 +124,7 @@ async function findVariant() {
 }
 
 async function init() {
+  if (window.DMTrack && !DEMO) { DMTrack.viewContent(); $('form').addEventListener('focusin', () => DMTrack.initiateCheckout(), { once: true }); }
   const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY_SLUG) || 'null'); } catch (e) { return null; } })();
   if (saved && saved.slug) return showPayment(saved.slug, saved.method, saved.email);
   $('form').hidden = false;
@@ -147,10 +148,11 @@ $('form').addEventListener('submit', async e => {
   try {
     const order = await api('/checkout', { method: 'POST', body: JSON.stringify({
       items: [{ type: 'variant', variant_id: await findVariant(), quantity: 1 }],
-      customer_name: name, customer_email: email, customer_phone: '62' + wa, payment_method: picked }) });
+      customer_name: name, customer_email: email, customer_phone: '62' + wa, payment_method: picked,
+      metadata: window.DMTrack ? DMTrack.utm() : undefined }) });   // UTM iklan ikut dicatat (best effort)
     const slug = order.secret_slug || order.order?.secret_slug;
     if (!slug) throw new Error('Pesanan tidak terbentuk');
-    try { localStorage.setItem(KEY_SLUG, JSON.stringify({ slug, method: picked, email })); } catch (e) {}
+    try { localStorage.setItem(KEY_SLUG, JSON.stringify({ slug, method: picked, email, name, phone: '62' + wa })); } catch (e) {}
     showPayment(slug, picked, email);
     setTimeout(() => window.smoothTo ? smoothTo($('pay')) : $('pay').scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   } catch (err) {
@@ -194,7 +196,7 @@ async function showPayment(slug, method, email) {
   let o = null, qr = null, va = null, url = null;
   for (let i = 0; i < 15; i++) {   // instruksi dari gateway bisa belum siap: coba ulang seperti halaman resmi Scalev
     try { o = await api(`/orders/${encodeURIComponent(slug)}/payment`, { method: 'POST' }); } catch (e) {}
-    if (o && isPaid(o)) return done(email);
+    if (o && isPaid(o)) return done(email, o);
     const info = (o && o.pg_payment_info) || {};
     qr = qrOf(info); va = vaOf(info); url = urlOf(info);
     if (qr || va || url) break;
@@ -238,11 +240,14 @@ async function showPayment(slug, method, email) {
 }
 const isPaid = o => ['paid', 'settled'].includes(String(o && (o.payment_status || o.order?.payment_status) || '').toLowerCase());
 async function checkStatus(slug, email, manual) {
-  try { const o = await api(`/orders/${encodeURIComponent(slug)}`); if (isPaid(o)) return done(email);
+  try { const o = await api(`/orders/${encodeURIComponent(slug)}`); if (isPaid(o)) return done(email, o);
     if (manual) alert('Pembayaran belum terdeteksi. Tunggu 1–2 menit lalu cek lagi.'); } catch (e) {}
 }
-function done(email) {
-  clearInterval(pollT); clearInterval(cdT); try { localStorage.removeItem(KEY_SLUG); } catch (e) {}
+function done(email, o) {
+  clearInterval(pollT); clearInterval(cdT);
+  let b = {}; try { b = JSON.parse(localStorage.getItem(KEY_SLUG) || '{}'); } catch (e) {}
+  if (o && !DEMO && window.DMTrack) DMTrack.purchase(o.order || o, { email: email || b.email, phone: b.phone, name: b.name });   // Purchase = setelah lunas
+  try { localStorage.removeItem(KEY_SLUG); } catch (e) {}
   step(3); $('pay').hidden = true; $('form').hidden = true; $('done').hidden = false; $('doneEmail').textContent = email || 'emailmu';
   ($('title') || {}).innerHTML = 'Selamat datang<br><span class="hl">di kelas!</span>';
 }
