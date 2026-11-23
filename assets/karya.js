@@ -4,11 +4,17 @@
 window.KARYA = {
   // Video 16:9 → tampil di layar besar + daftar di sampingnya
   video: [
+    "https://youtu.be/AYspp7MUs6c",
+    "https://youtu.be/4H-gj9pvexo",
+    "https://youtu.be/Ver4cf25ww0",
     "https://youtu.be/4QIZWzNW0hU",
     "https://youtu.be/NWHG-tE-rhw",
   ],
   // Shorts 9:16 → tampil di film strip (bisa digeser). Format: ["link", "Nama style"]
   shorts: [
+    ["https://youtube.com/shorts/cauk8m5pcss", "ASCII Matrix Style"],
+    ["https://youtube.com/shorts/rlc2XzjGap8", "Product Shot Style"],
+    ["https://youtube.com/shorts/aBQD8PlXnZ8", "Paper Cut Style"],
     ["https://youtube.com/shorts/w6uPqYqbSv8", "Watercolour Style"],
     ["https://youtube.com/shorts/HewaQ7GXloI", "Ink Painting Style"],
     ["https://youtube.com/shorts/NVebMedytuY", "Cinematic 3D Style"],

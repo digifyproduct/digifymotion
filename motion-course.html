@@ -19,9 +19,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css?v=2611221731">
-<link rel="stylesheet" href="assets/karya.css?v=2611221731">
-<link rel="stylesheet" href="assets/checkout.css?v=2611221731">
+<link rel="stylesheet" href="assets/base.css?v=2611231119">
+<link rel="stylesheet" href="assets/karya.css?v=2611231119">
+<link rel="stylesheet" href="assets/checkout.css?v=2611231119">
 <style>
 body{color:#fff;overflow-x:clip;background:#120904}
 .canvas{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -494,12 +494,12 @@ p,small,li,blockquote,figcaption{text-wrap:balance}
 <div class="stick" id="stick"><div><b data-price></b><s data-coret></s><small>Digify Motion Course · sekali bayar</small></div><a class="btn btn-or btn-sm" href="#daftar">Daftar</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="assets/config.js?v=2611221731"></script>
-<script src="assets/mascot.js?v=2611221731"></script>
-<script src="assets/player.js?v=2611221731"></script>
-<script src="assets/karya.js?v=2611221731"></script>
-<script src="assets/credit.js?v=2611221731"></script>
-<script src="assets/smooth.js?v=2611221731"></script>
+<script src="assets/config.js?v=2611231119"></script>
+<script src="assets/mascot.js?v=2611231119"></script>
+<script src="assets/player.js?v=2611231119"></script>
+<script src="assets/karya.js?v=2611231119"></script>
+<script src="assets/credit.js?v=2611231119"></script>
+<script src="assets/smooth.js?v=2611231119"></script>
 <script>
 // halaman selalu dibuka dari atas (kecuali link menuju bagian tertentu, mis. #daftar)
 if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -573,7 +573,7 @@ document.getElementById('trio').innerHTML=shorts.slice(0,3).map((x,i)=>`<div><b 
 })();
 
 // 04: demo 6 langkah, berjalan sendiri saat terlihat
-(()=>{const sh=shorts[0]||{id:''};
+(()=>{const sh=shorts.find(x=>x.id==='w6uPqYqbSv8')||shorts[0]||{id:''};  // demo bertema ikan koi
   // ikan koi kecil untuk storyboard: [warna dasar, bercak merah, bercak hitam, tanda tanya?]
   const KOI=[['#f4efe6',[[46,23,5]],[],1],['#f7f2ea',[[44,22,6],[33,27,4.5]],[]],['#f7f2ea',[[45,23,5.5],[32,26,4]],[[38,22,2],[50,28,1.8],[29,23,1.6]]],['#1d1a18',[[46,24,5],[33,23,4]],[],0,[[39,28,3.2]]]];
   const koi=(k,n)=>{const[base,red,blk,q,wht=[]]=k,id='kc'+n,c=a=>a.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="${p[2]}"/>`).join('');
@@ -606,6 +606,6 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 </script>
-<script src="assets/checkout.js?v=2611221731"></script>
+<script src="assets/checkout.js?v=2611231119"></script>
 </body>
 </html>
