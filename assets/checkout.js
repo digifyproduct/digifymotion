@@ -28,11 +28,11 @@ async function api(path, opt = {}) {
     await new Promise(r => setTimeout(r, 300));
     if (path === '/payment-methods') return ['qris', 'va_bca', 'va_bni', 'va_bri', 'va_mandiri', 'dana', 'va_permata', 'va_cimb'].map(c => ({ code: c, enabled: true }));
     if (path === '/checkout/summary') { const m = JSON.parse(opt.body).payment_method, f = DEMO_FEE[m] ?? 2800;
-      return { product_price: '199000.00', other_income: '0', service_fee: String(f), gross_revenue: String(199000 + f) }; }
+      return { product_price: '149000.00', other_income: '0', service_fee: String(f), gross_revenue: String(149000 + f) }; }
     if (path === '/checkout') return { secret_slug: 'demo' };
     const m = (JSON.parse(localStorage.getItem(KEY_SLUG) || '{}').method) || 'qris', f = DEMO_FEE[m] ?? 2800;
     const exp = new Date(Date.now() + 864e5).toISOString();
-    return { gross_revenue: String(199000 + f), payment_status: 'unpaid', pg_payment_info: m === 'qris'
+    return { gross_revenue: String(149000 + f), payment_status: 'unpaid', pg_payment_info: m === 'qris'
       ? { doku_qris: { qr_content: '00020101021226550012DEMO-DIGIFY-MOTION-COURSE' }, expired_at: exp }
       : { doku_va: { virtual_account_no: '8808 1234 5678 9012' }, expired_at: exp } };
   }

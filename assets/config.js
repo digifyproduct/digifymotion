@@ -1,7 +1,7 @@
 // ====== PENGATURAN SITUS — ubah di sini saja ======
 window.SITE = {
   namaKelas: "Digify Motion Course",
-  harga: "Rp 199rb",            // GANTI: harga jual
+  harga: "Rp 149rb",            // GANTI: harga jual
   hargaCoret: "Rp 399rb",       // kosongkan "" kalau tidak pakai harga coret
   instagram: "digify.product",
   // Tautan pembayaran (Lynk.id / Mayar / Midtrans Payment Link / Scalev). Sementara diarahkan ke DM.

@@ -58,7 +58,7 @@
   }
   const idAcak = p => `${p}_${crypto.randomUUID ? crypto.randomUUID() : now + '_' + Math.random().toString(36).slice(2)}`;
   async function params(value) {
-    /* cadangan bila API produk gagal: "Rp 199rb" di config.js → 199000 */
+    /* cadangan bila API produk gagal: "Rp 149rb" di config.js → 149000 */
     const dariConfig = () => { const m = String(site().harga || '').toLowerCase().match(/([\d.,]+)\s*(rb|k|jt)?/); if (!m) return 0;
       const n = +m[1].replace(/[.,]/g, ''); return m[2] === 'jt' ? n * 1e6 : m[2] ? n * 1e3 : n; };
     const v = await varian(), harga = Math.round(+value || (v && v.price) || dariConfig());
